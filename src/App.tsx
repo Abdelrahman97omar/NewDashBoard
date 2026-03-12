@@ -3,10 +3,15 @@ import Layout from './layout'
 
 function App() {
   return (
-    <Layout>
-      <Dashboard />
-    </Layout>
-  )
-}
+    <>
+    <Layout/>
+    </>
+      )
+    }
+    // <Layout>
+      {/* <Dashboard /> */}
+      {/* {(page) => <Dashboard page={page} />} */}
+    {/* </Layout> */}
+
 
 export default App

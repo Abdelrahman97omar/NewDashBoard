@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+.sidebarButtons{
+    @apply border py-2 mb-9 w-56 rounded-2xl shadow-lg
+}
+
+.statusbarlayout{
+    @apply border-1 flex justify-center items-center
+}
+
+.dashboardSettingsButtons{
+    @apply border h-25 w-70 rounded-3xl shadow-2xl
+}
+
+.pressedDashboardSettingsButtons{
+    @apply border h-25 w-70 rounded-3xl shadow-2xl bg-red-700
+}
