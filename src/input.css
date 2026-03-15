@@ -3,6 +3,9 @@
 .sidebarButtons{
     @apply border py-2 mb-9 w-56 rounded-2xl shadow-lg
 }
+.pressedSidebarButtons{
+    @apply border bg-green-500 py-2 mb-9 w-56 rounded-2xl shadow-lg
+}
 
 .statusbarlayout{
     @apply border-1 flex justify-center items-center

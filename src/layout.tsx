@@ -14,24 +14,31 @@ const Layout = () => {
   const getPageNumber = (value: string) => {
     switch (value) {
       case "Control":
+        console.log("switching to control page")
         setDashboardPage(0);
         break;
       case "Settings":
+        console.log("switching to Settings page")
         setDashboardPage(1);
         break;
       case "Event mode":
+        console.log("switching to Event mode page")
         setDashboardPage(2);
         break;
       case "Table Mode":
+        console.log("switching to Table Mode page")
         setDashboardPage(3);
         break;
       case "Specialization":
+        console.log("switching to Specialization page")
         setDashboardPage(4);
         break;
       case "Information":
+        console.log("switching to Information page")
         setDashboardPage(5);
         break;
       case "Wifi Settings":
+        console.log("switching to Wifi Settings page")
         setDashboardPage(6);
         break;
     }

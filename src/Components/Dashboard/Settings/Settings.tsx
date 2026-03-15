@@ -1,16 +1,20 @@
 import { useState } from "react";
-const SettingS=()=>{
-  const [isRed, setIsRed] = useState(0)
 
-function MyButton() {
-  setIsRed(1)
-  // setTimeout(() => setIsRed(false), 500)
-}
+const SettingS=()=>{
+
+  const MyButton = async () => {
+    const response = await fetch("http://127.0.0.1:8001/1", {
+      method: "GET"
+    })
+  
+    const data = await response.json()
+    console.log(data)
+  }
     return (
         <>
         <div className="grid grid-cols-3 pt-10">
           <div className={"grid grid-cols-1 py-8 px-20 gap-y-20"}>
-            <button className={isRed ? "pressedDashboardSettingsButtons":"dashboardSettingsButtons" } onClick={MyButton}>
+            <button className={"dashboardSettingsButtons" } onClick={MyButton}>
               Clear Map
             </button>
             <button className="dashboardSettingsButtons">
