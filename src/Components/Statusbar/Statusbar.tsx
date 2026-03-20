@@ -7,16 +7,15 @@ const StatusBar = () => {
   const [opMode, setOpMode] = useState("");
 
   useEffect(() => {
-    const Get_op_state = async () => {
-      const resp = await fetch("http://127.0.0.1:8001/stausBar/SetEventbutton",{ method: "GET" });
+    const get_current_states = async () => {
+      const resp = await fetch("http://127.0.0.1:8001/stausBar/States",{ method: "GET" });
       const data = await resp.json();
-      if (data["The_state_is"] === "1") {
-        setOpMode("Event");
-      } else {
-        setOpMode("Table");
-      }
+      const op_mode=data["op_mode"]
+      const manual_falg=data["manual_falg"]
+      console.log("the current states are",op_mode)
+      console.log("the current states are",manual_falg)
     };
-    Get_op_state();
+    get_current_states();
   }, []);
 
   const ws = useRef<WebSocket | null>(null);

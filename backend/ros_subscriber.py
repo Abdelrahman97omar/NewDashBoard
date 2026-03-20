@@ -5,34 +5,47 @@ import rel
 import redis
 import asyncio
 import json
-# import websockets
-# import threading
-# from websockets.sync.client import connect
-
-
 
 r = redis.Redis(host="localhost", port="6379")
-
-
 
 def set_op_mode(data):
     global ws
     print("Received ROS data:", data.data)
-
     try:
         r.set("op_mode", data.data)
         print("op_mode state saved in Redis successfully")
     except Exception as e:
         print("Error saving to Redis:", e)
-    mymsg=str(data.data)
-    mymsg = {"/op_mode":f"{data.data}"}
-    mymsg= json.dumps(mymsg)
-    ws.send(mymsg)
+    try:
+        mymsg=str(data.data)
+        mymsg = {"/op_mode":f"{data.data}"}
+        mymsg= json.dumps(mymsg)
+        ws.send(mymsg)
+        print("The websocket msg is sent successfully..")
+    except:
+        print("failed to send websocket msg from set_op_mode")
 
+def set_manual_auto_mode(data):
+    global ws
+    print("Received ROS data:", data.data)
+    try:
+        r.set("manual_flag", data.data)
+        print("manual_flag state saved in Redis successfully")
+    except Exception as e:
+        print("Error saving to Redis:", e)
+    try:
+        mymsg=str(data.data)
+        mymsg = {"/manual_flag":f"{data.data}"}
+        mymsg= json.dumps(mymsg)
+        ws.send(mymsg)
+        print("The websocket msg is sent successfully..")
+    except:
+        print("failed to send websocket msg from manual_flag")
 
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
+    rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.spin()
 
 

@@ -18,11 +18,15 @@ app.add_middleware(
 class ButtonData(BaseModel):
     button_value: str
 
-@app.get("/stausBar/SetEventbutton")
-async def returnOPMODEState():
-    state=r.get("op_mode")
-    print(state)
-    return {"The_state_is": state}
+@app.get("/stausBar/States")
+async def returnCurrentStates():
+    """
+    This endpoint will return all states of the the Status Bar: Mode - Localization - Battery - OperationMode ...
+    """
+    op_mode=r.get("op_mode")
+    manualFlag=r.get("manual_flag")
+    CurrentStates={"op_mode":op_mode,"manualFlag":manualFlag}
+    return CurrentStates
 
 @app.get("/{button_number}")
 async def returnMainState(button_number: int):
