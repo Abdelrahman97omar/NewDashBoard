@@ -1,6 +1,14 @@
+import { useRosConnection } from "../../../connection-provider";
+
 const TableLeft = () => {
   const tableList = [1, 2, 3, 4, 5, 6, 7];
+  const { publishTopic } = useRosConnection();
 
+  const tablemodeButtonhandler=()=>{
+    publishTopic("/op_mode", "std_msgs/Int32", {
+      data: 0,
+    });
+  }
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] border-2">
@@ -15,9 +23,11 @@ const TableLeft = () => {
                 Remove Last Table
               </button>
             </div>
-
-            <div className="flex justify-center items-top">
-            <button className="border-1 font-bold text-3xl w-[300px] h-[90px] rounded-xl">
+            <div className="flex justify-center items-center">  
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"onClick={tablemodeButtonhandler}>
+                Set Table Mode
+              </button>
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
               Go to Table
               </button>
             </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import { useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import StatusBar from "./Components/Statusbar";
+import StatusBar from "./Components/Statusbar/Statusbar";
 
 // type LayoutProps = {
 //   children: (page: number) => React.ReactNode

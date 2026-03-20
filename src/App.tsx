@@ -1,17 +1,20 @@
 import Dashboard from './Components/Dashboard/Dashboard'
 import Layout from './layout'
+import { ConnectionProvider } from './connection-provider'
 
 function App() {
   return (
     <>
-    <Layout/>
+      <ConnectionProvider>
+        <Layout />
+      </ConnectionProvider>
     </>
-      )
-    }
-    // <Layout>
-      {/* <Dashboard /> */}
-      {/* {(page) => <Dashboard page={page} />} */}
-    {/* </Layout> */}
+  )
+}
+// <Layout>
+{/* <Dashboard /> */ }
+{/* {(page) => <Dashboard page={page} />} */ }
+{/* </Layout> */ }
 
 
 export default App

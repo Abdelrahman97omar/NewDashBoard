@@ -18,6 +18,12 @@ app.add_middleware(
 class ButtonData(BaseModel):
     button_value: str
 
+@app.get("/stausBar/SetEventbutton")
+async def returnOPMODEState():
+    state=r.get("op_mode")
+    print(state)
+    return {"The_state_is": state}
+
 @app.get("/{button_number}")
 async def returnMainState(button_number: int):
     return {"The Button_number": button_number}
@@ -29,7 +35,6 @@ async def getSidebarButtonState():
         lastbutton = lastbutton.decode()
     return({"lastbutton":lastbutton})
 
-    lastbutton = r.get("lastButton")
 @app.put("/button/setsidebarLastButton")
 async def setsidebarLastButton(data: ButtonData):
     print("I recieved a request")
