@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState} from "react";
 
 type myreturnNumber={
   returnNumber:Function
@@ -8,7 +8,15 @@ type myreturnNumber={
 const Sidebar =({returnNumber}:myreturnNumber)=>{
 
 let lastPressedButton=sessionStorage.getItem("currentPage")
-if (lastPressedButton===null){lastPressedButton="Control"}
+if (lastPressedButton===null)
+  {
+    lastPressedButton="Control"
+    returnNumber("Control")
+  }
+else
+{
+  returnNumber(lastPressedButton)
+}
 const [isPresesd,setIsPressed]=useState(lastPressedButton)
 
 

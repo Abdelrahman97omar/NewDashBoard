@@ -5,29 +5,10 @@ const EventMode = () => {
   const PointList = [1, 2, 3, 4, 5, 6];
   const { publishTopic } = useRosConnection();
 
-
-  // const wsRef = useRef<WebSocket | null>(null);
-  // useEffect(() => {
-  //   wsRef.current = new WebSocket('ws://localhost:9876');
-  //   wsRef.current.onopen = () => console.log("WebSocket connected in EventMode");
-  //   wsRef.current.onclose = () => console.log("WebSocket disconnected in EventMode");
-
-  //   return () => {
-  //     wsRef.current?.close();
-  //   };
-  // }, []);
-
   const eventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 1,
     });
-
-    // if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-    //   console.log("from Event mode. sending websocket of value",nextMode)
-    //   wsRef.current.send(String(nextMode));
-    // } else {
-    //   console.warn("WebSocket not connected, could not send message");
-    // }
   };
 
 

@@ -25,6 +25,9 @@ async def returnCurrentStates():
     """
     op_mode=r.get("op_mode")
     manualFlag=r.get("manual_flag")
+    print("fetched the op_mdoe as:",op_mode)
+    print("fetched the manula flag as:",manualFlag)
+
     CurrentStates={"op_mode":op_mode,"manualFlag":manualFlag}
     return CurrentStates
 

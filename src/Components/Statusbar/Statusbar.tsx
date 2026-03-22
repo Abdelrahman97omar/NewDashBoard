@@ -6,27 +6,39 @@ import { useEffect, useState,useRef } from "react";
 const StatusBar = () => {
   const [opMode, setOpMode] = useState("");
 
+
   useEffect(() => {
     const get_current_states = async () => {
       const resp = await fetch("http://127.0.0.1:8001/stausBar/States",{ method: "GET" });
       const data = await resp.json();
-      const op_mode=data["op_mode"]
-      const manual_falg=data["manual_falg"]
-      console.log("the current states are",op_mode)
-      console.log("the current states are",manual_falg)
+      if(data["op_mode"]==="1")
+        {
+          setOpMode("Event")
+        }
+      else{setOpMode("Table")}
+      // manual_falg=data["manual_falg"]
     };
     get_current_states();
   }, []);
 
   const ws = useRef<WebSocket | null>(null);
+
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:9876");
     ws.current.onopen = () => {console.log("Connected!");};
 
     ws.current.onmessage = (msg) => {
+      console.log("From status bar New Ws msg is recieved in Statusbar of value:", msg.data)
+      console.log("From status bar New Ws msg type is:", typeof(msg.data))
       if (msg.data === "1")
-        {setOpMode("Event");}
-      else {setOpMode("Table");}
+        {
+          console.log("Setting new mode: Evente")
+          setOpMode("Event");
+        }
+      else {
+        console.log("Setting new mode: Table")
+        setOpMode("Table");
+      }
     };
     return () => {
       ws.current?.close();
@@ -39,7 +51,7 @@ const StatusBar = () => {
     <>
       <div className="bg-white grid grid-cols-4 gird-rows-2 rounded-md  h-50 p-4 ml-2 shadow-md">
         {/* statusbarlayout */}
-        <div className=" border-1 grid grid-cols-1 grid-rows-2">
+        <div className=" border grid grid-cols-1 grid-rows-2">
           <div className="mt-7 flex justify-center">
             <BatteryIcon batteryType="High" />
           </div>
@@ -60,8 +72,8 @@ const StatusBar = () => {
           <BatteryIcon batteryType="High" />
         </div>
         <div className=" statusbarlayout">Localization</div>
-        <div className=" statusbarlayout">Mode: {opMode}</div>
-        <div className=" statusbarlayout">Operation Mode</div>
+        <div className=" statusbarlayout">Mode: </div>
+        <div className=" statusbarlayout">Operation Mode: {opMode}</div>
         <div className=" statusbarlayout"></div>
       </div>
     </>

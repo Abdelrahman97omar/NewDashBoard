@@ -10,10 +10,10 @@ r = redis.Redis(host="localhost", port="6379")
 
 def set_op_mode(data):
     global ws
-    print("Received ROS data:", data.data)
+    # print("Received ROS data:", data.data)
     try:
         r.set("op_mode", data.data)
-        print("op_mode state saved in Redis successfully")
+        # print("op_mode state saved in Redis successfully as", r.get("op_mode"))
     except Exception as e:
         print("Error saving to Redis:", e)
     try:
@@ -22,8 +22,8 @@ def set_op_mode(data):
         mymsg= json.dumps(mymsg)
         ws.send(mymsg)
         print("The websocket msg is sent successfully..")
-    except:
-        print("failed to send websocket msg from set_op_mode")
+    except Exception as e:
+        print(f"failed to send websocket msg from set_op_mode, the error is: {e}")
 
 def set_manual_auto_mode(data):
     global ws
@@ -45,12 +45,12 @@ def set_manual_auto_mode(data):
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
-    rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
+    # rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.spin()
 
 
 def on_message(ws, message):
-    print(f"<<< {message}")
+    print("ws client in ros subscriber recived new msg")
 
 def on_error(ws, error):
     print(f"Error: {error}")
@@ -60,7 +60,9 @@ def on_close(ws, close_status_code, close_msg):
 
 def on_open(ws):
     print("Opened connection")
-    ws.send("Hello, server!")
+    mymsg= {"Server State": "Connected"}
+    mymsg= json.dumps(mymsg)
+    ws.send(mymsg)
     print(f">>> Hello, server!")
 
 ws = websocket.WebSocketApp("ws://localhost:9876",

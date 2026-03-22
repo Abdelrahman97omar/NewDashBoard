@@ -9,7 +9,6 @@ type MyProp = {
 };
 
 const Dashboard = ({ page }: MyProp) => {
-  console.log("from dashboard, the page number is:", page);
 
   //Control Button
   if (page === 0) {
