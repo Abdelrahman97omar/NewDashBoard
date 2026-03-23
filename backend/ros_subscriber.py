@@ -7,13 +7,19 @@ import asyncio
 import json
 
 r = redis.Redis(host="localhost", port="6379")
+all_topics_state={
+    "enable_motors":"false",
+    "op_mode":1,
+    "voltage_sensor":20,
+    "":"",
+    "":""
+}
 
 def set_op_mode(data):
     global ws
-    # print("Received ROS data:", data.data)
     try:
-        r.set("op_mode", data.data)
-        # print("op_mode state saved in Redis successfully as", r.get("op_mode"))
+        all_topics_state["op_mode"]=str(data.data)
+        r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("Error saving to Redis:", e)
     try:
@@ -65,11 +71,8 @@ def on_open(ws):
     ws.send(mymsg)
     print(f">>> Hello, server!")
 
-ws = websocket.WebSocketApp("ws://localhost:9876",
-                            on_open=on_open,
-                            on_message=on_message,
-                            on_error=on_error,
-                            on_close=on_close)
+ws = websocket.WebSocketApp("ws://localhost:9876",on_open=on_open,on_message=on_message,
+                            on_error=on_error,on_close=on_close)
 if __name__ == "__main__":
-    ws.run_forever(dispatcher=rel, reconnect=5)  # Set dispatcher to rel for automatic reconnect
+    ws.run_forever(dispatcher=rel, reconnect=5)  
     listener()

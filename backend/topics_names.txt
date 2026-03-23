@@ -7,13 +7,13 @@ manual-auto --> /manual_flag
 Next Point --> /next_toggle
 go table --> /table_no
 speed slider --> /set_speed
-load map --> /load_event_map
+#load map --> /load_event_map
 enable_motors --> /enable_motors (on = true - off = false)
 
-set event mode --> /op_mode = true
-set table mode --> /op_mode =false
-clear map -> /clear_map
-save mao --> /save_event_map
+#set event mode --> /op_mode = true#
+#set table mode --> /op_mode =false#
+#clear map -> /clear_ma#
+#save map --> /save_event_map#
 
 battery --> /voltage_sensor           --> publishes periodically
 localization --> localization_weight --> it doesn't publish periodically

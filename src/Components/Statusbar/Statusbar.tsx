@@ -10,7 +10,9 @@ const StatusBar = () => {
   useEffect(() => {
     const get_current_states = async () => {
       const resp = await fetch("http://127.0.0.1:8001/stausBar/States",{ method: "GET" });
-      const data = await resp.json();
+      let data = await resp.json();
+      data=JSON.parse(data) // All topic values are now object
+
       if(data["op_mode"]==="1")
         {
           setOpMode("Event")
