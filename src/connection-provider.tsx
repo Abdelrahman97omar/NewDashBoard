@@ -35,14 +35,18 @@ function ConnectionProvider({ children }: ProviderProps) {
   const [ros, setRos] = useState<InstanceType<typeof Ros> | null>(null);
 
   useEffect(() => {
-    const newRos = new Ros({
-      url: "ws://127.0.0.1:9090",
-    });
+    const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
+    const newRos = new Ros({ url: rosbridgeUrl });
+
+    // const newRos = new Ros({
+    //   url: "ws://127.0.0.1:9090",
+    // });
 
     const reconnect = () => {
       setTimeout(() => {
         try {
-          newRos.connect("ws://127.0.0.1:9090");
+          // newRos.connect("ws://127.0.0.1:9090");
+          newRos.connect(rosbridgeUrl);
           console.log("Reconnected to ROS");
         } catch (error) {
           console.error("Reconnection error:", error);
@@ -51,7 +55,8 @@ function ConnectionProvider({ children }: ProviderProps) {
     };
 
     try {
-      newRos.connect("ws://127.0.0.1:9090");
+      // newRos.connect("ws://127.0.0.1:9090");
+      newRos.connect(rosbridgeUrl);
       setRos(newRos);
     } catch (error) {
       console.error("Initial connection error:", error);

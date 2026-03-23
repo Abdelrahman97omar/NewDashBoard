@@ -1,6 +1,6 @@
 Event:
 append point --> /points_no && /append
-Next option on/off --> robot_apps/next_on
+#Next option on/off --> robot_apps/next_on
 		       robot_apps/next_off
 --------------------------------------------------------------
 manual-auto --> /manual_flag
@@ -8,7 +8,7 @@ Next Point --> /next_toggle
 go table --> /table_no
 speed slider --> /set_speed
 #load map --> /load_event_map
-enable_motors --> /enable_motors (on = true - off = false)
+#enable_motors --> /enable_motors (on = true - off = false)
 
 #set event mode --> /op_mode = true#
 #set table mode --> /op_mode =false#

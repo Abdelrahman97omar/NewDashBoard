@@ -1,24 +1,32 @@
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import BatteryIcon from "./batteryIcon";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const StatusBar = () => {
   const [opMode, setOpMode] = useState("");
+  const [MotorMode, setMotorMode] = useState("");
+  const [BatteryLevel, setBatteryLeve] = useState("");
 
 
   useEffect(() => {
     const get_current_states = async () => {
-      const resp = await fetch("http://127.0.0.1:8001/stausBar/States",{ method: "GET" });
-      let data = await resp.json();
-      data=JSON.parse(data) // All topic values are now object
+      // const resp = await fetch("http://127.0.0.1:8001/stausBar/States", { method: "GET" });
+      const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`)
+      const data = await resp.json();
+      const all_topic_state = JSON.parse(data) // All topic values are now object
 
-      if(data["op_mode"]==="1")
-        {
-          setOpMode("Event")
-        }
-      else{setOpMode("Table")}
-      // manual_falg=data["manual_falg"]
+      if (all_topic_state["op_mode"] === "1") { setOpMode("Event"); }
+      else { setOpMode("Table"); }
+
+      if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
+      else { setMotorMode("OFF") }
+
+      if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
+        {setBatteryLeve("HHHigh")}
+        else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
+        {setBatteryLeve("Meduim")}
+        else{setBatteryLeve("Low")}
     };
     get_current_states();
   }, []);
@@ -27,21 +35,25 @@ const StatusBar = () => {
 
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:9876");
-    ws.current.onopen = () => {console.log("Connected!");};
+    ws.current = new WebSocket(`ws://${window.location.hostname}:9876`)
+    ws.current.onopen = () => { console.log("Connected!"); };
 
     ws.current.onmessage = (msg) => {
-      console.log("From status bar New Ws msg is recieved in Statusbar of value:", msg.data)
-      console.log("From status bar New Ws msg type is:", typeof(msg.data))
-      if (msg.data === "1")
-        {
-          console.log("Setting new mode: Evente")
-          setOpMode("Event");
-        }
-      else {
-        console.log("Setting new mode: Table")
-        setOpMode("Table");
-      }
-    };
+      const all_topic_state = JSON.parse(msg.data)
+      console.log("From statusbar, ws recived", all_topic_state, "of type", typeof (all_topic_state))
+
+      if (all_topic_state["op_mode"] === "1") { setOpMode("Event"); }
+      else { setOpMode("Table"); }
+
+      if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
+      else { setMotorMode("OFF") }
+
+      if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
+      {setBatteryLeve("HHHigh")}
+      else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
+      {setBatteryLeve("Meduim")}
+      else{setBatteryLeve("Low")}
+      };
     return () => {
       ws.current?.close();
     };
@@ -59,20 +71,18 @@ const StatusBar = () => {
           </div>
           <div className=" flex justify-center gap-2">
             <p className="font-bold">Battery:</p>
-            <p className="text-green-400">High</p>
+            <p className="text-green-400">{BatteryLevel}</p>
           </div>
         </div>
 
         {/* <div className=' h-3 w-5 m-4' ><BatteryChargingFullIcon/></div>
           <div> Battery:<p className='font-bold text-green-400'>High</p></div>
           </div> */}
-        <div className=" statusbarlayout">
-          Motors: <DirectionsCarIcon />
-        </div>
+        <div className=" statusbarlayout">Motors: {MotorMode}<DirectionsCarIcon /></div>
         <div className=" statusbarlayout">Emergency</div>
-        <div className=" statusbarlayout">
-          <BatteryIcon batteryType="High" />
-        </div>
+
+        <div className=" statusbarlayout"> batteryType={BatteryLevel}</div>
+
         <div className=" statusbarlayout">Localization</div>
         <div className=" statusbarlayout">Mode: </div>
         <div className=" statusbarlayout">Operation Mode: {opMode}</div>

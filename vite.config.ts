@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    host: true, // bind to 0.0.0.0 so other devices on the network can connect
+  },
 })

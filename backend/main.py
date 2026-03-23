@@ -22,13 +22,7 @@ class ButtonData(BaseModel):
 async def returnCurrentStates():
     """
     This endpoint will return all states of the the Status Bar: Mode - Localization - Battery - OperationMode ...
-    """
-    # op_mode=r.get("op_mode")
-    # manualFlag=r.get("manual_flag")
-    # print("fetched the op_mdoe as:",op_mode)
-    # print("fetched the manula flag as:",manualFlag)
-    # CurrentStates={"op_mode":op_mode,"manualFlag":manualFlag}
-    
+    """  
     CurrentStates=r.get("all_topics")
     print(CurrentStates)
     return CurrentStates

@@ -12,18 +12,10 @@ async def handler(websocket):
     try:
         while True:
             message = await websocket.recv()
-            message = json.loads(message)
-            value = message.get("/op_mode")
             for client in connected_clients.copy():
                 if client != websocket:  # prevent sending the message back to the sender
                     try:
-                        if value == "1":
-                            broadcast_msg = "1"
-                            print("From True publishing", broadcast_msg)
-                        else:
-                            broadcast_msg = "0"
-                            print("From False publishing", broadcast_msg)
-                        await client.send(broadcast_msg)
+                        await client.send(message)
                     except Exception as e:
                         print("Failed to send the message due to:", e)
                         connected_clients.remove(client)
