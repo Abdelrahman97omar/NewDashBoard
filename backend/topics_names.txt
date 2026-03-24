@@ -9,7 +9,6 @@ go table --> /table_no
 speed slider --> /set_speed
 #load map --> /load_event_map
 #enable_motors --> /enable_motors (on = true - off = false)
-
 #set event mode --> /op_mode = true#
 #set table mode --> /op_mode =false#
 #clear map -> /clear_ma#
@@ -19,5 +18,5 @@ battery --> /voltage_sensor           --> publishes periodically
 localization --> localization_weight --> it doesn't publish periodically
 joystic -->> /cmd_vel
 
-go home --> /go_home
+#go home --> /go_home
 resume -- > /resume

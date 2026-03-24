@@ -53,7 +53,7 @@ const SettingS=()=>{
             <button className={"dashboardSettingsButtons bg-orange-600" } onClick={handleClearMap}>
               Clear Map
             </button>
-            <button className="dashboardSettingsButtons" onClick={handleResumeMap}>
+            <button className="dashboardSettingsButtons bg-orange-600" onClick={handleResumeMap}>
               Resume Map
             </button>
             <button className={nextOptionState===true?
@@ -66,10 +66,10 @@ const SettingS=()=>{
             <button className="dashboardSettingsButtons bg-orange-600" onClick={handleSaveMap}>
               Save Map
             </button>
-            <button className="dashboardSettingsButtons" onClick={handlePauseMapping}>
+            <button className="dashboardSettingsButtons bg-orange-600" onClick={handlePauseMapping}>
               Pause Mapping
             </button>
-            <button className="dashboardSettingsButtons" onClick={handleClearvirtualPath}>
+            <button className="dashboardSettingsButtons " onClick={handleClearvirtualPath}>
               Clear Virtual Path
             </button>
           </div>

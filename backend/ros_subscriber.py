@@ -15,6 +15,8 @@ all_topics_state={
     "":"",
     "":""
 }
+
+
 def set_battery_state(data):
     global ws
     Current_states=json.loads(r.get("all_topics"))
@@ -34,8 +36,6 @@ def set_battery_state(data):
         ws.send(msg_to_send)
     except Exception as e:
         print(f"Error send new ws msg from set_battery_state due to {e}")
-
-
 
 def set_op_mode(data):
     global ws
@@ -82,6 +82,7 @@ def set_manual_auto_mode(data):
         print("The websocket msg is sent successfully..")
     except:
         print("failed to send websocket msg from manual_flag")
+
 
 def listener():
     rospy.init_node('listener', anonymous=True)

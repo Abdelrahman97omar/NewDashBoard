@@ -4,7 +4,7 @@ const TableLeft = () => {
   const tableList = [1, 2, 3, 4, 5, 6, 7];
   const { publishTopic } = useRosConnection();
 
-  const tablemodeButtonhandler=()=>{
+  const handletablemode=()=>{
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 0,
     });
@@ -24,7 +24,7 @@ const TableLeft = () => {
               </button>
             </div>
             <div className="flex justify-center items-center">  
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"onClick={tablemodeButtonhandler}>
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"onClick={handletablemode}>
                 Set Table Mode
               </button>
               <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
