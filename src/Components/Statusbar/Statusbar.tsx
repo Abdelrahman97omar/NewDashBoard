@@ -7,12 +7,13 @@ const StatusBar = () => {
   const [opMode, setOpMode] = useState("");
   const [MotorMode, setMotorMode] = useState("");
   const [BatteryLevel, setBatteryLeve] = useState("");
+  const [emergencyState, setEmergencyState] = useState("");
 
 
   useEffect(() => {
     const get_current_states = async () => {
-      // const resp = await fetch("http://127.0.0.1:8001/stausBar/States", { method: "GET" });
-      const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`)
+      const resp = await fetch("http://127.0.0.1:8001/stausBar/States", { method: "GET" });
+      // const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`)
       const data = await resp.json();
       const all_topic_state = JSON.parse(data) // All topic values are now object
 
@@ -35,7 +36,7 @@ const StatusBar = () => {
 
   useEffect(() => {
     ws.current = new WebSocket("ws://localhost:9876");
-    ws.current = new WebSocket(`ws://${window.location.hostname}:9876`)
+    // ws.current = new WebSocket(`ws://${window.location.hostname}:9876`)
     ws.current.onopen = () => { console.log("Connected!"); };
 
     ws.current.onmessage = (msg) => {
@@ -47,6 +48,9 @@ const StatusBar = () => {
 
       if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
+
+      if (all_topic_state["emergency_state"]==="1"){setEmergencyState("pressed")}
+      else {setEmergencyState("Released")}
 
       if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
       {setBatteryLeve("HHHigh")}
@@ -79,9 +83,9 @@ const StatusBar = () => {
           <div> Battery:<p className='font-bold text-green-400'>High</p></div>
           </div> */}
         <div className=" statusbarlayout">Motors: {MotorMode}<DirectionsCarIcon /></div>
-        <div className=" statusbarlayout">Emergency</div>
+        <div className=" statusbarlayout">Emergency: {emergencyState}</div>
 
-        <div className=" statusbarlayout"> batteryType={BatteryLevel}</div>
+        <div className=" statusbarlayout"> battery={BatteryLevel}</div>
 
         <div className=" statusbarlayout">Localization</div>
         <div className=" statusbarlayout">Mode: </div>

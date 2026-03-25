@@ -5,14 +5,20 @@ import rel
 import redis
 import asyncio
 import json
+import time
 
 r = redis.Redis(host="localhost", port="6379")
+global ws
+
+# if r.get("all_topics") != None: #Retrive latest saved topic state if this node is restarted
+#     all_topics_state=json.loads(r.get("all_topics"))
+# else:
 
 all_topics_state={
     "enable_motors":"false",
     "op_mode":1,
     "voltage_sensor":"0",
-    "":"",
+    "emergency_state":"0",
     "":""
 }
 
@@ -83,12 +89,27 @@ def set_manual_auto_mode(data):
     except:
         print("failed to send websocket msg from manual_flag")
 
+def set_emergency_state(data):
+    global ws
+    try:
+        all_topics_state["emergency_state"]=str(data.data)
+        r.set("all_topics", json.dumps(all_topics_state))
+        print("Saved emergency state to redis")
+    except Exception as e:
+        print("Error saving to Redis:", e)
+    try:
+        msg_to_ws=json.dumps(all_topics_state)
+        ws.send(msg_to_ws)
+        print("The websocket msg is sent emergenyc state successfully..")
+    except Exception as e:
+        print(f"failed to send websocket msg from set_emergency_state, the error is: {e}")
 
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
     rospy.Subscriber("/enable_motors", Bool, set_motor_mode)
     rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
+    rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
     # rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.spin()
 
@@ -109,8 +130,16 @@ def on_open(ws):
     ws.send(mymsg)
     print(f">>> Hello, server!")
 
-ws = websocket.WebSocketApp("ws://localhost:9876",on_open=on_open,on_message=on_message,
+def connect_ws():
+    global ws
+    try:
+        ws = websocket.WebSocketApp("ws://localhost:9876",on_open=on_open,on_message=on_message,
                             on_error=on_error,on_close=on_close)
+        return False
+    except:
+        print("couldn't connect")
+        return True
 if __name__ == "__main__":
+    connect_ws()
     ws.run_forever(dispatcher=rel, reconnect=5)  
     listener()
