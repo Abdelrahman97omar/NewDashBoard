@@ -1,45 +1,82 @@
 import type { Numbers } from "@mui/icons-material";
 import { useRosConnection } from "../../../connection-provider";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 const TableLeft = () => {
-  const [tableList,setTableList] = useState([]);
+  const [tableList, setTableList] = useState([]);
+  const [selectTable, setSelectTable] = useState(0);
   const { publishTopic } = useRosConnection();
 
-  useEffect(()=>{
-    const get_all_tables =async ()=>{
-      const res=await fetch("http://127.0.0.1:8001/tablemdoe/gettable",{method:"GET"})
-      const data= JSON.parse(await res.json())
-      setTableList(data)
-      console.log(typeof(data))
-    }
-    get_all_tables()
-  },[])
+  const fetchTables = async () => {
+    const res = await fetch("http://127.0.0.1:8001/tablemdoe/gettable", {
+      method: "GET",
+    });
+    const data = JSON.parse(await res.json());
+    setTableList(data);
+    console.log("Table list:", data);
+  };
+  useEffect(() => {
+    fetchTables();
+  }, []);
 
-  const handletablemode=()=>{
+  const getSelectedTableFromList = (tableNumber: number) => {
+    setSelectTable(tableNumber);
+    console.log("Selected tabele number is:", tableNumber);
+  };
+
+  const handleSetTableMode = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 0,
     });
-  }
-  const handleSelectTable=(values:Number)=>{
-    console.log(values)
+  };
+
+  const handleAddNewTable = () => {
+    const addNewTable = async () => {
+      const res = await fetch("http://127.0.0.1:8001/tablemdoe/addnewtable", {
+        method: "PUT",
+      });
+    };
+
+    addNewTable();
+    fetchTables();
+  };
+
+  const handleDeleteTable=()=>{
+    const removeLastTable = async () => {
+    const res = await fetch("http://127.0.0.1:8001/tablemdoe/removetable", {
+      method: "DELETE",
+    });
+    };
+
+    removeLastTable();
+    fetchTables();
   }
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] border-2">
-      <div className="grid grid-cols-[500px_1fr] border-amber-600 border-2">
-
+        <div className="grid grid-cols-[500px_1fr] border-amber-600 border-2">
           <div className="bg-green-400 grid grid-cols-1 grid-rows-2">
-            <div className="flex justify-center items-center">  
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">Add New Table</button>
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">Remove Last Table</button>
+            <div className="flex justify-center items-center">
+              <button
+                className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"
+                onClick={handleAddNewTable}
+              >
+                Add New Table
+              </button>
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"
+              onClick={handleDeleteTable}>
+                Remove Last Table
+              </button>
             </div>
 
-            <div className="flex justify-center items-center">  
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"onClick={handletablemode}>
+            <div className="flex justify-center items-center">
+              <button
+                className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"
+                onClick={handleSetTableMode}
+              >
                 Set Table Mode
               </button>
               <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
-              Go to Table
+                Go to Table
               </button>
             </div>
           </div>
@@ -49,13 +86,16 @@ const TableLeft = () => {
               className="border-2 bg-blue-300 w-[300px] rounded-4xl h-25 pl-29"
               name="cars"
               id="cars"
+              value={selectTable}
+              onChange={(e) => getSelectedTableFromList(Number(e.target.value))}
             >
               {tableList.map((no) => (
-                <option value={no} key={no}>Table {no}</option>
+                <option value={no} key={no}>
+                  Table {no}
+                </option>
               ))}
             </select>
           </div>
-
         </div>
 
         {/* ---------------------------------------------------------------------------------------------------------------------- */}

@@ -61,10 +61,10 @@ const Control=()=>{
                     onClick={handleResume}>Resume</button>
                 </div>
                 <div className="border-2 border-gray-700 h-full flex justify-center items-center">
-                    <p>Set Speed</p>
+                    {/* <p>Set Speed</p>
                     <div>
                         <input className="w-6xl" type="range" min="1" max="100" value="50"  id="myRange"/>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="border-2 border-gray-700 h-full"></div>
             </div>
