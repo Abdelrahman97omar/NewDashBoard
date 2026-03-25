@@ -8,6 +8,8 @@ const StatusBar = () => {
   const [MotorMode, setMotorMode] = useState("");
   const [BatteryLevel, setBatteryLeve] = useState("");
   const [emergencyState, setEmergencyState] = useState("");
+  const [localizationState, setlocalizationState] = useState("");
+  const [manualAutoMode, setmanualAutoMode] = useState("");
 
 
   useEffect(() => {
@@ -23,8 +25,17 @@ const StatusBar = () => {
       if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
 
+      if (all_topic_state["emergency_state"]==="1"){setEmergencyState("pressed")}
+      else {setEmergencyState("Released")}
+
+      setlocalizationState(all_topic_state["localization_weight"])
+
+      if (all_topic_state["manual-auto_mode"]==="1"){setmanualAutoMode("Manual")}
+      else {setmanualAutoMode("Auto")}
+
+
       if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
-        {setBatteryLeve("HHHigh")}
+        {setBatteryLeve("High")}
         else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
         {setBatteryLeve("Meduim")}
         else{setBatteryLeve("Low")}
@@ -52,8 +63,14 @@ const StatusBar = () => {
       if (all_topic_state["emergency_state"]==="1"){setEmergencyState("pressed")}
       else {setEmergencyState("Released")}
 
+      setlocalizationState(all_topic_state["localization_weight"])
+
+      if (all_topic_state["manual-auto_mode"]==="1"){setmanualAutoMode("Manual")}
+      else {setmanualAutoMode("Auto")}
+
+
       if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
-      {setBatteryLeve("HHHigh")}
+      {setBatteryLeve("High")}
       else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
       {setBatteryLeve("Meduim")}
       else{setBatteryLeve("Low")}
@@ -87,8 +104,8 @@ const StatusBar = () => {
 
         <div className=" statusbarlayout"> battery={BatteryLevel}</div>
 
-        <div className=" statusbarlayout">Localization</div>
-        <div className=" statusbarlayout">Mode: </div>
+        <div className=" statusbarlayout">Localization: {localizationState}</div>
+        <div className=" statusbarlayout">Mode: {manualAutoMode}</div>
         <div className=" statusbarlayout">Operation Mode: {opMode}</div>
         <div className=" statusbarlayout"></div>
       </div>

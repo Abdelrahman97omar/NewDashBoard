@@ -3,10 +3,10 @@ import { useState } from "react";
 const Control=()=>{
     const { publishTopic } = useRosConnection();
     const [manualState,setManualState]= useState(0)
+    const [resumeState,setresumeState]= useState(0)
 
     const handleSetManual=()=>{
         let newManualFlag = 0
-
         if (manualState===1){
             newManualFlag=0
             setManualState(0)
@@ -29,6 +29,21 @@ const Control=()=>{
    
     }
     const handleResume=()=>{
+        let newResumeState = 0
+
+        if (resumeState===1){
+            newResumeState=0
+            setresumeState(0)
+        }
+        else if (resumeState===0)
+        {
+            newResumeState=1
+            setresumeState(1)
+        }
+        publishTopic("/resume",
+            "std_msgs/Int32", {
+           data: newResumeState,
+        });
     }
     return(
         <>
@@ -41,7 +56,8 @@ const Control=()=>{
                     <button className="border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-orange-500"
                     onClick={handleGoHome}>Go Home</button>
 
-                    <button className="border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8"
+                    <button className={resumeState==1?"border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-green-500"
+                    :"border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-orange-500"}
                     onClick={handleResume}>Resume</button>
                 </div>
                 <div className="border-2 border-gray-700 h-full flex justify-center items-center">

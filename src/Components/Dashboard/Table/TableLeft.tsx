@@ -1,13 +1,27 @@
+import type { Numbers } from "@mui/icons-material";
 import { useRosConnection } from "../../../connection-provider";
-
+import { useEffect,useState } from "react";
 const TableLeft = () => {
-  const tableList = [1, 2, 3, 4, 5, 6, 7];
+  const [tableList,setTableList] = useState([]);
   const { publishTopic } = useRosConnection();
+
+  useEffect(()=>{
+    const get_all_tables =async ()=>{
+      const res=await fetch("http://127.0.0.1:8001/tablemdoe/gettable",{method:"GET"})
+      const data= JSON.parse(await res.json())
+      setTableList(data)
+      console.log(typeof(data))
+    }
+    get_all_tables()
+  },[])
 
   const handletablemode=()=>{
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 0,
     });
+  }
+  const handleSelectTable=(values:Number)=>{
+    console.log(values)
   }
   return (
     <>
@@ -16,13 +30,10 @@ const TableLeft = () => {
 
           <div className="bg-green-400 grid grid-cols-1 grid-rows-2">
             <div className="flex justify-center items-center">  
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
-                Add New Table
-              </button>
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
-                Remove Last Table
-              </button>
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">Add New Table</button>
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">Remove Last Table</button>
             </div>
+
             <div className="flex justify-center items-center">  
               <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"onClick={handletablemode}>
                 Set Table Mode
@@ -31,7 +42,6 @@ const TableLeft = () => {
               Go to Table
               </button>
             </div>
-
           </div>
 
           <div className="bg-green-800 flex justify-center items-center">
@@ -41,7 +51,7 @@ const TableLeft = () => {
               id="cars"
             >
               {tableList.map((no) => (
-                <option value={no}>Table {no}</option>
+                <option value={no} key={no}>Table {no}</option>
               ))}
             </select>
           </div>

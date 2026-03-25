@@ -27,3 +27,21 @@ async def returnCurrentStates():
     print(CurrentStates)
     return CurrentStates
 
+
+
+@app.get("/tablemdoe/gettable")
+async def getTabledata():
+    import mysql.connector
+    import json
+    mydb = mysql.connector.connect(
+    host="localhost",
+    user="robot",
+    password="12345",
+    database="goals"
+    )
+
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT TABLE_NO FROM Locations")
+    no_of_tables = mycursor.fetchall() # All rows of the column
+    no_of_tables=json.dumps(no_of_tables)  
+    return no_of_tables

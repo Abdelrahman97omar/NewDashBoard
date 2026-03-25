@@ -1,6 +1,6 @@
 import websocket
 import rospy
-from std_msgs.msg import Float32,Int32, Bool
+from std_msgs.msg import Float32,Int32, Bool,String
 import rel
 import redis
 import asyncio
@@ -15,11 +15,12 @@ global ws
 # else:
 
 all_topics_state={
-    "enable_motors":"false",
-    "op_mode":1,
-    "voltage_sensor":"0",
-    "emergency_state":"0",
-    "":""
+    "enable_motors":"",
+    "op_mode":None,
+    "voltage_sensor":"",
+    "emergency_state":"",
+    "localization_weight":"",
+    "manual-auto_mode":""
 }
 
 
@@ -74,20 +75,18 @@ def set_motor_mode(data):
 
 def set_manual_auto_mode(data):
     global ws
-    print("Received ROS data:", data.data)
+    print("Received ROS data:", str(data.data))
     try:
-        r.set("manual_flag", data.data)
-        print("manual_flag state saved in Redis successfully")
+        all_topics_state["manual-auto_mode"]=str(data.data)
+        r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
-        print("Error saving to Redis:", e)
+        print("Error saving manual-auto_mode to Redis:", e)
     try:
-        mymsg=str(data.data)
-        mymsg = {"/manual_flag":f"{data.data}"}
-        mymsg= json.dumps(mymsg)
-        ws.send(mymsg)
+        msg_to_ws=json.dumps(all_topics_state)
+        ws.send(msg_to_ws)
         print("The websocket msg is sent successfully..")
-    except:
-        print("failed to send websocket msg from manual_flag")
+    except Exception as e:
+        print(f"failed to send websocket msg from set_op_mode, the error is: {e}")
 
 def set_emergency_state(data):
     global ws
@@ -104,13 +103,29 @@ def set_emergency_state(data):
     except Exception as e:
         print(f"failed to send websocket msg from set_emergency_state, the error is: {e}")
 
+def set_localization_weight(data):
+    global ws
+    try:
+        all_topics_state["localization_weight"]=data.data
+        r.set("all_topics", json.dumps(all_topics_state))
+        print("saved localization_weight in redis")
+    except Exception as e:
+        print("Error saving to Redis:", e)
+    try:
+        msg_to_ws=json.dumps(all_topics_state)
+        ws.send(msg_to_ws)
+        print("The websocket msg localization_weight is sent successfully..")
+    except Exception as e:
+        print(f"failed to send websocket msg from localization_weight, the error is: {e}")
+
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
     rospy.Subscriber("/enable_motors", Bool, set_motor_mode)
     rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
-    # rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
+    rospy.Subscriber("/localization_weight", String, set_localization_weight)
+    rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.spin()
 
 
