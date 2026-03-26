@@ -554,6 +554,9 @@
   .pl-\[140px\] {
     padding-left: 140px;
   }
+  .text-center {
+    text-align: center;
+  }
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));

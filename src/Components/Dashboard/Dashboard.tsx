@@ -1,5 +1,6 @@
-import TableRight from "./Table/TableRight";
-import TableLeft from "./Table/TableLeft";
+// import TableRight from "./Table/TableRight";
+// import TableLeft from "./Table/TableLeft";
+import Table from "./Table/Table";
 import SettingS from "./Settings/Settings";
 import EventMode from "./EventMode/EventMode";
 import Control from "./Control/Control";
@@ -26,8 +27,9 @@ const Dashboard = ({ page }: MyProp) => {
   if (page === 3) {
     return (
       <div className="grid grid-cols-[1fr_400px] gap-2 h-full">
-        <TableLeft />
-        <TableRight />
+        {/* <TableLeft />
+        <TableRight /> */}
+        <Table/>
       </div>
     );
   }

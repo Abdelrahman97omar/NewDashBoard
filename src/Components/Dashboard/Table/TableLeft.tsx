@@ -2,24 +2,29 @@ import type { Numbers } from "@mui/icons-material";
 import { useRosConnection } from "../../../connection-provider";
 import { useEffect, useState } from "react";
 const TableLeft = () => {
+  const [manualPoint_X,setManualPoint_X] = useState("0");;
+  const [manualPoint_Y,setManualPoint_Y] = useState("0");;
+  const [manualPoint_SETA,setManualPoint_SETA] = useState("0");
   const [tableList, setTableList] = useState([]);
-  const [selectTable, setSelectTable] = useState(0);
+  const [selectedTable, setselectedTable] = useState(0);
+
   const { publishTopic } = useRosConnection();
 
   const fetchTables = async () => {
-    const res = await fetch("http://127.0.0.1:8001/tablemdoe/gettable", {
+    const res = await fetch("http://127.0.0.1:8001/tablemode/gettable", {
       method: "GET",
     });
     const data = JSON.parse(await res.json());
     setTableList(data);
     console.log("Table list:", data);
   };
+
   useEffect(() => {
     fetchTables();
   }, []);
 
   const getSelectedTableFromList = (tableNumber: number) => {
-    setSelectTable(tableNumber);
+    setselectedTable(tableNumber);
     console.log("Selected tabele number is:", tableNumber);
   };
 
@@ -31,7 +36,7 @@ const TableLeft = () => {
 
   const handleAddNewTable = () => {
     const addNewTable = async () => {
-      const res = await fetch("http://127.0.0.1:8001/tablemdoe/addnewtable", {
+      const res = await fetch("http://127.0.0.1:8001/tablemode/addnewtable", {
         method: "PUT",
       });
     };
@@ -42,13 +47,21 @@ const TableLeft = () => {
 
   const handleDeleteTable=()=>{
     const removeLastTable = async () => {
-    const res = await fetch("http://127.0.0.1:8001/tablemdoe/removetable", {
+    const res = await fetch("http://127.0.0.1:8001/tablemode/removetable", {
       method: "DELETE",
     });
     };
 
     removeLastTable();
     fetchTables();
+  }
+
+  const handleGoToTable=()=>{
+    const tableNumber_float=(selectedTable).toFixed(1)
+    console.log("publishing..",tableNumber_float)
+    publishTopic("/table_no", "std_msgs/Float32", {
+      data: tableNumber_float,
+    });
   }
   return (
     <>
@@ -57,12 +70,12 @@ const TableLeft = () => {
           <div className="bg-green-400 grid grid-cols-1 grid-rows-2">
             <div className="flex justify-center items-center">
               <button
-                className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"
+                className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"
                 onClick={handleAddNewTable}
               >
                 Add New Table
               </button>
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl"
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"
               onClick={handleDeleteTable}>
                 Remove Last Table
               </button>
@@ -75,7 +88,8 @@ const TableLeft = () => {
               >
                 Set Table Mode
               </button>
-              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl">
+              <button className="border-2 font-bold text-3xl mx-2 w-[300px] h-[90px] rounded-xl bg-orange-500"
+              onClick={handleGoToTable}>
                 Go to Table
               </button>
             </div>
@@ -86,7 +100,7 @@ const TableLeft = () => {
               className="border-2 bg-blue-300 w-[300px] rounded-4xl h-25 pl-29"
               name="cars"
               id="cars"
-              value={selectTable}
+              value={selectedTable}
               onChange={(e) => getSelectedTableFromList(Number(e.target.value))}
             >
               {tableList.map((no) => (
@@ -146,16 +160,19 @@ const TableLeft = () => {
               Manual Points
             </p>
             <div className="flex items-center gap-8 px-10 m-9">
-              <span className="font-bold text-xl mr-10">X:</span>
-              <input className="w-20 h-7 border rounded-md bg-white flex items-center justify-center" />
+                <span className="font-bold text-xl mr-10">X:</span>
+                <input className="w-20 h-7 border rounded-md bg-white text-center"
+                value={manualPoint_X}  onChange={e => setManualPoint_X(e.target.value)} />
             </div>
             <div className="flex items-center gap-8 px-10 m-9 ">
               <span className="font-bold text-xl mr-10">Y:</span>
-              <input className="w-20 h-7 border rounded-md bg-white flex items-center justify-center" />
+              <input className="w-20 h-7 border rounded-md bg-white text-center"
+                value={manualPoint_Y}  onChange={e => setManualPoint_Y(e.target.value)} />
             </div>
             <div className="flex items-center gap-3 px-10 m-4 ">
               <span className="font-bold text-xl mr-10">Theta:</span>
-              <input className="w-20 h-7 border rounded-md bg-white flex items-center justify-center" />
+              <input className="w-20 h-7 border rounded-md bg-white text-center"
+                value={manualPoint_SETA}  onChange={e => setManualPoint_SETA(e.target.value)} />
             </div>
 
             <div className="flex justify-center">
