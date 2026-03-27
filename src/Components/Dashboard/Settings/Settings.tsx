@@ -48,8 +48,8 @@ const SettingS=()=>{
   const handleCreateVirtualPath=()=>{}
     return (
         <>
-        <div className="grid grid-cols-3 pt-10">
-          <div className={"grid grid-cols-1 py-8 px-20 gap-y-20"}>
+        <div className="grid grid-cols-3 pl-30 p-20 gap-x-20">
+          <div className={"grid grid-cols-1 gap-y-10 "}>
             <button className={"dashboardSettingsButtons bg-orange-600" } onClick={handleClearMap}>
               Clear Map
             </button>
@@ -62,7 +62,7 @@ const SettingS=()=>{
             </button>
           </div>
   
-          <div className="grid grid-cols-1 py-8 px-20 gap-y-20">
+          <div className="grid grid-cols-1 gap-y-10 ">
             <button className="dashboardSettingsButtons bg-orange-600" onClick={handleSaveMap}>
               Save Map
             </button>
@@ -74,7 +74,7 @@ const SettingS=()=>{
             </button>
           </div>
 
-          <div className="grid grid-cols-1 py-8 px-20 gap-y-20 ">
+          <div className="grid grid-cols-1 gap-y-10">
             <button className="dashboardSettingsButtons bg-orange-600" onClick={handleLoadMap}>
               Load Map
             </button>

@@ -55,8 +55,7 @@ const SetButtonNumber=(sendbutton:string)=>{
 }
 
   return (
-    <div className="bg-stone-600 rounded-l-lg p-3">
-      <div className="grid grid-cols-1 px-8 py-10">
+    <div>
         <button className={isPresesd==="Control"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Control")}>Control</button>
         <button className={isPresesd==="Settings"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Settings")}>Settings</button>
         <button className={isPresesd==="Event mode"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Event mode")}>Event mode</button>
@@ -64,7 +63,6 @@ const SetButtonNumber=(sendbutton:string)=>{
         <button className={isPresesd==="Specialization"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Specialization")}>Specialization</button>
         <button className={isPresesd==="Information"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Information")}>Information</button>
         <button className={isPresesd==="Wifi Settings"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Wifi Settings")}>Wifi Settings</button>
-      </div>
     </div>
   )
 }

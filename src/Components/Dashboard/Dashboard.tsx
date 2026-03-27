@@ -27,8 +27,6 @@ const Dashboard = ({ page }: MyProp) => {
   if (page === 3) {
     return (
       <div className="grid grid-cols-[1fr_400px] gap-2 h-full">
-        {/* <TableLeft />
-        <TableRight /> */}
         <Table/>
       </div>
     );

@@ -84,31 +84,14 @@ const StatusBar = () => {
 
   return (
     <>
-      <div className="bg-white grid grid-cols-4 gird-rows-2 rounded-md  h-50 p-4 ml-2 shadow-md">
-        {/* statusbarlayout */}
-        <div className=" border grid grid-cols-1 grid-rows-2">
-          <div className="mt-7 flex justify-center">
-            <BatteryIcon batteryType="High" />
-          </div>
-          <div className=" flex justify-center gap-2">
-            <p className="font-bold">Battery:</p>
-            <p className="text-green-400">{BatteryLevel}</p>
-          </div>
-        </div>
-
-        {/* <div className=' h-3 w-5 m-4' ><BatteryChargingFullIcon/></div>
-          <div> Battery:<p className='font-bold text-green-400'>High</p></div>
-          </div> */}
+        <div className=" statusbarlayout">Battery: {BatteryLevel}</div>
         <div className=" statusbarlayout">Motors: {MotorMode}<DirectionsCarIcon /></div>
         <div className=" statusbarlayout">Emergency: {emergencyState}</div>
-
-        <div className=" statusbarlayout"> battery={BatteryLevel}</div>
-
+        <div className=" statusbarlayout">N/A:N/A</div>
         <div className=" statusbarlayout">Localization: {localizationState}</div>
         <div className=" statusbarlayout">Mode: {manualAutoMode}</div>
         <div className=" statusbarlayout">Operation Mode: {opMode}</div>
-        <div className=" statusbarlayout"></div>
-      </div>
+        <div className=" statusbarlayout">N/A:N/A</div>
     </>
   );
 };

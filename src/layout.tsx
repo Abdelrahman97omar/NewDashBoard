@@ -34,19 +34,24 @@ const Layout = () => {
   };
   return (
     <div className="bg-stone-200 w-screen h-screen p-4">
-      <div className="grid grid-cols-[300px_1fr]  h-full">
-        {/* Left top Corner */}
-        <div className="bg-red-400 flex items-center justify-center rounded-md mr-2">
-          Logo
+      <div className="grid grid-cols-[330px_1fr] h-full">
+
+        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 bg-stone-600 rounded-4xl m-3">        
+          <Sidebar returnNumber={getPageNumber} />
         </div>
-        {/* The status Bar */}
-        <StatusBar />
-        {/* The SideBar */}
-        <Sidebar returnNumber={getPageNumber} />
-        <div className="bg-gray-400 rounded-r-md p-4">
-          {/* {children(dashboardPage)} */}
-          <Dashboard page={dashboardPage} />
+
+        <div className="grid grid-rows-[200px_1fr]">
+
+          <div className="bg-gray-200 border grid grid-cols-4 gird-rows-2 rounded-4xl p-4 m-3">
+              <StatusBar/>
+          </div>
+
+          <div className=" bg-white p-4 m-3 mb-12 rounded-4xl">
+            <Dashboard page={dashboardPage} />
+          </div>
+
         </div>
+
       </div>
     </div>
   );
