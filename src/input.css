@@ -1,20 +1,32 @@
 @import "tailwindcss";
 
 .sidebarButtons{
-    @apply border mb-4 h-15 w-70 rounded-2xl shadow-lg bg-white
+    @apply border mb-4 h-15 w-70 rounded-2xl shadow-lg bg-white text-[#0F2A44] text-xl 
 }
 .pressedSidebarButtons{
-    @apply border mb-4 h-15 w-70 rounded-2xl shadow-lg bg-green-500 
+    @apply border mb-4 h-15 w-70 rounded-2xl shadow-lg bg-[#F26B2E] text-[#0F2A44] text-xl 
 }
 
 .statusbarlayout{
-    @apply border-1 flex justify-center items-center
+    @apply flex justify-center items-end pb-3.5 rounded-2xl w-70
 }
 
 .dashboardSettingsButtons{
-    @apply border h-35 w-90 rounded-3xl 
+    @apply border h-35 w-90 rounded-3xl bg-[#D9D9D9] text-[#0F2A44] text-xl
 }
 
-.pressedDashboardSettingsButtons{
-    @apply border h-25 w-70 rounded-3xl shadow-2xl bg-red-700
+.pressedDashboardSettingsButtons{ 
+    @apply border h-35 w-90 rounded-3xl shadow-2xl bg-[#F26B2E] text-[#0F2A44] text-xl
+}
+
+.Cblue{
+    @apply bg-[#0F2A44]
+}
+
+.corange{
+    @apply bg-[#F26B2E]
+}
+
+.cgray{
+    @apply bg-[#D9D9D9]
 }

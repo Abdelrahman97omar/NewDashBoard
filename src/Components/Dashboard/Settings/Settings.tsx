@@ -1,72 +1,137 @@
 import { useState } from "react";
 import { useRosConnection } from "../../../connection-provider";
 
-const SettingS=()=>{
+const SettingS = () => {
   const { publishTopic } = useRosConnection();
-  const [nextOptionState,togleNextOptionState]=useState(false)
-  const [motorState,toglemotorState]=useState(false)
+  const [nextOptionState, togleNextOptionState] = useState(false);
+  const [motorState, toglemotorState] = useState(false);
 
-  const handleClearMap=()=>{
+  const handleClearMap = () => {
     publishTopic("/clear_map", "std_msgs/Bool", {
       data: true,
     });
-  }
+  };
 
   const handleNextOptionOn = () => {
     const newState = !nextOptionState;
     togleNextOptionState(newState);
     publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
-      data: newState,  
+      data: newState,
     });
   };
 
-  const handleSaveMap=()=>{
+  const handleSaveMap = () => {
     publishTopic("/save_event_map", "std_msgs/Bool", {
       data: true,
     });
-  }
+  };
 
-
-  const handleLoadMap=()=>{
+  const handleLoadMap = () => {
     publishTopic("/load_event_map", "std_msgs/Bool", {
       data: true,
     });
-  }
+  };
 
-  const handleSetMotor=()=>{
-    const nextMotorState=!motorState
-    toglemotorState(nextMotorState)
+  const handleSetMotor = () => {
+    const nextMotorState = !motorState;
+    toglemotorState(nextMotorState);
     publishTopic("/enable_motors", "std_msgs/Bool", {
       data: nextMotorState,
     });
+  };
 
-  }
+  const handleResumeMap = () => {};
+  const handlePauseMapping = () => {};
+  const handleClearvirtualPath = () => {};
+  const handleCreateVirtualPath = () => {};
 
-  const handleResumeMap=()=>{}
-  const handlePauseMapping=()=>{}
-  const handleClearvirtualPath=()=>{}
-  const handleCreateVirtualPath=()=>{}
-    return (
-        <>
-        <div className="grid grid-cols-3 pl-30 p-20 gap-x-20">
+  return (
+    <>
+      <div className="grid grid-col-1 grid-rows-3 gap-y-12 pt-10">
+        <div className="flex justify-around items-center">
+          <button
+            className={"dashboardSettingsButtons"}
+            onClick={handleClearMap}
+          >
+            Clear Map
+          </button>
+          <button className="dashboardSettingsButtons " onClick={handleSaveMap}>
+            Save Map
+          </button>
+          <button className="dashboardSettingsButtons " onClick={handleLoadMap}>
+            Load Map
+          </button>
+        </div>
+        <div className="flex justify-around items-center">
+          <button
+            className="dashboardSettingsButtons "
+            onClick={handleResumeMap}
+          >
+            Resume Map
+          </button>
+          <button
+            className="dashboardSettingsButtons "
+            onClick={handlePauseMapping}
+          >
+            Pause Mapping
+          </button>
+          <button
+            className="dashboardSettingsButtons"
+            onClick={handleCreateVirtualPath}
+          >
+            Create Virtual Path
+          </button>
+        </div>
+
+        <div className="flex justify-around items-center">
+          <button
+            className={
+              nextOptionState === true
+                ? "pressedDashboardSettingsButtons"
+                : "dashboardSettingsButtons "
+            }
+            onClick={handleNextOptionOn}
+          >
+            Next Option On
+          </button>
+          <button
+            className="dashboardSettingsButtons "
+            onClick={handleClearvirtualPath}
+          >
+            Clear Virtual Path
+          </button>
+          <button
+            className={
+              motorState
+                ? "pressedDashboardSettingsButtons"
+                : "dashboardSettingsButtons"
+            }
+            onClick={handleSetMotor}
+          >
+            Set Motor On
+          </button>
+        </div>
+      </div>
+
+      {/* <div className="grid grid-cols-3 pl-30 p-20 gap-x-20">
           <div className={"grid grid-cols-1 gap-y-10 "}>
-            <button className={"dashboardSettingsButtons bg-orange-600" } onClick={handleClearMap}>
+            <button className={"dashboardSettingsButtons" } onClick={handleClearMap}>
               Clear Map
             </button>
-            <button className="dashboardSettingsButtons bg-orange-600" onClick={handleResumeMap}>
+            <button className="dashboardSettingsButtons " onClick={handleResumeMap}>
               Resume Map
             </button>
             <button className={nextOptionState===true?
-            "bg-green-500 dashboardSettingsButtons":"dashboardSettingsButtons bg-orange-600" } onClick={handleNextOptionOn}>
+            "pressedDashboardSettingsButtons":"dashboardSettingsButtons " } onClick={handleNextOptionOn}>
               Next Option On
             </button>
           </div>
   
           <div className="grid grid-cols-1 gap-y-10 ">
-            <button className="dashboardSettingsButtons bg-orange-600" onClick={handleSaveMap}>
+            <button className="dashboardSettingsButtons " onClick={handleSaveMap}>
               Save Map
             </button>
-            <button className="dashboardSettingsButtons bg-orange-600" onClick={handlePauseMapping}>
+            <button className="dashboardSettingsButtons " onClick={handlePauseMapping}>
               Pause Mapping
             </button>
             <button className="dashboardSettingsButtons " onClick={handleClearvirtualPath}>
@@ -75,18 +140,18 @@ const SettingS=()=>{
           </div>
 
           <div className="grid grid-cols-1 gap-y-10">
-            <button className="dashboardSettingsButtons bg-orange-600" onClick={handleLoadMap}>
+            <button className="dashboardSettingsButtons " onClick={handleLoadMap}>
               Load Map
             </button>
             <button className="dashboardSettingsButtons" onClick={handleCreateVirtualPath}>
               Create Virtual Path
             </button>
-            <button className={motorState? "bg-green-500 dashboardSettingsButtons":"bg-orange-600 dashboardSettingsButtons"} onClick={handleSetMotor}>
+            <button className={motorState? "pressedDashboardSettingsButtons":"dashboardSettingsButtons"} onClick={handleSetMotor}>
               Set Motor On
             </button>
           </div>
-        </div>
-        </>
-      );
-}
+        </div> */}
+    </>
+  );
+};
 export default SettingS;

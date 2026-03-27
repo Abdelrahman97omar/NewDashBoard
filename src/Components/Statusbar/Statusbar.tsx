@@ -84,14 +84,14 @@ const StatusBar = () => {
 
   return (
     <>
-        <div className=" statusbarlayout">Battery: {BatteryLevel}</div>
-        <div className=" statusbarlayout">Motors: {MotorMode}<DirectionsCarIcon /></div>
-        <div className=" statusbarlayout">Emergency: {emergencyState}</div>
-        <div className=" statusbarlayout">N/A:N/A</div>
-        <div className=" statusbarlayout">Localization: {localizationState}</div>
-        <div className=" statusbarlayout">Mode: {manualAutoMode}</div>
-        <div className=" statusbarlayout">Operation Mode: {opMode}</div>
-        <div className=" statusbarlayout">N/A:N/A</div>
+        <div className="cgray statusbarlayout">Battery: {BatteryLevel}</div>
+        <div className="cgray statusbarlayout">Motors: {MotorMode}</div>
+        <div className="cgray statusbarlayout">Emergency: {emergencyState}</div>
+        <div className="cgray statusbarlayout">N/A:N/A</div>
+        <div className="cgray statusbarlayout">Localization: {localizationState}</div>
+        <div className="cgray statusbarlayout">Mode: {manualAutoMode}</div>
+        <div className="cgray statusbarlayout">Operation Mode: {opMode}</div>
+        <div className="cgray statusbarlayout">N/A:N/A</div>
     </>
   );
 };

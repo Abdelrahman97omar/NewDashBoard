@@ -33,16 +33,16 @@ const Layout = () => {
     }
   };
   return (
-    <div className="bg-stone-200 w-screen h-screen p-4">
+    <div className="cgray w-screen h-screen p-4">
       <div className="grid grid-cols-[330px_1fr] h-full">
 
-        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 bg-stone-600 rounded-4xl m-3">        
+        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 Cblue rounded-4xl m-3">        
           <Sidebar returnNumber={getPageNumber} />
         </div>
 
-        <div className="grid grid-rows-[200px_1fr]">
+        <div className="grid grid-rows-[250px_1fr]">
 
-          <div className="bg-gray-200 border grid grid-cols-4 gird-rows-2 rounded-4xl p-4 m-3">
+          <div className="bg-white grid grid-cols-4 gird-rows-2 rounded-4xl gap-5 pl-15 p-4 m-3 ">
               <StatusBar/>
           </div>
 
