@@ -33,7 +33,7 @@ const Layout = () => {
     }
   };
   return (
-    <div className="cgray w-screen h-screen p-4">
+    <div className="Cgray w-screen h-screen p-4">
       <div className="grid grid-cols-[330px_1fr] h-full">
 
         <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 Cblue rounded-4xl m-3">        
@@ -46,7 +46,7 @@ const Layout = () => {
               <StatusBar/>
           </div>
 
-          <div className=" bg-white p-4 m-3 mb-12 rounded-4xl">
+          <div className=" bg-white p-3 m-3 mb-12 rounded-4xl">
             <Dashboard page={dashboardPage} />
           </div>
 

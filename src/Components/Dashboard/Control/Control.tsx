@@ -4,6 +4,13 @@ const Control=()=>{
     const { publishTopic } = useRosConnection();
     const [manualState,setManualState]= useState(0)
     const [resumeState,setresumeState]= useState(0)
+    const [sliderValue,setSliderValue]= useState(0)
+
+    const handleSliderChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
+        setSliderValue(Number(event.target.value))
+
+        console.log(Number(event.target.value))
+    }
 
     const handleSetManual=()=>{
         let newManualFlag = 0
@@ -47,28 +54,37 @@ const Control=()=>{
     }
     return(
         <>
-            <div className="border-2 border-gray-700 grid grid-cols-1 grid-rows-3 h-full">
-                <div className="border-2 border-gray-700 h-full flex justify-around items-center">
-                    <button className={manualState===1?"border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-green-500":
-                        "border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-orange-500"}
+            <div className="grid grid-cols-1 grid-rows-3 h-full">
+                <div className=" flex justify-around items-center h-full">
+                    <button className={manualState===1?"controlButtons":"pressedControlButtons"}
                     onClick={handleSetManual}>Set Manual</button>
 
-                    <button className="border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-orange-500"
+                    <button className="controlButtons"
                     onClick={handleGoHome}>Go Home</button>
 
-                    <button className={resumeState==1?"border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-green-500"
-                    :"border-2 border-gray-800 rounded-2xl w-full h-[100px] m-8 bg-orange-500"}
+                    <button className={resumeState==1?"controlButtons":"pressedControlButtons"}
                     onClick={handleResume}>Resume</button>
                 </div>
-                <div className="border-2 border-gray-700 h-full flex justify-center items-center">
-                    <p>Set Speed</p>
+
+
+                <div className="h-30 flex justify-center items-center Cgray mx-9 rounded-3xl">
+                    <p></p>
                     <div>
-                        <input className="w-6xl" type="range" min="1" max="100" value="50"  id="myRange"/>
+                        <input className="w-4xl accent-[#0F2A44]"
+                          type="range"
+                          id="range-slider"
+                          min="50"
+                          max="100"
+                          step="1"
+                          value={sliderValue}
+                          onChange={handleSliderChange}
+                        />
                     </div>
                 </div>
-                <div className="border-2 border-gray-700 h-full">
 
-                </div>
+
+
+                <div className=" h-full"></div>
             </div>
         </>
     )
