@@ -26,7 +26,7 @@ const Dashboard = ({ page }: MyProp) => {
   //Table settings Mode
   if (page === 3) {
     return (
-      <div className="grid grid-cols-[1fr_400px] gap-2 h-full">
+      <div >
         <Table/>
       </div>
     );

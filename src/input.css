@@ -26,7 +26,22 @@
     @apply rounded-3xl w-full h-[150px] mx-8 bg-[#F26B2E] text-[#0F2A44] text-2xl font-bold
 }
 
-
+.tableModeButtons{
+    @apply font-bold text-2xl text-[#0F2A44] text-center w-[250px] h-[90px] rounded-xl bg-[#D9D9D9]
+}
+.tableModeBorders{
+    @apply border-2 border-[#D9D9D9] rounded-3xl
+}
+.tablemodeHeaders{
+   @apply font-bold text-[#0F2A44] text-2xl rounded-xl h-14 flex items-center justify-center mx-5 mb-5 mt-3 bg-[#D9D9D9]
+}
+.tableModeNumberFieled{
+@apply w-20 h-7 rounded-md  text-center bg-[#D9D9D9]
+}
+.XYSETA-VALUE-Position{
+@apply flex justify-between mx-9 items-center mb-2
+}
+    
 .Cblue{
     @apply bg-[#0F2A44]
 }
