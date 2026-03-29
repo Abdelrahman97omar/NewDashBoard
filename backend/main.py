@@ -140,18 +140,18 @@ async def update_table_number(table_number: int, commingData: dict = Body(...)):
     newPoints= commingData["points"]
     print(whichPoints)
     print(newPoints)
-    match whichPoints:
-        case "Main":
+    if (whichPoints== "Main"):
             sql = "UPDATE Locations SET X = %s, Y = %s, SETA = %s WHERE TABLE_NO = %s"
+    elif(whichPoints=="BackUp_1"):
+        sql = "UPDATE Locations SET X_bck_1 = %s, Y_bck_1 = %s, SETA_bck_1 = %s WHERE TABLE_NO = %s"
 
-        case "BackUp_1":
-            sql = "UPDATE Locations SET X_bck_1 = %s, Y_bck_1 = %s, SETA_bck_1 = %s WHERE TABLE_NO = %s"
-
-        case "BackUp_2":
+    elif (whichPoints== "BackUp_2"):
             sql = "UPDATE Locations SET X_bck_2 = %s, Y_bck_2 = %s, SETA_bck_2 = %s WHERE TABLE_NO = %s"
-
-        case "BackUp_3":
-            sql = "UPDATE Locations SET X_bck_3 = %s, Y_bck_3 = %s, SETA_bck_3 = %s WHERE TABLE_NO = %s"
+    elif (whichPoints=="BackUp_3"):
+        sql = "UPDATE Locations SET X_bck_3 = %s, Y_bck_3 = %s, SETA_bck_3 = %s WHERE TABLE_NO = %s"
+    else:
+        print("Error wrong Points Type")
+        
     val = (newPoints[0],newPoints[1],newPoints[2],table_number)
     mycursor.execute(sql, val)
     mydb.commit()
