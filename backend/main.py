@@ -33,8 +33,10 @@ async def returnCurrentStates():
 async def getTabledata():
     import mysql.connector
     import json
+    import os
     mydb = mysql.connector.connect(
-    host="localhost",
+    # host="localhost",
+    host=os.getenv("DB_HOST"),
     user="robot",
     password="12345",
     database="goals"
@@ -130,7 +132,7 @@ async def update_table_number(table_number: int, commingData: dict = Body(...)):
     import mysql.connector
     import json
     mydb = mysql.connector.connect(
-    host="localhost",
+    host="${window.location.hostname}",
     user="robot",
     password="12345",
     database="goals"

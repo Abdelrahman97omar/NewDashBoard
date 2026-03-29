@@ -1,5 +1,6 @@
 Event:
-append point --> /points_no && /append
+append point --> /points_no (point number float) then /append (true bool)
+
 #Next option on/off --> robot_apps/next_on
 		       robot_apps/next_off
 --------------------------------------------------------------
