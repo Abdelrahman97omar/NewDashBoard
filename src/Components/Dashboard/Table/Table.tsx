@@ -29,7 +29,7 @@ const Table = () => {
   const { publishTopic } = useRosConnection();
 
   const fetchTables = async () => {
-    const res = await fetch("http://127.0.0.1:8001/tablemode/gettable", {
+    const res = await fetch("http://${window.location.hostname}:8001/tablemode/gettable", {
       method: "GET",
     });
     const data = JSON.parse(await res.json());
@@ -86,7 +86,7 @@ const Table = () => {
 
   const handleAddNewTable = () => {
     const addNewTable = async () => {
-      const res = await fetch("http://127.0.0.1:8001/tablemode/addnewtable", {
+      const res = await fetch("http://${window.location.hostname}:8001/tablemode/addnewtable", {
         method: "PUT",
       });
     };
@@ -97,7 +97,7 @@ const Table = () => {
   useEffect(() => {
     const getTablepointValues = async () => {
       const res = await fetch(
-        `http://127.0.0.1:8001/tablemode/getpoints/${selectedTable}`
+        `http://${window.location.hostname}:8001/tablemode/getpoints/${selectedTable}`
       );
       const data = JSON.parse(await res.json());
       setSaved_X(data[1]);
@@ -118,7 +118,7 @@ const Table = () => {
 
   const setNewPoints = async (sentPointsType: string) => {
     await fetch(
-      `http://127.0.0.1:8001/tablemode/updatepoints/${selectedTable}`,
+      `http://${window.location.hostname}:8001/tablemode/updatepoints/${selectedTable}`,
       {
         method: "PATCH",
         headers: {
@@ -138,7 +138,7 @@ const Table = () => {
 
   const handleDeleteTable = () => {
     const removeLastTable = async () => {
-      await fetch("http://127.0.0.1:8001/tablemode/removetable", {
+      await fetch("http://${window.location.hostname}:8001/tablemode/removetable", {
         method: "DELETE",
       });
     };
@@ -291,21 +291,21 @@ const Table = () => {
 
             <div className="space-y-3 pb-1">
               {/* <div className="flex items-center gap-3  pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">X:</span>
                 <div className="tableModeNumberFieled">{saved_X}</div>
               </div>
 
               {/* <div className="flex items-center gap-3 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">Y:</span>
                 <div className="tableModeNumberFieled">{saved_Y}</div>
               </div>
 
               {/* <div className="flex items-center gap-3 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl">Theta:</span>
                 <div className="tableModeNumberFieled">{saved_SETA}</div>
@@ -316,21 +316,21 @@ const Table = () => {
             <h1 className="tablemodeHeaders">Backup 2</h1>
             <div className="space-y-3 pb-1">
               {/* <div className="flex items-center gap-9 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">X:</span>
                 <div className="tableModeNumberFieled">{B2_saved_X}</div>
               </div>
 
               {/* <div className="flex items-center gap-9 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">Y:</span>
                 <div className="tableModeNumberFieled">{B2_saved_Y}</div>
               </div>
 
               {/* <div className="flex items-center gap-9 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl">Theta:</span>
                 <div className="tableModeNumberFieled">{B2_saved_SETA}</div>
@@ -343,21 +343,21 @@ const Table = () => {
             <h1 className="tablemodeHeaders">Backup 1</h1>
             <div className="space-y-3 pb-1">
               {/* <div className="flex items-center gap-30 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">X:</span>
                 <div className="tableModeNumberFieled">{B1_saved_X}</div>
               </div>
 
               {/* <div className="flex items-center gap-30 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">Y:</span>
                 <div className="tableModeNumberFieled">{B1_saved_Y}</div>
               </div>
 
               {/* <div className="flex items-center gap-30 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl">Theta:</span>
                 <div className="tableModeNumberFieled">{B1_saved_SETA}</div>
@@ -368,21 +368,21 @@ const Table = () => {
             <h1 className="tablemodeHeaders ">Backup 3</h1>
             <div className="space-y-3 pb-1">
               {/* <div className="flex items-center gap-3 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">X:</span>
                 <div className="tableModeNumberFieled">{B3_saved_X}</div>
               </div>
 
               {/* <div className="flex items-center gap-3 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl mr-10.5">Y:</span>
                 <div className="tableModeNumberFieled">{B3_saved_Y}</div>
               </div>
 
               {/* <div className="flex items-center gap-3 pl-10"> */}
-          <div className="XYSETA-VALUE-Position">
+              <div className="XYSETA-VALUE-Position">
 
                 <span className="font-bold text-xl">Theta:</span>
                 <div className="tableModeNumberFieled">{B3_saved_SETA}</div>

@@ -123,7 +123,7 @@ def listener():
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
     rospy.Subscriber("/enable_motors", Bool, set_motor_mode)
     rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
-    rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
+    # rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
     rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.spin()

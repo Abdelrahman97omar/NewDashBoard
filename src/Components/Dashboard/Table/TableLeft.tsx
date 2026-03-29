@@ -11,7 +11,7 @@ const TableLeft = () => {
   const { publishTopic } = useRosConnection();
 
   const fetchTables = async () => {
-    const res = await fetch("http://127.0.0.1:8001/tablemode/gettable", {
+    const res = await fetch("http://${window.location.hostname}:8001/tablemode/gettable", {
       method: "GET",
     });
     const data = JSON.parse(await res.json());
@@ -36,7 +36,7 @@ const TableLeft = () => {
 
   const handleAddNewTable = () => {
     const addNewTable = async () => {
-      const res = await fetch("http://127.0.0.1:8001/tablemode/addnewtable", {
+      const res = await fetch("http://${window.location.hostname}:8001/tablemode/addnewtable", {
         method: "PUT",
       });
     };
@@ -47,7 +47,7 @@ const TableLeft = () => {
 
   const handleDeleteTable=()=>{
     const removeLastTable = async () => {
-    const res = await fetch("http://127.0.0.1:8001/tablemode/removetable", {
+    const res = await fetch("http://${window.location.hostname}:8001/tablemode/removetable", {
       method: "DELETE",
     });
     };

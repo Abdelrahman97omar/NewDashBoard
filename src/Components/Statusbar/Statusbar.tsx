@@ -14,7 +14,7 @@ const StatusBar = () => {
 
   useEffect(() => {
     const get_current_states = async () => {
-      const resp = await fetch("http://127.0.0.1:8001/stausBar/States", { method: "GET" });
+      const resp = await fetch("http://${window.location.hostname}:8001/stausBar/States", { method: "GET" });
       // const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`)
       const data = await resp.json();
       const all_topic_state = JSON.parse(data) // All topic values are now object
@@ -25,20 +25,18 @@ const StatusBar = () => {
       if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
 
-      if (all_topic_state["emergency_state"]==="1"){setEmergencyState("pressed")}
-      else {setEmergencyState("Released")}
+      if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
+      else { setEmergencyState("Released") }
 
       setlocalizationState(all_topic_state["localization_weight"])
 
-      if (all_topic_state["manual-auto_mode"]==="1"){setmanualAutoMode("Manual")}
-      else {setmanualAutoMode("Auto")}
+      if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
+      else { setmanualAutoMode("Auto") }
 
 
-      if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
-        {setBatteryLeve("High")}
-        else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
-        {setBatteryLeve("Meduim")}
-        else{setBatteryLeve("Low")}
+      if (all_topic_state["voltage_sensor"] == "23" || all_topic_state["voltage_sensor"] == "22") { setBatteryLeve("High") }
+      else if (all_topic_state["voltage_sensor"] == "21" || all_topic_state["voltage_sensor"] == "20") { setBatteryLeve("Meduim") }
+      else { setBatteryLeve("Low") }
     };
     get_current_states();
   }, []);
@@ -60,21 +58,19 @@ const StatusBar = () => {
       if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
 
-      if (all_topic_state["emergency_state"]==="1"){setEmergencyState("pressed")}
-      else {setEmergencyState("Released")}
+      if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
+      else { setEmergencyState("Released") }
 
       setlocalizationState(all_topic_state["localization_weight"])
 
-      if (all_topic_state["manual-auto_mode"]==="1"){setmanualAutoMode("Manual")}
-      else {setmanualAutoMode("Auto")}
+      if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
+      else { setmanualAutoMode("Auto") }
 
 
-      if(all_topic_state["voltage_sensor"]=="23" || all_topic_state["voltage_sensor"]=="22")
-      {setBatteryLeve("High")}
-      else if(all_topic_state["voltage_sensor"]=="21" || all_topic_state["voltage_sensor"]=="20")
-      {setBatteryLeve("Meduim")}
-      else{setBatteryLeve("Low")}
-      };
+      if (all_topic_state["voltage_sensor"] == "23" || all_topic_state["voltage_sensor"] == "22") { setBatteryLeve("High") }
+      else if (all_topic_state["voltage_sensor"] == "21" || all_topic_state["voltage_sensor"] == "20") { setBatteryLeve("Meduim") }
+      else { setBatteryLeve("Low") }
+    };
     return () => {
       ws.current?.close();
     };
@@ -84,14 +80,14 @@ const StatusBar = () => {
 
   return (
     <>
-        <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
-        <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
-        <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
-        <div className="Cgray statusbarlayout">N/A:N/A</div>
-        <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
-        <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
-        <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>
-        <div className="Cgray statusbarlayout">N/A:N/A</div>
+      <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
+      <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
+      <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
+      <div className="Cgray statusbarlayout">N/A:N/A</div>
+      <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
+      <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
+      <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>
+      <div className="Cgray statusbarlayout">N/A:N/A</div>
     </>
   );
 };

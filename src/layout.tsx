@@ -3,6 +3,7 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import { useState } from "react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import StatusBar from "./Components/Statusbar/Statusbar";
+import logo from "./assets/LOGO.png"
 
 const Layout = () => {
   const [dashboardPage, setDashboardPage] = useState(0);
@@ -36,7 +37,10 @@ const Layout = () => {
     <div className="Cgray w-screen h-screen p-4">
       <div className="grid grid-cols-[330px_1fr] h-full">
 
-        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 Cblue rounded-4xl m-3">        
+        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 Cblue rounded-4xl m-3">    
+          <div className=" flex justify-center items-center mt-5 mb-20 h-1/2 ">
+           <img className="" src={logo}/>
+          </div>
           <Sidebar returnNumber={getPageNumber} />
         </div>
 

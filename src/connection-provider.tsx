@@ -39,13 +39,13 @@ function ConnectionProvider({ children }: ProviderProps) {
     const newRos = new Ros({ url: rosbridgeUrl });
 
     // const newRos = new Ros({
-    //   url: "ws://127.0.0.1:9090",
+    //   url: "ws://${window.location.hostname}:9090",
     // });
 
     const reconnect = () => {
       setTimeout(() => {
         try {
-          // newRos.connect("ws://127.0.0.1:9090");
+          // newRos.connect("ws://${window.location.hostname}:9090");
           newRos.connect(rosbridgeUrl);
           console.log("Reconnected to ROS");
         } catch (error) {
@@ -55,7 +55,7 @@ function ConnectionProvider({ children }: ProviderProps) {
     };
 
     try {
-      // newRos.connect("ws://127.0.0.1:9090");
+      // newRos.connect("ws://${window.location.hostname}:9090");
       newRos.connect(rosbridgeUrl);
       setRos(newRos);
     } catch (error) {

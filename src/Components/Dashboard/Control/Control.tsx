@@ -70,7 +70,7 @@ const Control=()=>{
                 <div className="h-30 flex justify-center items-center Cgray mx-9 rounded-3xl">
                     <p></p>
                     <div>
-                        <input className="w-4xl accent-[#0F2A44]"
+                        <input className="w-4xl accent-[#09203E]"
                           type="range"
                           id="range-slider"
                           min="50"
