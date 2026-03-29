@@ -14,7 +14,7 @@ const StatusBar = () => {
 
   useEffect(() => {
     const get_current_states = async () => {
-      const resp = await fetch("http://${window.location.hostname}:8001/stausBar/States", { method: "GET" });
+      const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
       // const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`)
       const data = await resp.json();
       const all_topic_state = JSON.parse(data) // All topic values are now object
@@ -44,7 +44,7 @@ const StatusBar = () => {
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:9876");
+    ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
     // ws.current = new WebSocket(`ws://${window.location.hostname}:9876`)
     ws.current.onopen = () => { console.log("Connected!"); };
 
