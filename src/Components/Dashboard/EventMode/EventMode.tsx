@@ -6,7 +6,7 @@ const EventMode = () => {
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
   const [liveSeta, setLive_SETA] = useState("0");
-  const PointList = [1, 2, 3, 4, 5, 6];
+  const [pointsLists, setPointsLists] = useState([]);
 
 
   const typer=(message:any)=>{
@@ -35,6 +35,7 @@ const EventMode = () => {
     const getEventpointsList=async ()=>{
       const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getPoints/list`)
       const data= await res.json()
+      setPointsLists(data)
       console.log(data)
     }
     getEventpointsList()
@@ -54,7 +55,7 @@ const EventMode = () => {
             Add New Point
           </button>
           <select className="Cgray w-[300px] h-[50px] pl-[140px] rounded-2xl">
-            {PointList.map((pointNo) => (
+            {pointsLists.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>{pointNo}</option>
             ))}
           </select>
