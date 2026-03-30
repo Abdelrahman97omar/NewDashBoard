@@ -37,10 +37,10 @@ const Table = () => {
       2 * (message.pose.pose.orientation.w * message.pose.pose.orientation.z + message.pose.pose.orientation.x * message.pose.pose.orientation.y),
       1 - 2 * (message.pose.pose.orientation.y * message.pose.pose.orientation.y +message.pose.pose.orientation.z * message.pose.pose.orientation.z)
     );
-    const yawDeg = yaw * (180 / Math.PI);
-    setLive_X(message.pose.pose.position.x)
-    setLive_Y(message.pose.pose.position.y)
-    setLive_SETA(yawDeg)
+    const yawDeg :any = yaw * (180 / Math.PI);
+    setLive_X((message.pose.pose.position.x).toFixed(2))
+    setLive_Y((message.pose.pose.position.y).toFixed(2))
+    setLive_SETA((yawDeg).toFixed(2))
   }
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
@@ -106,7 +106,7 @@ const Table = () => {
 
   const handleAddNewTable = () => {
     const addNewTable = async () => {
-      const res = await fetch(`http://${window.location.hostname}:8001/tablemode/addnewtable`, {
+        await fetch(`http://${window.location.hostname}:8001/tablemode/addnewtable`, {
         method: "PUT",
       });
     };
