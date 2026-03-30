@@ -443,9 +443,6 @@
   .border-amber-900 {
     border-color: var(--color-amber-900);
   }
-  .border-fuchsia-900 {
-    border-color: var(--color-fuchsia-900);
-  }
   .border-gray-500 {
     border-color: var(--color-gray-500);
   }
@@ -466,9 +463,6 @@
   }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
-  }
-  .bg-fuchsia-500 {
-    background-color: var(--color-fuchsia-500);
   }
   .bg-gray-600 {
     background-color: var(--color-gray-600);

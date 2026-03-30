@@ -27,7 +27,14 @@ async def returnCurrentStates():
     print(CurrentStates)
     return CurrentStates
 
-
+@app.get("/eventMode/getPoints/list")
+async def get_event_points_list():
+    from os import listdir
+    import os
+    from os.path import isfile, join
+    onlyfiles = [f for f in listdir(f"/home/{os.environ.get('USER')}/Desktop/poinst") if isfile(join("/home/{os.environ.get('USER')}/Desktop/poinst", f))]
+    print(onlyfiles)
+    print(type(onlyfiles))
 
 @app.get("/tablemode/gettable")
 async def getTabledata():

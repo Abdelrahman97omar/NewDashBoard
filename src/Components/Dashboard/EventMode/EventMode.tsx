@@ -2,8 +2,28 @@ import { useEffect, useState, useRef } from "react";
 import { useRosConnection } from "../../../connection-provider";
 
 const EventMode = () => {
+  const { publishTopic,subscribeTopic } = useRosConnection();
+  const [live_X, setLive_X] = useState("0");
+  const [live_Y, setLive_Y] = useState("0");
+  const [liveSeta, setLive_SETA] = useState("0");
   const PointList = [1, 2, 3, 4, 5, 6];
-  const { publishTopic } = useRosConnection();
+
+
+  const typer=(message:any)=>{
+    const yaw = Math.atan2(
+      2 * (message.pose.pose.orientation.w * message.pose.pose.orientation.z + message.pose.pose.orientation.x * message.pose.pose.orientation.y),
+      1 - 2 * (message.pose.pose.orientation.y * message.pose.pose.orientation.y +message.pose.pose.orientation.z * message.pose.pose.orientation.z)
+    );
+    const yawDeg :any = yaw * (180 / Math.PI);
+    setLive_X(Number((message.pose.pose.position.x)).toFixed(2))
+    setLive_Y(Number((message.pose.pose.position.y)).toFixed(2))
+    setLive_SETA((Number(yawDeg)).toFixed(2))
+  }
+  subscribeTopic(
+    "/slamware_ros_sdk_server_node/odom",
+    "nav_msgs/Odometry",
+    (message: any) => typer(message)
+  );
 
   const eventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
@@ -11,21 +31,27 @@ const EventMode = () => {
     });
   };
 
+  useEffect(()=>{
+    const getEventpointsList=async ()=>{
+      const res= await fetch(`http://${window.location.hostname}:8001//eventMode/getPoints/list`)
+      const data= await res.json()
+    }
+  })
 
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
         <div className="border-2 border-green-500 h-full flex justify-around items-center">
-          <button className="rounded-lg bg-fuchsia-500 border-2 border-fuchsia-900 h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]">
             Append Point
           </button>
-          <button className="rounded-lg bg-fuchsia-500 border-2 border-fuchsia-900 h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]">
             Delete Points
           </button>
-          <button className="rounded-lg bg-fuchsia-500 border-2 border-fuchsia-900 h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]">
             Add New Point
           </button>
-          <select className="border-1 bg-blue-600 w-[300px] h-[50px] pl-[140px] rounded-2xl">
+          <select className="Cgray w-[300px] h-[50px] pl-[140px] rounded-2xl">
             {PointList.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>{pointNo}</option>
             ))}
