@@ -36,7 +36,8 @@ const EventMode = () => {
       const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getPoints/list`)
       const data= await res.json()
     }
-  })
+    getEventpointsList()
+  },[])
 
   return (
     <>
