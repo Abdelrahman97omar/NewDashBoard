@@ -33,7 +33,7 @@ const EventMode = () => {
 
   useEffect(()=>{
     const getEventpointsList=async ()=>{
-      const res= await fetch(`http://${window.location.hostname}:8001//eventMode/getPoints/list`)
+      const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getPoints/list`)
       const data= await res.json()
     }
   })
