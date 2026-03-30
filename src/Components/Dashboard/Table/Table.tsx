@@ -7,6 +7,10 @@ const Table = () => {
   const [manualPoint_Y, setManualPoint_Y] = useState("0");
   const [manualPoint_SETA, setManualPoint_SETA] = useState("0");
 
+  const [live_X, setLive_X] = useState(0);
+  const [live_Y, setLive_Y] = useState(0);
+  const [liveSeta, setLive_SETA] = useState(0);
+
   const [tableList, setTableList] = useState([]);
   const [selectedTable, setselectedTable] = useState(0);
 
@@ -29,7 +33,14 @@ const Table = () => {
   const { publishTopic,subscribeTopic } = useRosConnection();
 
   const typer=(message:any)=>{
-    console.log("done",message.pose.pose.position.y)
+    const yaw = Math.atan2(
+      2 * (message.pose.pose.orientation.w * message.pose.pose.orientation.z + message.pose.pose.orientation.x * message.pose.pose.orientation.y),
+      1 - 2 * (message.pose.pose.orientation.y * message.pose.pose.orientation.y +message.pose.pose.orientation.z * message.pose.pose.orientation.z)
+    );
+    const yawDeg = yaw * (180 / Math.PI);
+    setLive_X(message.pose.pose.position.x)
+    setLive_Y(message.pose.pose.position.y)
+    setLive_SETA(yawDeg)
   }
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
@@ -207,15 +218,15 @@ const Table = () => {
 
           <div className="XYSETA-VALUE-Position">
             <span className="font-bold text-xl mr-10">X:</span>
-            <div className="tableModeNumberFieled">0</div>
+            <div className="tableModeNumberFieled">{live_X}</div>
           </div>
           <div className="XYSETA-VALUE-Position">
             <span className="font-bold text-xl mr-10">Y:</span>
-            <div className="tableModeNumberFieled">0</div>
+            <div className="tableModeNumberFieled">{live_Y}</div>
           </div>
           <div className="XYSETA-VALUE-Position">
             <span className="font-bold text-xl mr-10">Theta:</span>
-            <div className="tableModeNumberFieled">0</div>
+            <div className="tableModeNumberFieled">{liveSeta}</div>
           </div>
           <div className="grid grid-cols-1">
             <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg">
