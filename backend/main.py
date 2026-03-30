@@ -130,7 +130,7 @@ async def update_table_number(table_number: int, commingData: dict = Body(...)):
     import mysql.connector
     import json
     mydb = mysql.connector.connect(
-    host="${window.location.hostname}",
+    host="localhost",
     user="robot",
     password="12345",
     database="goals"
