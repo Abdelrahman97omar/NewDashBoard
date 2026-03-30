@@ -7,9 +7,9 @@ const Table = () => {
   const [manualPoint_Y, setManualPoint_Y] = useState("0");
   const [manualPoint_SETA, setManualPoint_SETA] = useState("0");
 
-  const [live_X, setLive_X] = useState(0);
-  const [live_Y, setLive_Y] = useState(0);
-  const [liveSeta, setLive_SETA] = useState(0);
+  const [live_X, setLive_X] = useState("0");
+  const [live_Y, setLive_Y] = useState("0");
+  const [liveSeta, setLive_SETA] = useState("0");
 
   const [tableList, setTableList] = useState([]);
   const [selectedTable, setselectedTable] = useState(0);
@@ -37,10 +37,11 @@ const Table = () => {
       2 * (message.pose.pose.orientation.w * message.pose.pose.orientation.z + message.pose.pose.orientation.x * message.pose.pose.orientation.y),
       1 - 2 * (message.pose.pose.orientation.y * message.pose.pose.orientation.y +message.pose.pose.orientation.z * message.pose.pose.orientation.z)
     );
+
     const yawDeg :any = yaw * (180 / Math.PI);
-    setLive_X((message.pose.pose.position.x).toFixed(2))
-    setLive_Y((message.pose.pose.position.y).toFixed(2))
-    setLive_SETA((yawDeg).toFixed(2))
+    setLive_X(Number((message.pose.pose.position.x)).toFixed(2))
+    setLive_Y(Number((message.pose.pose.position.y)).toFixed(2))
+    setLive_SETA((Number(yawDeg)).toFixed(2))
   }
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
