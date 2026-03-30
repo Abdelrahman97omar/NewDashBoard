@@ -33,10 +33,8 @@ async def returnCurrentStates():
 async def getTabledata():
     import mysql.connector
     import json
-    import os
     mydb = mysql.connector.connect(
-    # host="localhost",
-    host=os.getenv("DB_HOST"),
+    host="localhost",
     user="robot",
     password="12345",
     database="goals"

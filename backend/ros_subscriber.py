@@ -1,6 +1,8 @@
 import websocket
 import rospy
 from std_msgs.msg import Float32,Int32, Bool,String
+from nav_msgs.msg import Odometry
+from tf.transformations import euler_from_quaternion
 import rel
 import redis
 import asyncio
@@ -118,6 +120,21 @@ def set_localization_weight(data):
     except Exception as e:
         print(f"failed to send websocket msg from localization_weight, the error is: {e}")
 
+def get_robot_odom(data):
+    x=data.pose.pose.position.x
+    y=data.pose.pose.position.y
+    orientation_q = data.pose.pose.orientation
+    orientation_list = [orientation_q.x, orientation_q.y, 
+                        orientation_q.z, orientation_q.w]
+    
+    # Convert to Euler angles (roll, pitch, yaw)
+    (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
+    
+    # yaw is the robot's theta
+    rospy.loginfo("Robot Theta (yaw): %f", yaw)
+
+
+
 def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
@@ -125,7 +142,8 @@ def listener():
     # rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
-    rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
+    rospy.Subscriber("/manual_flag", Int32, get_robot_odom)
+    # rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry, set_manual_auto_mode)
     rospy.spin()
 
 
