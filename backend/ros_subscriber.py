@@ -12,10 +12,6 @@ import time
 r = redis.Redis(host="localhost", port="6379")
 global ws
 
-# if r.get("all_topics") != None: #Retrive latest saved topic state if this node is restarted
-#     all_topics_state=json.loads(r.get("all_topics"))
-# else:
-
 all_topics_state={
     "enable_motors":"",
     "op_mode":None,
@@ -124,13 +120,9 @@ def get_robot_odom(data):
     x=data.pose.pose.position.x
     y=data.pose.pose.position.y
     orientation_q = data.pose.pose.orientation
-    orientation_list = [orientation_q.x, orientation_q.y, 
-                        orientation_q.z, orientation_q.w]
-    
-    # Convert to Euler angles (roll, pitch, yaw)
+    orientation_list = [orientation_q.x, orientation_q.y,orientation_q.z, orientation_q.w]
     (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
-    
-    # yaw is the robot's theta
+    yaw=yaw * 57.2958
     rospy.loginfo("Robot Theta (yaw): %f", yaw)
 
 

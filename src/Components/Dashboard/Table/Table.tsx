@@ -26,7 +26,16 @@ const Table = () => {
   const [B3_saved_Y, B3_setSaved_Y] = useState("0");
   const [B3_saved_SETA, B3_setSaved_SETA] = useState("0");
 
-  const { publishTopic } = useRosConnection();
+  const { publishTopic,subscribeTopic } = useRosConnection();
+
+  const typer=(message:any)=>{
+    console.log("done",message.pose.pose.position.y)
+  }
+  subscribeTopic(
+    "/slamware_ros_sdk_server_node/odom",
+    "nav_msgs/Odometry",
+    (message: any) => typer(message)
+  );
 
   const fetchTables = async () => {
     const res = await fetch(`http://${window.location.hostname}:8001/tablemode/gettable`, {
