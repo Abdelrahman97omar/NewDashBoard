@@ -142,8 +142,8 @@ def listener():
     # rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
-    rospy.Subscriber("/manual_flag", Int32, get_robot_odom)
-    # rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry, set_manual_auto_mode)
+    rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
+    rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry,get_robot_odom )
     rospy.spin()
 
 
