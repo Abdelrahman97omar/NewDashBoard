@@ -32,12 +32,14 @@ async def get_event_points_list():
     from os import listdir
     import os
     from os.path import isfile, join
+    file_list=set()
     base_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     onlyfiles = [f for f in listdir(base_path) if isfile(join(base_path, f))]
-    print(onlyfiles)
-    print(type(onlyfiles))
+    for file in onlyfiles:
+        if "points" in file:
+            file_list.add(file)
+    return file_list
 
-    return onlyfiles
 @app.get("/tablemode/gettable")
 async def getTabledata():
     import mysql.connector
