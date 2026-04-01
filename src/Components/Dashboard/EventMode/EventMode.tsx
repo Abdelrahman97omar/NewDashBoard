@@ -54,7 +54,7 @@ const EventMode = () => {
           <button className="rounded-lg Cgray h-[50px] w-[200px]">
             Add New Point
           </button>
-          <select className="Cgray w-[300px] h-[50px] pl-[140px] rounded-2xl">
+          <select className="Cgray w-[300px] text-center h-[50px] rounded-2xl">
             {pointsLists.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>{pointNo}</option>
             ))}

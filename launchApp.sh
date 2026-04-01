@@ -1,4 +1,4 @@
-sudo ufw allow 8001
+echo 246810 | sudo -S ufw allow 8001
 sudo ufw allow 9090  
 sudo ufw allow 9876  
 sudo ufw allow 5173  
