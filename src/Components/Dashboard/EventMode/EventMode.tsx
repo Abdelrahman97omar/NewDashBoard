@@ -6,7 +6,7 @@ const EventMode = () => {
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
   const [liveSeta, setLive_SETA] = useState("0");
-  const [currentPointFile, setCurrentPointFile] = useState("0.0");
+  const [currentPointFile, setCurrentPointFile] = useState("");
   const [pointsLists, setPointsLists] = useState([]);
 
 
