@@ -69,6 +69,7 @@ const EventMode = () => {
   }
 
   const handleRemovePoint= async()=>{
+    console.log(currentPointFile)
     await fetch(`http://${window.location.hostname}:8001/eventMode/deletePoint/${currentPointFile}`,{
       method:"DELETE"
     })
