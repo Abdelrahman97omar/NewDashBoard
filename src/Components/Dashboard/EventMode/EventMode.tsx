@@ -73,6 +73,11 @@ const EventMode = () => {
       method:"DELETE"
     })
   }
+  const handleclearPoint= async()=>{
+    await fetch(`http://${window.location.hostname}:8001/eventMode/clearPoint/${currentPointFile}`,{
+      method:"PATCH"
+    })
+  }
 
   return (
     <>
@@ -86,6 +91,9 @@ const EventMode = () => {
           </button>
           <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleAddNewPoint}>
             Add New Point
+          </button>
+          <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleclearPoint}>
+            Clear Point
           </button>
           <select className="Cgray w-[300px] text-center h-[50px] rounded-2xl"
           onChange={(e) =>setCurrentPointFile(e.target.value)}>

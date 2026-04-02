@@ -50,5 +50,12 @@ async def get_event_points_list():
 @router.delete("/deletePoint/{pointNumber}")
 async def remove_event_points_file(pointNumber):
     import os
+    print(pointNumber)
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     os.remove(f"{file_path}/points{pointNumber}.txt") 
+
+@router.patch("/deletePoint/{pointNumber}")
+async def clear_points_file(pointNumber):
+    import os
+    file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
+    open(f"{file_path}/points{pointNumber}", 'w').close()
