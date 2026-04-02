@@ -47,3 +47,21 @@ async def get_event_points_list():
         f.close()
 
     
+@router.delete("/deletePoint/{pointNumber}")
+async def remove_event_points_file(pointNumber):
+    print(pointNumber)
+    # file_list=[]
+    # file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
+    # pointFiles = [f for f in listdir(file_path) if isfile(join(file_path, f))]
+    # for file in pointFiles:
+    #     if "points" in file and "txt" in file:
+    #         try:
+    #             file=file.split(".txt")[0]
+    #             file=file.split("points")[1]
+    #             file_number=int(file)
+    #             file_list.append(file_number)
+    #         except Exception as e:
+    #             print("error:" ,e)
+    # file_list.sort()
+
+    # return file_list

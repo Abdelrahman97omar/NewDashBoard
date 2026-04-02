@@ -26,6 +26,7 @@ const EventMode = () => {
     (message: any) => typer(message)
   );
 
+
   const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 1,
@@ -35,8 +36,7 @@ const EventMode = () => {
   const appendPointHandler=()=>{
     console.log(parseFloat(currentPointFile))
     publishTopic("/points_no", "std_msgs/Float32", {
-      data: parseFloat(currentPointFile),
-      // data: 1.0,
+      data: parseFloat(currentPointFile)
     });
 
     publishTopic("/append", "std_msgs/Bool", {
@@ -67,6 +67,11 @@ const EventMode = () => {
     console.log(data)
     getEventpointsList()
   }
+
+  const handleRemovePoint= async()=>{
+    await fetch(`http://${window.location.hostname}:8001/eventMode/deletePoint/${currentPointFile}`)
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
@@ -74,7 +79,7 @@ const EventMode = () => {
           <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={appendPointHandler}>
             Append Point
           </button>
-          <button className="rounded-lg Cgray h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleRemovePoint}>
             Delete Points
           </button>
           <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleAddNewPoint}>
