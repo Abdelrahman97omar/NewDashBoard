@@ -6,6 +6,7 @@ const EventMode = () => {
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
   const [liveSeta, setLive_SETA] = useState("0");
+  const [currentPointFile, setCurrentPointFile] = useState("0.0");
   const [pointsLists, setPointsLists] = useState([]);
 
 
@@ -32,9 +33,10 @@ const EventMode = () => {
   };
 
   const appendPointHandler=()=>{
-
+    console.log(parseFloat(currentPointFile))
     publishTopic("/points_no", "std_msgs/Float32", {
-      data: 1.0,
+      data: parseFloat(currentPointFile),
+      // data: 1.0,
     });
 
     publishTopic("/append", "std_msgs/Bool", {
@@ -78,7 +80,8 @@ const EventMode = () => {
           <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleAddNewPoint}>
             Add New Point
           </button>
-          <select className="Cgray w-[300px] text-center h-[50px] rounded-2xl">
+          <select className="Cgray w-[300px] text-center h-[50px] rounded-2xl"
+          onChange={(e) =>setCurrentPointFile(e.target.value)}>
             {pointsLists.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>{pointNo}</option>
             ))}
