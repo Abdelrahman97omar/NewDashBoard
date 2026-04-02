@@ -4,45 +4,32 @@ from fastapi import APIRouter
 import mysql.connector
 import json
 
-# Create a router for table mode endpoints
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
+mydb = mysql.connector.connect(
+host="localhost",
+user="robot",
+password="12345",
+database="goals"
+)
 
-@router.get("/tablemode/gettable")
+@router.get("/gettable")
 async def getTabledata():
-    import mysql.connector
-    import json
-    mydb = mysql.connector.connect(
-    host="localhost",
-    user="robot",
-    password="12345",
-    database="goals"
-    )
-
     mycursor = mydb.cursor()
     mycursor.execute("SELECT TABLE_NO FROM Locations")
     no_of_tables = [row[0] for row in mycursor.fetchall()] #fetchall() -> fetch all rows of the column 
     no_of_tables=json.dumps(no_of_tables)  
-
     return no_of_tables
 
 
-@router.put("/tablemode/addnewtable")
+@router.put("/addnewtable")
 async def add_new_table(TABLE_NO=None):
-
-    import mysql.connector
-    mydb = mysql.connector.connect(
-    host="localhost",
-    user="robot",
-    password="12345",
-    database="goals"
-    )
     mycursor = mydb.cursor()
     sql=None
     val=None
-
     if TABLE_NO==None:
-        mycursor.execute("SELECT NUMBER_OF_TABLES FROM Locations")
+        mycursor.execute("SELECT TABLE_NO FROM Locations")
+        # mycursor.execute("SELECT NUMBER_OF_TABLES FROM Locations")
         no_of_tables = mycursor.fetchall() # All rows of the column
         TABLE_NO=len(no_of_tables)
     else:
@@ -58,25 +45,17 @@ async def add_new_table(TABLE_NO=None):
     print(mycursor.rowcount, "record inserted.")
 
 
-@router.delete("/tablemode/removetable")
+@router.delete("/removetable")
 async def remove_table():
-    import mysql.connector
-    mydb = mysql.connector.connect(
-    host="localhost",
-    user="robot",
-    password="12345",
-    database="goals"
-    )
     mycursor = mydb.cursor()
     sql=None
     val=None
     try:
-        mycursor.execute("SELECT NUMBER_OF_TABLES FROM Locations")
+        mycursor.execute("SELECT TABLE_NO FROM Locations")
         no_of_tables = mycursor.fetchall() # All rows of the column
-        # last_table=len(no_of_tables)
         last_table=no_of_tables[-1][0]
         print(f"the last table is{last_table}")
-        sql = "DELETE FROM Locations WHERE NUMBER_OF_TABLES = %s"
+        sql = "DELETE FROM Locations WHERE TABLE_NO = %s"
         val = (str(last_table), )
         mycursor.execute(sql,val)
         mydb.commit()
@@ -84,16 +63,8 @@ async def remove_table():
         print("Error deleting last table:",e)
 
 
-@router.get("/tablemode/getpoints/{table_no}")
+@router.get("/getpoints/{table_no}")
 async def get_table_points(table_no):
-    import mysql.connector
-    import json
-    mydb = mysql.connector.connect(
-    host="localhost",
-    user="robot",
-    password="12345",
-    database="goals"
-    )
     TABLE_NO = table_no
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT * FROM Locations WHERE TABLE_NO = {TABLE_NO} ")
@@ -104,16 +75,8 @@ async def get_table_points(table_no):
     return no_of_tables
 
 
-@router.patch("/tablemode/updatepoints/{table_number}")
+@router.patch("/updatepoints/{table_number}")
 async def update_table_number(table_number: int, commingData: dict = Body(...)):
-    import mysql.connector
-    import json
-    mydb = mysql.connector.connect(
-    host="localhost",
-    user="robot",
-    password="12345",
-    database="goals"
-    )
     mycursor = mydb.cursor()
     whichPoints= commingData["pointsType"]
     newPoints= commingData["points"]

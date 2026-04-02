@@ -4,6 +4,7 @@ import Table from "./Table/Table";
 import SettingS from "./Settings/Settings";
 import EventMode from "./EventMode/EventMode";
 import Control from "./Control/Control";
+import WifiSettings from "./wifiSettings/wifiSettings"
 
 type MyProp = {
   page: number;
@@ -28,6 +29,26 @@ const Dashboard = ({ page }: MyProp) => {
     return (
       <div >
         <Table/>
+      </div>
+    );
+  }
+  // if (page === 4) {
+  //   return (
+  //     <div >
+  //     </div>
+  //   );
+  // }
+
+  // if (page === 5) {
+  //   return (
+  //     <div >
+  //     </div>
+    // );
+
+    if (page === 6) {
+    return (
+      <div >
+        <WifiSettings/>
       </div>
     );
   }

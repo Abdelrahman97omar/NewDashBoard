@@ -31,16 +31,27 @@ const EventMode = () => {
     });
   };
 
+  const getEventpointsList=async ()=>{
+    const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getAllPoints`)
+    const data= await res.json()
+    setPointsLists(data)
+    // console.log(data)
+  }
+
   useEffect(()=>{
-    const getEventpointsList=async ()=>{
-      const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getPoints/list`)
-      const data= await res.json()
-      setPointsLists(data)
-      console.log(data)
-    }
     getEventpointsList()
   },[])
 
+  const handleAddNewPoint=async()=>{
+   const res=  await fetch(`http://${window.location.hostname}:8001/eventMode/addNewPoint`,
+      {
+        method:"PUT",
+      }
+    )
+    const data = res.json()
+    console.log(data)
+    getEventpointsList()
+  }
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
@@ -51,7 +62,7 @@ const EventMode = () => {
           <button className="rounded-lg Cgray h-[50px] w-[200px]">
             Delete Points
           </button>
-          <button className="rounded-lg Cgray h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={handleAddNewPoint}>
             Add New Point
           </button>
           <select className="Cgray w-[300px] text-center h-[50px] rounded-2xl">

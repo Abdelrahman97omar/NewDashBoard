@@ -9,7 +9,7 @@ const Table = () => {
 
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
-  const [liveSeta, setLive_SETA] = useState("0");
+  const [live_Seta, setLive_SETA] = useState("0");
 
   const [tableList, setTableList] = useState([]);
   const [selectedTable, setselectedTable] = useState(0);
@@ -138,8 +138,27 @@ const Table = () => {
   }, [selectedTable]);
 
   const setNewPoints = async (sentPointsType: string,islivepoints:boolean) => {
-    //set Points live
     if (islivepoints){
+      if (sentPointsType==="Main"){
+        setSaved_X(live_X)
+        setSaved_Y(live_Y)
+        setSaved_SETA(live_Seta)
+      }
+      else if (sentPointsType==="BackUp_1"){
+        B1_setSaved_X(live_X)
+        B1_setSaved_Y(live_Y)
+        B1_setSaved_SETA(live_Seta)
+      }
+      else if (sentPointsType==="BackUp_2"){
+        B2_setSaved_X(live_X)
+        B2_setSaved_Y(live_Y)
+        B2_setSaved_SETA(live_Seta)
+      }
+      else if (sentPointsType==="BackUp_3"){
+        B3_setSaved_X(live_X)
+        B3_setSaved_Y(live_Y)
+        B3_setSaved_SETA(live_Seta)
+      }
     await fetch(
       `http://${window.location.hostname}:8001/tablemode/updatepoints/${selectedTable}`,
       {
@@ -152,7 +171,7 @@ const Table = () => {
           points: [
             Number(live_X),
             Number(live_Y),
-            Number(liveSeta),
+            Number(live_Seta),
 
           ],
         }),
@@ -160,6 +179,27 @@ const Table = () => {
     );}
     //Set points manullay
     else if (!islivepoints){
+
+      if (sentPointsType==="Main"){
+        setSaved_X(manualPoint_X)
+        setSaved_Y(manualPoint_Y)
+        setSaved_SETA(manualPoint_SETA)
+      }
+      else if (sentPointsType==="BackUp_1"){
+        B1_setSaved_X(manualPoint_X)
+        B1_setSaved_Y(manualPoint_Y)
+        B1_setSaved_SETA(manualPoint_SETA)
+      }
+      else if (sentPointsType==="BackUp_2"){
+        B2_setSaved_X(manualPoint_X)
+        B2_setSaved_Y(manualPoint_Y)
+        B2_setSaved_SETA(manualPoint_SETA)
+      }
+      else if (sentPointsType==="BackUp_3"){
+        B3_setSaved_X(manualPoint_X)
+        B3_setSaved_Y(manualPoint_Y)
+        B3_setSaved_SETA(manualPoint_SETA)
+      }
     await fetch(
       `http://${window.location.hostname}:8001/tablemode/updatepoints/${selectedTable}`,
       {
@@ -249,7 +289,7 @@ const Table = () => {
           </div>
           <div className="XYSETA-VALUE-Position">
             <span className="font-bold text-xl mr-10">Theta:</span>
-            <div className="tableModeNumberFieled">{liveSeta}</div>
+            <div className="tableModeNumberFieled">{live_Seta}</div>
           </div>
           <div className="grid grid-cols-1">
             <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg" onClick={() => setNewPoints("Main",true)}>
