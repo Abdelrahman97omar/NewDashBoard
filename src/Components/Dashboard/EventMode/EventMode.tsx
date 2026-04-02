@@ -50,7 +50,9 @@ const EventMode = () => {
     const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getAllPoints`)
     const data= await res.json()
     setPointsLists(data)
-    // console.log(data)
+    console.log(data);
+    console.log("The first point in teh list is:",data[0])
+    setCurrentPointFile(data[0])
   }
 
   useEffect(()=>{
@@ -63,16 +65,15 @@ const EventMode = () => {
         method:"PUT",
       }
     )
-    const data = res.json()
-    console.log(data)
     getEventpointsList()
   }
 
   const handleRemovePoint= async()=>{
-    console.log(currentPointFile)
+    console.log("the currnet files are",currentPointFile)
     await fetch(`http://${window.location.hostname}:8001/eventMode/deletePoint/${currentPointFile}`,{
       method:"DELETE"
     })
+    getEventpointsList()
   }
   const handleclearPoint= async()=>{
     await fetch(`http://${window.location.hostname}:8001/eventMode/clearPoint/${currentPointFile}`,{

@@ -40,11 +40,19 @@ async def get_event_points_list():
             except Exception as e:
                 print("error:" ,e)
     file_list.sort()
-    new_file_number=f"points{file_list[-1]+1}.txt"
-    with open(f"{file_path}/{new_file_number}", "w") as f:
-        print("Creating new file",new_file_number)
-        f.write("")
-        f.close()
+    if not file_list:
+        new_file_number=f"points1.txt"
+        with open(f"{file_path}/{new_file_number}", "w") as f:
+            print("Creating new file",new_file_number)
+            f.write("")
+            f.close()
+            return
+    else:
+        new_file_number=f"points{file_list[-1]+1}.txt"
+        with open(f"{file_path}/{new_file_number}", "w") as f:
+            print("Creating new file",new_file_number)
+            f.write("")
+            f.close()
 
     
 @router.delete("/deletePoint/{pointNumber}")
@@ -54,7 +62,7 @@ async def remove_event_points_file(pointNumber):
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     os.remove(f"{file_path}/points{pointNumber}.txt") 
 
-@router.patch("/deletePoint/{pointNumber}")
+@router.patch("/clearPoint/{pointNumber}")
 async def clear_points_file(pointNumber):
     import os
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
