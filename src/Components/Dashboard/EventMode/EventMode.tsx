@@ -25,11 +25,24 @@ const EventMode = () => {
     (message: any) => typer(message)
   );
 
-  const eventmodeButtonhandler = () => {
+  const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
       data: 1,
     });
   };
+
+  const appendPointHandler=()=>{
+
+    publishTopic("/points_no", "std_msgs/Float32", {
+      data: 1.0,
+    });
+
+    publishTopic("/append", "std_msgs/Bool", {
+      data: true,
+    });
+
+
+  }
 
   const getEventpointsList=async ()=>{
     const res= await fetch(`http://${window.location.hostname}:8001/eventMode/getAllPoints`)
@@ -56,7 +69,7 @@ const EventMode = () => {
     <>
       <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
         <div className="border-2 border-green-500 h-full flex justify-around items-center">
-          <button className="rounded-lg Cgray h-[50px] w-[200px]">
+          <button className="rounded-lg Cgray h-[50px] w-[200px]" onClick={appendPointHandler}>
             Append Point
           </button>
           <button className="rounded-lg Cgray h-[50px] w-[200px]">
@@ -72,7 +85,7 @@ const EventMode = () => {
           </select>
         </div>
         <div className="border border-amber-900 h-full flex justify-center items-center">
-          <button className="border-3 border-gray-500 rounded-3xl w-200 h-50 bg-amber-700" onClick={eventmodeButtonhandler}> Set Event Mode</button>
+          <button className="border-3 border-gray-500 rounded-3xl w-200 h-50 bg-amber-700" onClick={setEventmodeButtonhandler}> Set Event Mode</button>
         </div>
       </div>
     </>
