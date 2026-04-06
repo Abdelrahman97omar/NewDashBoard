@@ -27,6 +27,8 @@ async def returnCurrentStates():
 @app.get("/control/getRobotSpeed")
 async def get_motor_speed():
     CurrentStates=r.get("all_topics")
+    print(CurrentStates["robot_speed"])
+    print(type(CurrentStates["robot_speed"]))
     return CurrentStates["robot_speed"]
 
 
