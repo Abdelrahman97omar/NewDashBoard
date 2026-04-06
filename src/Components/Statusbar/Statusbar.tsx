@@ -10,7 +10,7 @@ const StatusBar = () => {
   const [emergencyState, setEmergencyState] = useState("");
   const [localizationState, setlocalizationState] = useState("");
   const [manualAutoMode, setmanualAutoMode] = useState("");
-  const [robotSpeed,setRobotSpeed]= useState(null)
+  const [robotSpeed,setRobotSpeed]= useState(0)
 
 
   useEffect(() => {
@@ -37,7 +37,8 @@ const StatusBar = () => {
       else { setBatteryLeve("Low") }
 
       setlocalizationState(all_topic_state["localization_weight"])
-      setRobotSpeed(all_topic_state["robot_speed"])
+      const CurrentRobotSpeed =Number( all_topic_state["robot_speed"])*0.007
+      setRobotSpeed(CurrentRobotSpeed)
 
     };
     get_current_states();
