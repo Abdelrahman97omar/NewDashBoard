@@ -17,7 +17,7 @@ const StatusBar = () => {
     const get_current_states = async () => {
       const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
       const data = await resp.json();
-      const all_topic_state = JSON.parse(data) // All topic values are now object
+      const all_topic_state = JSON.parse(data)
 
       if (all_topic_state["op_mode"] === "1") { setOpMode("Event"); }
       else { setOpMode("Table"); }
@@ -71,7 +71,6 @@ const StatusBar = () => {
       else { setBatteryLeve("Low") }
       
       setlocalizationState(all_topic_state["localization_weight"])
-      console.log(all_topic_state["localization_weight"] , 'raABIE');
       
       const CurrentRobotSpeed =(Number( all_topic_state["robot_speed"])*0.007).toFixed(2)
       setRobotSpeed(CurrentRobotSpeed)
