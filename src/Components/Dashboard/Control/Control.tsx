@@ -97,6 +97,7 @@ const Control=()=>{
                             max="100"
                             step="1"
                             value={sliderValue}
+                            defaultValue={sliderValue}
                             onChange={handleSliderChange}
                             />
                         </div>
