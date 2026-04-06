@@ -85,7 +85,7 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
       <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
       <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
-      <div className="Cgray statusbarlayout">Speed: {}</div>
+      <div className="Cgray statusbarlayout">Speed: {robotSpeed}</div>
       <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
       <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
       <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>
