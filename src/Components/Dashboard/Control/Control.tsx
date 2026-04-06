@@ -20,16 +20,14 @@ const Control=()=>{
         }
         getRobotSpped()
     },[])
-    const handleSliderChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
-        if(Number(event.target.value)<=49){return}
-        setSliderValue(Number(event.target.value))
-        const new_speed=sliderValue
-        publishTopic("/set_speed",
-            "std_msgs/Float32", {
-           data: new_speed,
-         });
-        console.log(Number(event.target.value))
-    }
+    const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const new_speed = Number(event.target.value);
+        if(new_speed <= 49) return;
+    
+        setSliderValue(new_speed);
+        publishTopic("/set_speed", "std_msgs/Float32", { data: new_speed });
+        console.log(new_speed);
+    };
 
     const handleSetManual=()=>{
         let newManualFlag = 0
