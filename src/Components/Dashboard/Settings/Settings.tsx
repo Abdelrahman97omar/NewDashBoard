@@ -41,8 +41,8 @@ const SettingS = () => {
   };
 
   const handleResumeMap = () => {
-    publishTopic("/pause_mapping", "std_msgs/Bool", {
-      data: false,
+    publishTopic("/resume_mapping", "std_msgs/Bool", {
+      data: true,
     });
   };
   const handlePauseMapping = () => {
