@@ -10,6 +10,7 @@ const StatusBar = () => {
   const [emergencyState, setEmergencyState] = useState("");
   const [localizationState, setlocalizationState] = useState("");
   const [manualAutoMode, setmanualAutoMode] = useState("");
+  const [robotSpeed,setRobotSpeed]= useState(null)
 
 
   useEffect(() => {
@@ -27,8 +28,6 @@ const StatusBar = () => {
       if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
       else { setEmergencyState("Released") }
 
-      setlocalizationState(all_topic_state["localization_weight"])
-
       if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
       else { setmanualAutoMode("Auto") }
 
@@ -36,6 +35,10 @@ const StatusBar = () => {
       if (all_topic_state["voltage_sensor"] == "23" || all_topic_state["voltage_sensor"] == "22") { setBatteryLeve("High") }
       else if (all_topic_state["voltage_sensor"] == "21" || all_topic_state["voltage_sensor"] == "20") { setBatteryLeve("Meduim") }
       else { setBatteryLeve("Low") }
+
+      setlocalizationState(all_topic_state["localization_weight"])
+      setRobotSpeed(all_topic_state["robot_speed"])
+
     };
     get_current_states();
   }, []);
@@ -60,15 +63,15 @@ const StatusBar = () => {
       if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
       else { setEmergencyState("Released") }
 
-      setlocalizationState(all_topic_state["localization_weight"])
-
       if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
       else { setmanualAutoMode("Auto") }
-
 
       if (all_topic_state["voltage_sensor"] == "23" || all_topic_state["voltage_sensor"] == "22") { setBatteryLeve("High") }
       else if (all_topic_state["voltage_sensor"] == "21" || all_topic_state["voltage_sensor"] == "20") { setBatteryLeve("Meduim") }
       else { setBatteryLeve("Low") }
+      
+      setlocalizationState(all_topic_state["localization_weight"])
+      setRobotSpeed(all_topic_state["robot_speed"])
     };
     return () => {
       ws.current?.close();
@@ -82,7 +85,7 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
       <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
       <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
-      <div className="Cgray statusbarlayout">N/A:N/A</div>
+      <div className="Cgray statusbarlayout">Speed: {}</div>
       <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
       <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
       <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>

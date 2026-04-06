@@ -18,7 +18,8 @@ all_topics_state={
     "voltage_sensor":"",
     "emergency_state":"",
     "localization_weight":"",
-    "manual-auto_mode":""
+    "manual-auto_mode":"",
+    "robot_speed":"",
 }
 
 
@@ -116,6 +117,19 @@ def set_localization_weight(data):
     except Exception as e:
         print(f"failed to send websocket msg from localization_weight, the error is: {e}")
 
+def set_robot_speed(data):
+    try:
+        all_topics_state["robot_speed"]=str(data.data)
+        r.set("all_topics", json.dumps(all_topics_state))
+    except Exception as e:
+        print("There is an error in setting robot speed in redis:",e)
+    try:
+        msg_to_ws=json.dumps(all_topics_state)
+        ws.send(msg_to_ws)
+        print("The websocket msg is sent successfully..")
+    except Exception as e:
+        print(f"failed to send websocket msg from set_robot_speed, the error is: {e}")
+
 # def get_robot_odom(data):
 #     x=data.pose.pose.position.x
 #     y=data.pose.pose.position.y
@@ -131,11 +145,12 @@ def listener():
     rospy.init_node('listener', anonymous=True)
     rospy.Subscriber("/op_mode", Int32, set_op_mode)
     rospy.Subscriber("/enable_motors", Bool, set_motor_mode)
-    # rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.Subscriber("/emergency_button", Int32, set_emergency_state)
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
     rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
+    rospy.Subscriber("/set_speed", Float32, set_robot_speed)
     # rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry,get_robot_odom )
+    # rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.spin()
 
 

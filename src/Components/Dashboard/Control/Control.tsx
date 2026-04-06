@@ -4,9 +4,10 @@ const Control=()=>{
     const { publishTopic } = useRosConnection();
     const [manualState,setManualState]= useState(0)
     const [resumeState,setresumeState]= useState(0)
-    const [sliderValue,setSliderValue]= useState(0)
+    const [sliderValue,setSliderValue]= useState(50)
 
     const handleSliderChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
+        if(Number(event.target.value)<=49){return}
         setSliderValue(Number(event.target.value))
         const new_speed=sliderValue
         publishTopic("/set_speed",
@@ -71,23 +72,28 @@ const Control=()=>{
                 </div>
 
 
-                <div className="h-30 flex justify-center items-center Cgray mx-9 rounded-3xl">
-                    <p></p>
-                    <div>
-      
-                        <input className="w-4xl accent-[#09203E]"
-                          type="range"
-                          id="range-slider"
-                          min="50"
-                          max="100"
-                          step="1"
-                          value={sliderValue}
-                          onChange={handleSliderChange}
-                        />
+                <div className="h-30  grid-rows-[15_1fr]  Cgray mx-9 rounded-3xl">
+                    <div className="flex justify-center items-center mt-5">
+                        <p className="mr-6 text-3xl font-bold text-[#09203E]">Speed</p>
+                        <div>
+                            <input className="w-4xl Cgray h-6 accent-[#09203E] "
+                            type="range"
+                            id="range-slider"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value={sliderValue}
+                            onChange={handleSliderChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="border-2 ">
+                        <p className="text-[#09203E] text-3xl">{sliderValue}%</p>
                     </div>
                 </div>
 
-                <div className=" h-full"></div>
+
+                <div className=" h-full border-2"></div>
             </div>
         </>
     )
