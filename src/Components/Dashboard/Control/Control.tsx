@@ -8,11 +8,11 @@ const Control=()=>{
 
     useEffect(()=>{
         const  getRobotSpped= async()=>{
-            const res= await fetch (`http//:${window.location.hostname}:8001/control/getRobotSpeed`,
+            const res= await fetch (`http://${window.location.hostname}:8001/control/getRobotSpeed`,
                 {
                     method:"GET"
                 })
-            const data=res.json()
+            const data=await res.json()
             console.log(data)
             console.log(typeof(data))
             setSliderValue(Number(data))
@@ -81,7 +81,7 @@ const Control=()=>{
                     <button className="controlButtons"
                     onClick={handleGoHome}>Go Home</button>
 
-                    <button className={resumeState==1?"controlButtons":"pressedControlButtons"}
+                    <button className={resumeState===1?"controlButtons":"pressedControlButtons"}
                     onClick={handleResume}>Resume</button>
                 </div>
 
@@ -97,7 +97,6 @@ const Control=()=>{
                             max="100"
                             step="1"
                             value={sliderValue}
-                            defaultValue={sliderValue}
                             onChange={handleSliderChange}
                             />
                         </div>
