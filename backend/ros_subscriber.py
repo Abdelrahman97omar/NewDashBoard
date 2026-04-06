@@ -19,38 +19,77 @@ all_topics_state={
     "emergency_state":"",
     "localization_weight":"",
     "manual-auto_mode":"",
-    "robot_speed":"0",
+    "robot_speed":"",
 }
-
 
 def set_battery_state(data):
     global ws
-    print("Enetering get battery state")
+    print("Entering get battery state")
+    
     try:
-        Current_states=json.loads(r.get("all_topics"))
-        time.sleep(1)
-        print(Current_states)
-        previous_battery_state=int(Current_states["voltage_sensor"])
+        raw = r.get("all_topics")
+        if raw is None:
+            print("Redis key 'all_topics' not found yet, skipping comparison.")
+            previous_battery_state = None
+        else:
+            current_states = json.loads(raw)
+            voltage_val = current_states.get("voltage_sensor", "")
+            
+            # Only convert to int if the value is a non-empty, numeric string
+            if str(voltage_val).strip().lstrip('-').isdigit():
+                previous_battery_state = int(voltage_val)
+            else:
+                print(f"voltage_sensor value is not numeric yet: '{voltage_val}', skipping comparison.")
+                previous_battery_state = None
+
     except Exception as e:
-        print("hte current states is",Current_states)
-        print("Error fetching the latest battery state due to:",e)
+        print(f"Error fetching the latest battery state due to: {e}")
         return
-    # if int(data.data)== previous_battery_state:
-        # return
+
     try:
-        print("Recieved new Battery Data")
-        all_topics_state["voltage_sensor"]=int(data.data)+4
+        print("Received new Battery Data")
+        all_topics_state["voltage_sensor"] = int(data.data) + 4
         print(all_topics_state["voltage_sensor"])
-        r.set("all_topics",json.dumps(all_topics_state))
-        print("Saved the new battery data succefully in redis")
+        r.set("all_topics", json.dumps(all_topics_state))
+        print("Saved the new battery data successfully in Redis")
     except Exception as e:
-        print(f"Error saving data in redis in Voltage sensor callBack Function. The error is:{e}")
+        print(f"Error saving data in Redis in voltage sensor callback: {e}")
+        return
+
     try:
-        msg_to_send=json.dumps(all_topics_state)
+        msg_to_send = json.dumps(all_topics_state)
         ws.send(msg_to_send)
-        print("publsihing teh battery msg to websocket")
+        print("Publishing the battery msg to WebSocket")
     except Exception as e:
-        print(f"Error send new ws msg from set_battery_state due to {e}")
+        print(f"Error sending new WebSocket message: {e}")
+# def set_battery_state(data):
+#     global ws
+#     print("Enetering get battery state")
+#     try:
+#         Current_states=json.loads(r.get("all_topics"))
+#         time.sleep(1)
+#         print(Current_states)
+#         previous_battery_state=int(Current_states["voltage_sensor"])
+#     except Exception as e:
+#         print("hte current states is",Current_states)
+#         print("Error fetching the latest battery state due to:",e)
+#         return
+#     # if int(data.data)== previous_battery_state:
+#         # return
+#     try:
+#         print("Recieved new Battery Data")
+#         all_topics_state["voltage_sensor"]=int(data.data)+4
+#         print(all_topics_state["voltage_sensor"])
+#         r.set("all_topics",json.dumps(all_topics_state))
+#         print("Saved the new battery data succefully in redis")
+#     except Exception as e:
+#         print(f"Error saving data in redis in Voltage sensor callBack Function. The error is:{e}")
+#     try:
+#         msg_to_send=json.dumps(all_topics_state)
+#         ws.send(msg_to_send)
+#         print("publsihing teh battery msg to websocket")
+#     except Exception as e:
+#         print(f"Error send new ws msg from set_battery_state due to {e}")
 
 def set_op_mode(data):
     global ws
