@@ -33,7 +33,7 @@ def set_battery_state(data):
     if int(data.data)== previous_battery_state:
         return
     try:
-        all_topics_state["voltage_sensor"]=int(data.data)+2
+        all_topics_state["voltage_sensor"]=int(data.data)
         r.set("all_topics",json.dumps(all_topics_state))
         print("Saved the new battery data succefully in redis")
     except Exception as e:

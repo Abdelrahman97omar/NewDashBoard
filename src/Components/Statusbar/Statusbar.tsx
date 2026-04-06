@@ -71,6 +71,8 @@ const StatusBar = () => {
       else { setBatteryLeve("Low") }
       
       setlocalizationState(all_topic_state["localization_weight"])
+      console.log(all_topic_state["localization_weight"] , 'raABIE');
+      
       const CurrentRobotSpeed =(Number( all_topic_state["robot_speed"])*0.007).toFixed(2)
       setRobotSpeed(CurrentRobotSpeed)
     };
