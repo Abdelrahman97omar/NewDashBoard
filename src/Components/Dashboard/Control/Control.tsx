@@ -8,7 +8,11 @@ const Control=()=>{
 
     const handleSliderChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
         setSliderValue(Number(event.target.value))
-
+        const new_speed=sliderValue
+        publishTopic("/set_speed",
+            "std_msgs/Float32", {
+           data: new_speed,
+         });
         console.log(Number(event.target.value))
     }
 
@@ -70,6 +74,7 @@ const Control=()=>{
                 <div className="h-30 flex justify-center items-center Cgray mx-9 rounded-3xl">
                     <p></p>
                     <div>
+      
                         <input className="w-4xl accent-[#09203E]"
                           type="range"
                           id="range-slider"
@@ -81,8 +86,6 @@ const Control=()=>{
                         />
                     </div>
                 </div>
-
-
 
                 <div className=" h-full"></div>
             </div>
