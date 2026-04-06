@@ -38,7 +38,7 @@ const StatusBar = () => {
 
       setlocalizationState(all_topic_state["localization_weight"])
       setRobotSpeed(all_topic_state["robot_speed"])
-      console.log(setRobotSpeed(all_topic_state["robot_speed"]))
+      console.log(robotSpeed)
 
     };
     get_current_states();
