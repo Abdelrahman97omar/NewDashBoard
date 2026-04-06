@@ -4,7 +4,7 @@ const Control=()=>{
     const { publishTopic } = useRosConnection();
     const [manualState,setManualState]= useState(0)
     const [resumeState,setresumeState]= useState(0)
-    const [sliderValue,setSliderValue]= useState(0)
+    const [sliderValue,setSliderValue]= useState(50)
 
     useEffect(()=>{
         const  getRobotSpped= async()=>{
