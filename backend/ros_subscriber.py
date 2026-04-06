@@ -28,13 +28,13 @@ def set_battery_state(data):
     print("Enetering get battery state")
     try:
         Current_states=json.loads(r.get("all_topics"))
-        previous_battery_state=int(Current_states["voltage_sensor"])
+        # previous_battery_state=int(Current_states["voltage_sensor"])
     except Exception as e:
         print("hte current states is",Current_states)
         print("Error fetching the latest battery state due to:",e)
         return
-    if int(data.data)== previous_battery_state:
-        return
+    # if int(data.data)== previous_battery_state:
+        # return
     try:
         print("Recieved new Battery Data")
         all_topics_state["voltage_sensor"]=int(data.data)
