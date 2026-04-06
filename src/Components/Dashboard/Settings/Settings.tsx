@@ -40,8 +40,16 @@ const SettingS = () => {
     });
   };
 
-  const handleResumeMap = () => {};
-  const handlePauseMapping = () => {};
+  const handleResumeMap = () => {
+    publishTopic("/pause_mapping", "std_msgs/Bool", {
+      data: false,
+    });
+  };
+  const handlePauseMapping = () => {
+    publishTopic("/pause_mapping", "std_msgs/Bool", {
+      data: true,
+    });
+  };
   const handleClearvirtualPath = () => {};
   const handleCreateVirtualPath = () => {};
 

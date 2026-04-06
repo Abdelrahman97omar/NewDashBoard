@@ -66,4 +66,4 @@ async def remove_event_points_file(pointNumber):
 async def clear_points_file(pointNumber):
     import os
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
-    open(f"{file_path}/points{pointNumber}", 'w').close()
+    open(f"{file_path}/points{pointNumber}.txt", 'w').close()
