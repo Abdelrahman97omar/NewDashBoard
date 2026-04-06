@@ -48,7 +48,6 @@ const StatusBar = () => {
 
   useEffect(() => {
     ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
-    // ws.current = new WebSocket(`ws://${window.location.hostname}:9876`)
     ws.current.onopen = () => { console.log("Connected!"); };
 
     ws.current.onmessage = (msg) => {
@@ -87,7 +86,7 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
       <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
       <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
-      <div className="Cgray statusbarlayout">Speed: {robotSpeed}</div>
+      <div className="Cgray statusbarlayout">Speed: {robotSpeed} m/s</div>
       <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
       <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
       <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>

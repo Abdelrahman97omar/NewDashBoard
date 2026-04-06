@@ -13,13 +13,14 @@ const Control=()=>{
                     method:"GET"
                 })
             const data=await res.json()
-            console.log(data)
+            console.log("the recived speed is:",data)
             console.log(typeof(data))
             setSliderValue(Number(data))
             
         }
         getRobotSpped()
     },[])
+
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const new_speed = Number(event.target.value);
         if(new_speed <= 49) return;
