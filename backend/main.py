@@ -24,6 +24,12 @@ async def returnCurrentStates():
     print(CurrentStates)
     return CurrentStates
 
+@app.get("/control/getRobotSpeed")
+async def get_motor_speed():
+    CurrentStates=r.get("all_topics")
+    return CurrentStates["robot_speed"]
+
+
 
 
 app.include_router(table_mode_router,prefix="/tablemode")

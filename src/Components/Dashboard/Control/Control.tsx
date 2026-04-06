@@ -1,11 +1,25 @@
 import { useRosConnection } from "../../../connection-provider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Control=()=>{
     const { publishTopic } = useRosConnection();
     const [manualState,setManualState]= useState(0)
     const [resumeState,setresumeState]= useState(0)
-    const [sliderValue,setSliderValue]= useState(50)
+    const [sliderValue,setSliderValue]= useState(0)
 
+    useEffect(()=>{
+        const  getRobotSpped= async()=>{
+            const res= await fetch (`http//:${window.location.hostname}:8001/control/getRobotSpeed`,
+                {
+                    method:"GET"
+                })
+            const data=res.json()
+            console.log(data)
+            console.log(typeof(data))
+            setSliderValue(Number(data))
+            
+        }
+        getRobotSpped()
+    },[])
     const handleSliderChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
         if(Number(event.target.value)<=49){return}
         setSliderValue(Number(event.target.value))
