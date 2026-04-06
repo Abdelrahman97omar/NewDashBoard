@@ -19,7 +19,7 @@ all_topics_state={
     "emergency_state":"",
     "localization_weight":"",
     "manual-auto_mode":"",
-    "robot_speed":"",
+    "robot_speed":"0",
 }
 
 
