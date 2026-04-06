@@ -154,7 +154,7 @@ def listener():
     rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.Subscriber("/set_speed", Float32, set_robot_speed)
     # rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry,get_robot_odom )
-    # rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
+    rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.spin()
 
 
