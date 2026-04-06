@@ -29,10 +29,10 @@ async def returnCurrentStates():
 async def get_motor_speed():
     CurrentStates=r.get("all_topics")
     CurrentStates=CurrentStates["robot_speed"]
-    CurrentStates=json.load(CurrentStates)
+    # CurrentStates=json.load(CurrentStates)
     print(CurrentStates["robot_speed"])
     print(type(CurrentStates["robot_speed"]))
-    return CurrentStates
+    return 1
 
 
 
