@@ -31,6 +31,7 @@ def set_battery_state(data):
         previous_battery_state=int(Current_states["voltage_sensor"])
     except Exception as e:
         print("Error fetching the latest battery state due to:",e)
+        return
     if int(data.data)== previous_battery_state:
         return
     try:
