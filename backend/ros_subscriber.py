@@ -35,11 +35,12 @@ def set_battery_state(data):
         print("hte current states is",Current_states)
         print("Error fetching the latest battery state due to:",e)
         return
-    if int(data.data)== previous_battery_state:
-        return
+    # if int(data.data)== previous_battery_state:
+        # return
     try:
         print("Recieved new Battery Data")
         all_topics_state["voltage_sensor"]=int(data.data)+4
+        print(all_topics_state["voltage_sensor"])
         r.set("all_topics",json.dumps(all_topics_state))
         print("Saved the new battery data succefully in redis")
     except Exception as e:
