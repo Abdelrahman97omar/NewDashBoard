@@ -24,16 +24,6 @@ async def returnCurrentStates():
     CurrentStates=r.get("all_topics")
     print(CurrentStates)
     return CurrentStates
-
-# @app.get("/control/getRobotSpeed")
-# async def get_motor_speed():
-#     CurrentStates=json.loads(r.get("all_topics"))
-#     motorSpeer=CurrentStates["robot_speed"]
-#     return motorSpeer
-
-
-
-
 app.include_router(table_mode_router,prefix="/tablemode")
 app.include_router(event_mode_router, prefix="/eventMode")
 app.include_router(robor_settings_router, prefix="/settings")

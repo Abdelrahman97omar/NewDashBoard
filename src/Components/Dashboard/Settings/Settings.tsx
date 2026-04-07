@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRosConnection } from "../../../connection-provider";
 
 const SettingS = () => {
   const { publishTopic } = useRosConnection();
   const [nextOptionState, togleNextOptionState] = useState(false);
   const [motorState, toglemotorState] = useState(false);
+
+  const getRobotStates = async () => {
+    const resp = await fetch(
+      `http://${window.location.hostname}:8001/stausBar/States`,
+      { method: "GET" }
+    );
+    const data = await resp.json();
+    const all_topic_state = JSON.parse(data);
+    const motorState = all_topic_state["enable_motors"];
+    if (motorState === "True") {
+      toglemotorState(true);
+    } else {
+      toglemotorState;
+    }
+  };
+
+  useEffect(() => {
+    getRobotStates();
+  }, []);
 
   const handleClearMap = () => {
     publishTopic("/clear_map", "std_msgs/Bool", {
@@ -33,6 +52,7 @@ const SettingS = () => {
   };
 
   const handleSetMotor = () => {
+    console.log("the previous state is:",motorState)
     const nextMotorState = !motorState;
     toglemotorState(nextMotorState);
     publishTopic("/enable_motors", "std_msgs/Bool", {
@@ -50,6 +70,7 @@ const SettingS = () => {
       data: true,
     });
   };
+
   const handleClearvirtualPath = () => {};
   const handleCreateVirtualPath = () => {};
 
@@ -116,49 +137,11 @@ const SettingS = () => {
             }
             onClick={handleSetMotor}
           >
-            Set Motor On
+            {motorState? "Set Motor On":"Set Motor Off"}
+            
           </button>
         </div>
       </div>
-
-      {/* <div className="grid grid-cols-3 pl-30 p-20 gap-x-20">
-          <div className={"grid grid-cols-1 gap-y-10 "}>
-            <button className={"dashboardSettingsButtons" } onClick={handleClearMap}>
-              Clear Map
-            </button>
-            <button className="dashboardSettingsButtons " onClick={handleResumeMap}>
-              Resume Map
-            </button>
-            <button className={nextOptionState===true?
-            "pressedDashboardSettingsButtons":"dashboardSettingsButtons " } onClick={handleNextOptionOn}>
-              Next Option On
-            </button>
-          </div>
-  
-          <div className="grid grid-cols-1 gap-y-10 ">
-            <button className="dashboardSettingsButtons " onClick={handleSaveMap}>
-              Save Map
-            </button>
-            <button className="dashboardSettingsButtons " onClick={handlePauseMapping}>
-              Pause Mapping
-            </button>
-            <button className="dashboardSettingsButtons " onClick={handleClearvirtualPath}>
-              Clear Virtual Path
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 gap-y-10">
-            <button className="dashboardSettingsButtons " onClick={handleLoadMap}>
-              Load Map
-            </button>
-            <button className="dashboardSettingsButtons" onClick={handleCreateVirtualPath}>
-              Create Virtual Path
-            </button>
-            <button className={motorState? "pressedDashboardSettingsButtons":"dashboardSettingsButtons"} onClick={handleSetMotor}>
-              Set Motor On
-            </button>
-          </div>
-        </div> */}
     </>
   );
 };
