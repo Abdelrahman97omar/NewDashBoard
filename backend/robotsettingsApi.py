@@ -16,6 +16,7 @@ async def get_wifi_networks():
         )
     except Exception as e:
         print("Couldn't find any network due to:",e)
+        return[]
         # raise()
     devices=devices.decode("utf-8")
     devices=devices.split('\n')
