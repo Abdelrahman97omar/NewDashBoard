@@ -23,11 +23,14 @@ const Control=()=>{
         const data = await res.json()
         // setisManual(Number(data["manual_auto_mode"]))
         setisManual(Number(data["manual_auto_mode"] ?? 0))
+        console.log("FULL RESPONSE:", data)
+        console.log("manual_auto_mode:", data["manual_auto_mode"])
     }
 
     useEffect(()=>{
         getRobotSpeed()
         getRobotState()
+        
     },[])
 
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
