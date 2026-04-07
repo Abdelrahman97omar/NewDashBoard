@@ -22,9 +22,10 @@ const Control=()=>{
         const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
         const data = await resp.json();
         const all_topic_state = JSON.parse(data)
-  
-        console.log("FULL RESPONSE:", all_topic_state)
-        console.log("manual_auto_mode:", all_topic_state["manual_auto_mode"])
+        const robotSpeed= all_topic_state["robot_speed"]
+        const robotMode = all_topic_state["manual_auto_mode"]
+        console.log("speed:", all_topic_state["robot_speed"])
+        console.log("mode:", all_topic_state["manual_auto_mode"])
         // console.log("robotMode:", all_topic_state)
         // setisManual(all_topic_state ?? 0)
     }

@@ -25,11 +25,11 @@ async def returnCurrentStates():
     print(CurrentStates)
     return CurrentStates
 
-@app.get("/control/getRobotSpeed")
-async def get_motor_speed():
-    CurrentStates=json.loads(r.get("all_topics"))
-    motorSpeer=CurrentStates["robot_speed"]
-    return motorSpeer
+# @app.get("/control/getRobotSpeed")
+# async def get_motor_speed():
+#     CurrentStates=json.loads(r.get("all_topics"))
+#     motorSpeer=CurrentStates["robot_speed"]
+#     return motorSpeer
 
 
 
