@@ -18,7 +18,7 @@ all_topics_state={
     "voltage_sensor":"0",
     "emergency_state":"",
     "localization_weight":"",
-    "manual-auto_mode":"",
+    "manual_auto_mode":"",
     "robot_speed":"",
 }
 
@@ -78,10 +78,10 @@ def set_manual_auto_mode(data):
     global ws
     print("Received ROS data:", str(data.data))
     try:
-        all_topics_state["manual-auto_mode"]=str(data.data)
+        all_topics_state["manual_auto_mode"]=str(data.data)
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
-        print("Error saving manual-auto_mode to Redis:", e)
+        print("Error saving manual_auto_mode to Redis:", e)
     try:
         msg_to_ws=json.dumps(all_topics_state)
         ws.send(msg_to_ws)

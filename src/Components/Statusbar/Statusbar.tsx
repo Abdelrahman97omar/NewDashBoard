@@ -28,7 +28,7 @@ const StatusBar = () => {
       if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
       else { setEmergencyState("Released") }
 
-      if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
+      if (all_topic_state["manual_auto_mode"] === "1") { setmanualAutoMode("Manual") }
       else { setmanualAutoMode("Auto") }
 
 
@@ -63,7 +63,7 @@ const StatusBar = () => {
       if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
       else { setEmergencyState("Released") }
 
-      if (all_topic_state["manual-auto_mode"] === "1") { setmanualAutoMode("Manual") }
+      if (all_topic_state["manual_auto_mode"] === "1") { setmanualAutoMode("Manual") }
       else { setmanualAutoMode("Auto") }
 
       if (all_topic_state["voltage_sensor"] == "23" || all_topic_state["voltage_sensor"] == "22") { setBatteryLeve("High") }

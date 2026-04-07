@@ -2,23 +2,32 @@ import { useRosConnection } from "../../../connection-provider";
 import { useEffect, useState } from "react";
 const Control=()=>{
     const { publishTopic } = useRosConnection();
-    const [manualState,setManualState]= useState(0)
+    const [isManual,setisManual]= useState(0)
     const [resumeState,setresumeState]= useState(0)
     const [sliderValue,setSliderValue]= useState(50)
 
+
+    const  getRobotSpeed= async()=>{
+        const res= await fetch (`http://${window.location.hostname}:8001/control/getRobotSpeed`,
+            {
+                method:"GET"
+            })
+        const data=await res.json()
+        console.log("the recived speed is:",data)
+        console.log(typeof(data))
+        setSliderValue(Number(data))   
+    }
+
+    const getRobotState= async()=>{
+        const res = await fetch (`http://${window.location.hostname}:8001/stausBar/States`, {method:"GET"})
+        const data = await res.json()
+        // setisManual(Number(data["manual_auto_mode"]))
+        setisManual(Number(data["manual_auto_mode"] ?? 0))
+    }
+
     useEffect(()=>{
-        const  getRobotSpped= async()=>{
-            const res= await fetch (`http://${window.location.hostname}:8001/control/getRobotSpeed`,
-                {
-                    method:"GET"
-                })
-            const data=await res.json()
-            console.log("the recived speed is:",data)
-            console.log(typeof(data))
-            setSliderValue(Number(data))
-            
-        }
-        getRobotSpped()
+        getRobotSpeed()
+        getRobotState()
     },[])
 
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,20 +41,21 @@ const Control=()=>{
 
     const handleSetManual=()=>{
         let newManualFlag = 0
-        if (manualState===1){
+        if (isManual===1){
             newManualFlag=0
-            setManualState(0)
+            setisManual(0)
         }
-        else if (manualState===0)
+        else if (isManual===0)
         {
             newManualFlag=1
-            setManualState(1)
+            setisManual(1)
         }
         publishTopic("/manual_flag",
             "std_msgs/Int32", {
            data: newManualFlag,
         });
     }
+    
     const handleGoHome=()=>{
         publishTopic("/go_home",
            "std_msgs/Int32", {
@@ -74,8 +84,8 @@ const Control=()=>{
         <>
             <div className="grid grid-cols-1 grid-rows-3 h-full">
                 <div className=" flex justify-around items-center h-full">
-                    <button className={manualState===1?"controlButtons":"pressedControlButtons"}
-                    onClick={handleSetManual}>Set Manual</button>
+                    <button className={isManual===1?"controlButtons":"pressedControlButtons"}
+                    onClick={handleSetManual}>{isManual === 1 ? "Set Auto" : "Set Manual"}</button>
 
                     <button className="controlButtons"
                     onClick={handleGoHome}>Go Home</button>
@@ -89,7 +99,7 @@ const Control=()=>{
                     <div className="flex justify-center items-center mt-5">
                         <p className="mr-6 text-3xl font-bold text-[#09203E]">Speed</p>
                         <div>
-                            <input className="w-4xl Cgray h-6 accent-[#09203E] "
+                            <input className="Cgray h-6 accent-[#09203E] "
                             type="range"
                             id="range-slider"
                             min="0"
