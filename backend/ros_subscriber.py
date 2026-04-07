@@ -15,7 +15,7 @@ global ws
 all_topics_state={
     "enable_motors":"",
     "op_mode":None,
-    "voltage_sensor":"",
+    "voltage_sensor":"0",
     "emergency_state":"",
     "localization_weight":"",
     "manual-auto_mode":"",
