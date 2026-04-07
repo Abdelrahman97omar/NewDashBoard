@@ -19,14 +19,14 @@ const Control=()=>{
     }
 
     const getRobotState= async()=>{
-        const res = await fetch (`http://${window.location.hostname}:8001/stausBar/States`, {method:"GET"})
-        const data = await res.json()
-        const robotMode= Number(JSON.parse(data["manual_auto_mode"]))
-        console.log("FULL RESPONSE:", data)
-        console.log("manual_auto_mode:", data["manual_auto_mode"])
-        console.log("robotMode:", robotMode)
-        setisManual(robotMode ?? 0)
-
+        const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
+        const data = await resp.json();
+        const all_topic_state = JSON.parse(data)
+  
+        console.log("FULL RESPONSE:", all_topic_state)
+        console.log("manual_auto_mode:", all_topic_state["manual_auto_mode"])
+        // console.log("robotMode:", all_topic_state)
+        // setisManual(all_topic_state ?? 0)
     }
 
     useEffect(()=>{
