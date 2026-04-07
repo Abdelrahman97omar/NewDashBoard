@@ -7,6 +7,7 @@ import subprocess
 async def get_wifi_networks():
     try:
         devices = subprocess.check_output(
+            ["nmcli", "-t","-f", "SSID", "device", "wifi"],
             stderr=subprocess.STDOUT,
             shell=False
         )
