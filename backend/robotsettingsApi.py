@@ -18,7 +18,7 @@ async def get_wifi_networks():
     devices=devices.split('\n')
     network_list=[]
     for networkname in devices:
-        if (networkname != None) or networkname != '':
+        if (networkname != None) and networkname !='':
             network_list.append(networkname.strip())
 
     network_list=network_list[1:-1]
