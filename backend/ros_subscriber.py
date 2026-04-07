@@ -85,7 +85,7 @@ def set_manual_auto_mode(data):
     try:
         msg_to_ws=json.dumps(all_topics_state)
         ws.send(msg_to_ws)
-        print("The websocket msg is sent successfully..")
+        print("The manual_auto_mode websocket msg is sent successfully..")
     except Exception as e:
         print(f"failed to send websocket msg from set_op_mode, the error is: {e}")
 
