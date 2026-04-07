@@ -142,6 +142,45 @@ const SettingS = () => {
           </button>
         </div>
       </div>
+
+      {/* <div className="grid grid-cols-3 pl-30 p-20 gap-x-20">
+          <div className={"grid grid-cols-1 gap-y-10 "}>
+            <button className={"dashboardSettingsButtons" } onClick={handleClearMap}>
+              Clear Map
+            </button>
+            <button className="dashboardSettingsButtons " onClick={handleResumeMap}>
+              Resume Map
+            </button>
+            <button className={nextOptionState===true?
+            "pressedDashboardSettingsButtons":"dashboardSettingsButtons " } onClick={handleNextOptionOn}>
+              Next Option On
+            </button>
+          </div>
+  
+          <div className="grid grid-cols-1 gap-y-10 ">
+            <button className="dashboardSettingsButtons " onClick={handleSaveMap}>
+              Save Map
+            </button>
+            <button className="dashboardSettingsButtons " onClick={handlePauseMapping}>
+              Pause Mapping
+            </button>
+            <button className="dashboardSettingsButtons " onClick={handleClearvirtualPath}>
+              Clear Virtual Path
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-y-10">
+            <button className="dashboardSettingsButtons " onClick={handleLoadMap}>
+              Load Map
+            </button>
+            <button className="dashboardSettingsButtons" onClick={handleCreateVirtualPath}>
+              Create Virtual Path
+            </button>
+            <button className={motorState? "pressedDashboardSettingsButtons":"dashboardSettingsButtons"} onClick={handleSetMotor}>
+              Set Motor On
+            </button>
+          </div>
+        </div> */}
     </>
   );
 };
