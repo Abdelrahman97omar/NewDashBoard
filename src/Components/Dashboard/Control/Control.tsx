@@ -21,8 +21,8 @@ const Control=()=>{
     const getRobotState= async()=>{
         const res = await fetch (`http://${window.location.hostname}:8001/stausBar/States`, {method:"GET"})
         const data = await res.json()
-        // setisManual(Number(data["manual_auto_mode"]))
-        setisManual(Number(data["manual_auto_mode"] ?? 0))
+        const robotMode= Number(JSON.stringify(data["manual_auto_mode"]))
+        setisManual(robotMode ?? 0)
         console.log("FULL RESPONSE:", data)
         console.log("manual_auto_mode:", data["manual_auto_mode"])
     }
