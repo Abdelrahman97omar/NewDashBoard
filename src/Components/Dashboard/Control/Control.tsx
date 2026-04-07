@@ -84,7 +84,7 @@ const Control=()=>{
                     <button className="controlButtons"
                     onClick={handleGoHome}>Go Home</button>
 
-                    <button className={resumeState===1?"controlButtons":"pressedControlButtons"}
+                    <button className={resumeState===1? "pressedControlButtons":"controlButtons"}
                     onClick={handleResume}>Resume</button>
                 </div>
 
