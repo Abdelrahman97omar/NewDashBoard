@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 const WifiSettings=()=>{
 const [wifiPassword,setWifiPassword]= useState("")
+const [wifilist,setWifilist]= useState([])
 
 useEffect(()=>{
     const get_wifi_list=async()=>{
@@ -9,6 +10,7 @@ useEffect(()=>{
           });
           const data = await res.json();
           console.log(data);
+          setWifilist(data)
     }
     get_wifi_list()
 },[])
@@ -29,6 +31,9 @@ const wifiConnectbuttonhandler=()=>{
     return(<>
         <div className="flex items-center ">
 
+        <select> {wifilist.map((x)=>(<option key={x}>{x}</option>))}
+
+        </select>
             {/* <input value={wifiPassword} onChange={setWifiPassword()}> </input>
             <button onClick={wifiConnectbuttonhandler}> Connect</button> */}
 
