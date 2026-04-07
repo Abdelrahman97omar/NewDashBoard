@@ -7,16 +7,16 @@ const Control=()=>{
     const [sliderValue,setSliderValue]= useState(50)
 
 
-    const  getRobotSpeed= async()=>{
-        const res= await fetch (`http://${window.location.hostname}:8001/control/getRobotSpeed`,
-            {
-                method:"GET"
-            })
-        const data=await res.json()
-        console.log("the recived speed is:",data)
-        console.log(typeof(data))
-        setSliderValue(Number(data))   
-    }
+    // const  getRobotSpeed= async()=>{
+    //     const res= await fetch (`http://${window.location.hostname}:8001/control/getRobotSpeed`,
+    //         {
+    //             method:"GET"
+    //         })
+    //     const data=await res.json()
+    //     console.log("the recived speed is:",data)
+    //     console.log(typeof(data))
+    //     setSliderValue(Number(data))   
+    // }
 
     const getRobotState= async()=>{
         const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
@@ -24,14 +24,17 @@ const Control=()=>{
         const all_topic_state = JSON.parse(data)
         const robotSpeed= all_topic_state["robot_speed"]
         const robotMode = all_topic_state["manual_auto_mode"]
-        console.log("speed:", all_topic_state["robot_speed"])
-        console.log("mode:", all_topic_state["manual_auto_mode"])
+
+        setSliderValue(Number(robotSpeed))
+        setisManual(Number(robotMode))
+        // console.log("speed:", all_topic_state["robot_speed"])
+        // console.log("mode:", all_topic_state["manual_auto_mode"])
         // console.log("robotMode:", all_topic_state)
         // setisManual(all_topic_state ?? 0)
     }
 
     useEffect(()=>{
-        getRobotSpeed()
+        // getRobotSpeed()
         getRobotState()
         
     },[])
