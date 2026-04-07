@@ -25,25 +25,25 @@ all_topics_state={
 def set_battery_state(data):
     global ws
     try:
-        Current_states=json.loads(r.get("all_topics"))
-        previous_battery_state=int(Current_states["voltage_sensor"])
+        current_states = json.loads(r.get("all_topics"))
+        previous_battery_state = int(current_states["voltage_sensor"])
     except Exception as e:
-        print("Error fetching the latest battery state due to:",e)
+        print(f"Error fetching latest battery state: {e}")
         return
-    if int(data.data)== previous_battery_state:
+    if int(data.data) == previous_battery_state:
         return
     try:
-        all_topics_state["voltage_sensor"]=int(data.data)
-        r.set("all_topics",json.dumps(all_topics_state))
-        print("Saved the new battery data succefully in redis")
+        current_states["voltage_sensor"] = int(data.data)   
+        r.set("all_topics", json.dumps(current_states))     
+        print("Saved new battery data successfully in Redis")
     except Exception as e:
-        print(f"Error saving data in redis in Voltage sensor callBack Function. The error is:{e}")
+        print(f"Error saving to Redis: {e}")
+        return
     try:
-        msg_to_send=json.dumps(all_topics_state)
-        ws.send(msg_to_send)
-        print("publsihing teh battery msg to websocket")
+        ws.send(json.dumps(current_states))
+        print("Published battery msg to WebSocket")
     except Exception as e:
-        print(f"Error send new ws msg from set_battery_state due to {e}")
+        print(f"Error sending WebSocket msg: {e}")
 
 def set_op_mode(data):
     global ws
