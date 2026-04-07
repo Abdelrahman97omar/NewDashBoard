@@ -16,9 +16,7 @@ useEffect(()=>{
 },[])
 
 const setWifiBackend=async()=>{
-
-    const res = await fetch (`http://${window.location.hostname}:8001/settings/wifi/connect`,{method:"PUT"}) 
-    
+    const res = await fetch (`http://${window.location.hostname}:8001/settings/wifi/connect`,{method:"PUT"})    
 }
 
 
@@ -32,10 +30,7 @@ const wifiConnectbuttonhandler=()=>{
         <div className="flex items-center ">
 
         <select> {wifilist.map((x)=>(<option key={x}>{x}</option>))}
-
         </select>
-            {/* <input value={wifiPassword} onChange={setWifiPassword()}> </input>
-            <button onClick={wifiConnectbuttonhandler}> Connect</button> */}
 
         </div>
 
