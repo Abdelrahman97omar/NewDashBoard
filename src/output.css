@@ -200,8 +200,14 @@
   .m-4 {
     margin: calc(var(--spacing) * 4);
   }
+  .m-5 {
+    margin: calc(var(--spacing) * 5);
+  }
   .m-9 {
     margin: calc(var(--spacing) * 9);
+  }
+  .m-20 {
+    margin: calc(var(--spacing) * 20);
   }
   .mx-2 {
     margin-inline: calc(var(--spacing) * 2);
@@ -209,11 +215,20 @@
   .mx-9 {
     margin-inline: calc(var(--spacing) * 9);
   }
+  .mx-10 {
+    margin-inline: calc(var(--spacing) * 10);
+  }
   .mx-14 {
     margin-inline: calc(var(--spacing) * 14);
   }
+  .mx-20 {
+    margin-inline: calc(var(--spacing) * 20);
+  }
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
+  }
+  .my-9 {
+    margin-block: calc(var(--spacing) * 9);
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
@@ -224,8 +239,14 @@
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
+  .mr-5 {
+    margin-right: calc(var(--spacing) * 5);
+  }
   .mr-6 {
     margin-right: calc(var(--spacing) * 6);
+  }
+  .mr-9 {
+    margin-right: calc(var(--spacing) * 9);
   }
   .mr-10 {
     margin-right: calc(var(--spacing) * 10);
@@ -233,14 +254,47 @@
   .mr-10\.5 {
     margin-right: calc(var(--spacing) * 10.5);
   }
+  .mr-100 {
+    margin-right: calc(var(--spacing) * 100);
+  }
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
+  }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+  .mb-8 {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
   .mb-20 {
     margin-bottom: calc(var(--spacing) * 20);
+  }
+  .ml-20 {
+    margin-left: calc(var(--spacing) * 20);
+  }
+  .ml-50 {
+    margin-left: calc(var(--spacing) * 50);
+  }
+  .ml-90 {
+    margin-left: calc(var(--spacing) * 90);
+  }
+  .ml-100 {
+    margin-left: calc(var(--spacing) * 100);
+  }
+  .ml-120 {
+    margin-left: calc(var(--spacing) * 120);
+  }
+  .ml-130 {
+    margin-left: calc(var(--spacing) * 130);
+  }
+  .ml-140 {
+    margin-left: calc(var(--spacing) * 140);
   }
   .ml-\[105px\] {
     margin-left: 105px;
@@ -336,11 +390,44 @@
   .w-50 {
     width: calc(var(--spacing) * 50);
   }
+  .w-80 {
+    width: calc(var(--spacing) * 80);
+  }
+  .w-200 {
+    width: calc(var(--spacing) * 200);
+  }
+  .w-270 {
+    width: calc(var(--spacing) * 270);
+  }
+  .w-300 {
+    width: calc(var(--spacing) * 300);
+  }
+  .w-340 {
+    width: calc(var(--spacing) * 340);
+  }
+  .w-345 {
+    width: calc(var(--spacing) * 345);
+  }
+  .w-350 {
+    width: calc(var(--spacing) * 350);
+  }
+  .w-370 {
+    width: calc(var(--spacing) * 370);
+  }
+  .w-400 {
+    width: calc(var(--spacing) * 400);
+  }
+  .w-800 {
+    width: calc(var(--spacing) * 800);
+  }
   .w-\[250px\] {
     width: 250px;
   }
   .w-\[300px\] {
     width: 300px;
+  }
+  .w-fit {
+    width: fit-content;
   }
   .w-full {
     width: 100%;
@@ -398,6 +485,9 @@
   }
   .justify-around {
     justify-content: space-around;
+  }
+  .justify-between {
+    justify-content: space-between;
   }
   .justify-center {
     justify-content: center;
@@ -501,6 +591,9 @@
   .p-4 {
     padding: calc(var(--spacing) * 4);
   }
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -509,6 +602,9 @@
   }
   .px-3\.5 {
     padding-inline: calc(var(--spacing) * 3.5);
+  }
+  .px-5 {
+    padding-inline: calc(var(--spacing) * 5);
   }
   .px-10 {
     padding-inline: calc(var(--spacing) * 10);
@@ -519,11 +615,23 @@
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
+  .pt-5 {
+    padding-top: calc(var(--spacing) * 5);
+  }
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
   }
+  .pr-10 {
+    padding-right: calc(var(--spacing) * 10);
+  }
   .pb-1 {
     padding-bottom: calc(var(--spacing) * 1);
+  }
+  .pb-7 {
+    padding-bottom: calc(var(--spacing) * 7);
+  }
+  .pb-20 {
+    padding-bottom: calc(var(--spacing) * 20);
   }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
@@ -545,6 +653,12 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
   }
   .text-2xl {
     font-size: var(--text-2xl);
