@@ -24,6 +24,9 @@ const WifiSettings = () => {
       `http://${window.location.hostname}:8001/settings/wifi/connect`,
       {
         method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+          },
         body: JSON.stringify({
           ssid: SSID, 
           password: wifiPassword,
