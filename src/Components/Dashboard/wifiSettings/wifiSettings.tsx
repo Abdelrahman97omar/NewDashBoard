@@ -25,16 +25,14 @@ const WifiSettings = () => {
       {
         method: "PUT",
         body: JSON.stringify({
+          ssid: SSID, 
           password: wifiPassword,
         }),
       }
     );
   };
 
-  const enterPwHandler = (event: any) => {
-    setWifiPassword(event.target.value);
-    console.log(wifiPassword);
-  };
+
 
   const handleConnectButton = () => {
     console.log("Buttin is pressed");
@@ -45,6 +43,11 @@ const WifiSettings = () => {
     } else {
       setWifiBackend();
     }
+  };
+
+  const enterPwHandler = (event: any) => {
+    setWifiPassword(event.target.value);
+    console.log(wifiPassword);
   };
 
   return (
@@ -64,12 +67,12 @@ const WifiSettings = () => {
             </option>
         ) : (
             <>
-            <option value="" disabled>
+            <option className="text-center" value="" disabled>
                 Select Network
             </option>
 
             {wifilist.map((x) => (
-                <option value={x} key={x}>
+                <option className="text-center" value={x} key={x}>
                 {x}
                 </option>
             ))}

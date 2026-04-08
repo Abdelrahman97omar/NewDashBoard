@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter ,Body, HTTPException
 from os import listdir
 router = APIRouter()
 import subprocess
@@ -24,3 +24,35 @@ async def get_wifi_networks():
     network_list=network_list[1:-1]
     return network_list
 
+@router.put("/wifi/connect")
+async def connect_to_wifi(commingData: dict = Body(...)):
+    ssid=commingData["ssid"]
+    password=commingData["password"]
+    try:
+        subprocess.call(['nmcli', 'd', 'wifi', 'connect', ssid, 'password', password])
+    except:
+        raise
+
+    from fastapi import HTTPException
+import subprocess
+
+@router.put("/wifi/connect")
+async def connect_to_wifi(commingData: dict):
+    ssid = commingData.get("ssid")
+    password = commingData.get("password")
+    if not ssid or not password:
+        raise HTTPException(status_code=400, detail="SSID and password are required")
+    try:
+        subprocess.run(
+            ["nmcli", "d", "wifi", "connect", ssid, "password", password],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        return {"message": "Connected successfully"}
+    except subprocess.CalledProcessError as e:
+        print("NMCLI ERROR:", e.stderr)
+        raise HTTPException(
+            status_code=400,
+            detail=f"Failed to connect to WiFi: {e.stderr.strip()}"
+        )
