@@ -24,17 +24,7 @@ async def get_wifi_networks():
     network_list=network_list[1:-1]
     return network_list
 
-@router.put("/wifi/connect")
-async def connect_to_wifi(commingData: dict = Body(...)):
-    ssid=commingData["ssid"]
-    password=commingData["password"]
-    try:
-        subprocess.call(['nmcli', 'd', 'wifi', 'connect', ssid, 'password', password])
-    except:
-        raise
 
-    from fastapi import HTTPException
-import subprocess
 
 @router.put("/wifi/connect")
 async def connect_to_wifi(commingData: dict):
