@@ -78,7 +78,7 @@ const Control=()=>{
         <>
             <div className="grid grid-cols-1 grid-rows-3 h-full">
                 <div className=" flex justify-around items-center h-full">
-                    <button className={isManual===1?"controlButtons":"pressedControlButtons"}
+                    <button className={isManual===1?"pressedControlButtons":"controlButtons"}
                     onClick={handleSetManual}>{isManual === 1 ? "Set Auto" : "Set Manual"}</button>
 
                     <button className="controlButtons"
