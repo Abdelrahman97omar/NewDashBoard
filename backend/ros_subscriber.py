@@ -27,7 +27,7 @@ def set_battery_state(data):
     try:
         current_states = json.loads(r.get("all_topics"))
         previous_battery_state = int(current_states["voltage_sensor"])
-    except redis.DataError:
+    except ValueError:
         print(f"Error fetching latest battery state from new exception: {e}")
         return
     except Exception as e:
