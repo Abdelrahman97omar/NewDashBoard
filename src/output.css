@@ -28,6 +28,8 @@
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
     --font-weight-bold: 700;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
@@ -287,6 +289,9 @@
   .ml-100 {
     margin-left: calc(var(--spacing) * 100);
   }
+  .ml-110 {
+    margin-left: calc(var(--spacing) * 110);
+  }
   .ml-120 {
     margin-left: calc(var(--spacing) * 120);
   }
@@ -295,6 +300,18 @@
   }
   .ml-140 {
     margin-left: calc(var(--spacing) * 140);
+  }
+  .ml-150 {
+    margin-left: calc(var(--spacing) * 150);
+  }
+  .ml-160 {
+    margin-left: calc(var(--spacing) * 160);
+  }
+  .ml-170 {
+    margin-left: calc(var(--spacing) * 170);
+  }
+  .ml-180 {
+    margin-left: calc(var(--spacing) * 180);
   }
   .ml-\[105px\] {
     margin-left: 105px;
@@ -594,6 +611,9 @@
   .p-5 {
     padding: calc(var(--spacing) * 5);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -609,6 +629,9 @@
   .px-10 {
     padding-inline: calc(var(--spacing) * 10);
   }
+  .px-30 {
+    padding-inline: calc(var(--spacing) * 30);
+  }
   .py-10 {
     padding-block: calc(var(--spacing) * 10);
   }
@@ -617,6 +640,9 @@
   }
   .pt-5 {
     padding-top: calc(var(--spacing) * 5);
+  }
+  .pt-8 {
+    padding-top: calc(var(--spacing) * 8);
   }
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
@@ -667,6 +693,10 @@
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);

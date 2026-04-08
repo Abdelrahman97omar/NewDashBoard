@@ -91,7 +91,7 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">Localization: {localizationState}</div>
       <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
       <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>
-      <div className="Cgray statusbarlayout">N/A:N/A</div>
+      <div className="Cgray statusbarlayout">Location:N/A</div>
     </>
   );
 };

@@ -95,7 +95,7 @@ const Control = () => {
 
         <div className="h-30  grid-rows-[15_1fr]  Cgray mx-9 rounded-3xl w-345">
 
-          <div className="flex justify-center items-center pt-5 px-5 w-full">
+          <div className="flex justify-center items-center px-30 pt-8 w-full">
             <p className="mr-6 text-3xl font-bold text-[#09203E]">Speed</p>
             <input
               className="Cgray h-6 accent-[#09203E] w-full"
@@ -109,8 +109,8 @@ const Control = () => {
             />
           </div>
             <div className="flex justify-center items-center w-full">
-                <p className="text-[#09203E] text-2xl font-bold ml-130 ">50%</p>
-                <p className="text-[#09203E] text-2xl font-bold ml-90 ">{sliderValue}%</p>
+                <p className="text-[#09203E] text-3xl font-bold ml-150 ">50%</p>
+                <p className="text-[#09203E] text-3xl font-bold ml-110 ">{sliderValue}%</p>
             </div>
         </div>
 
