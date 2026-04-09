@@ -27,7 +27,7 @@ async def get_wifi_networks():
 
 
 @router.put("/wifi/connect")
-async def connect_to_wifi(commingData: dict):
+async def connect_to_wifi(commingData: dict = Body(...)):
     ssid = commingData.get("ssid")
     password = commingData.get("password")
     if not ssid or not password:
