@@ -28,11 +28,14 @@ const EventMode = () => {
     console.log(live_Seta)
 
   };
+  useEffect(()=>{
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
     "nav_msgs/Odometry",
     (message: any) => livePointsUpdate(message)
   );
+}
+)
 
   const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
