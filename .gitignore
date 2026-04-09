@@ -2,3 +2,4 @@ node_modules/
 myimage.tar
 launchApp.sh
 launchBackend.sh
+backend/__pycache__/
