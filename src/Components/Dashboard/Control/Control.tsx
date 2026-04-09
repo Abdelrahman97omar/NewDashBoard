@@ -15,6 +15,7 @@ const Control = () => {
     const all_topic_state = JSON.parse(data);
     const robotSpeed = all_topic_state["robot_speed"];
     const robotMode = all_topic_state["manual_auto_mode"];
+    console.log("the robot speed is:",robotSpeed,"of type:",typeof(robotSpeed))
 
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
