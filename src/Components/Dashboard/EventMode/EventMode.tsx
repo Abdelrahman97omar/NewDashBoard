@@ -68,7 +68,7 @@ const EventMode = () => {
 
   const getpointsPool = async () => {
     const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/getPointsPool`,
+      `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
       { method: "GET" }
     );
     const data = await res.json();

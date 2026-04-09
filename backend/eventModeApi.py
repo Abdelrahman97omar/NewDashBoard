@@ -25,9 +25,9 @@ async def get_event_points_list():
     file_list.sort()
     return file_list
 
-@router.get("/getPointsPool")
-async def get_points_pool():
-    with open(f"/home/{os.environ.get('USER')}/Desktop/points") as f:
+@router.get("/getPointsPool/{filenumber}")
+async def get_points_pool(filenumber:int):
+    with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
         points= f.read()
         print(points)
         print(type(points))
