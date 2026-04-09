@@ -16,7 +16,7 @@ services:
       - USER=${USER}
     volumes:
       - /var/run/dbus:/var/run/dbus 
-      # - run/NetworkManager:/run/NetworkManager 
+      - run/NetworkManager:/run/NetworkManager 
       - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     working_dir: /home/NewDashBoard/backend
