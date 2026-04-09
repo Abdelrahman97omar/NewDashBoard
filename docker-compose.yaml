@@ -1,0 +1,67 @@
+version: '2.3'
+services:
+  Frontend:
+    image: newdashboard:latest
+    ports:
+      - "5173:5173"
+    volumes:
+      - /var/www/html/NewDashBoard:/home/NewDashBoard
+    working_dir: /home/NewDashBoard
+    command: ["/bin/bash", "-c", "source /root/.nvm/nvm.sh && npm run dev"]
+
+  Backend:
+    image: newdashboard:latest
+    network_mode: host
+    ports:
+      - "8001:8001"
+    environment:
+      - USER=${USER}
+    volumes:
+      - /var/run/dbus:/var/run/dbus 
+      # - run/NetworkManager:/run/NetworkManager 
+      - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
+      - /var/www/html/NewDashBoard:/home/NewDashBoard
+    working_dir: /home/NewDashBoard/backend
+    command: bash -c 'uvicorn main:app --reload --host 0.0.0.0 --port 8001'
+    develop:
+      watch:
+        - action: sync+restart
+          path: .
+          target: /home/NewDashBoard
+
+  WebSocket-server:
+    image: newdashboard:latest
+    network_mode: host
+    ports:
+      - "9876:9876"
+    volumes:
+      - /var/run/dbus:/var/run/dbus 
+      # - run/NetworkManager:/run/NetworkManager 
+      - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
+      - /var/www/html/NewDashBoard:/home/NewDashBoard
+    #The following part (health check) is not working yet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9876/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    working_dir: /home/NewDashBoard/backend
+    command: bash -c 'python3 ws_server.py'
+
+  ROS:
+    image: newdashboard:latest
+    network_mode: host
+    ports:
+      - "9090:9090"
+    volumes:
+      - /var/run/dbus:/var/run/dbus 
+      # - run/NetworkManager:/run/NetworkManager 
+      - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
+      - /var/www/html/NewDashBoard:/home/NewDashBoard
+    depends_on:
+      WebSocket-server:
+        # condition: service_healthy
+        condition: service_started
+    working_dir: /home/NewDashBoard/backend
+    command: bash -c 'python3 ros_subscriber.py'
