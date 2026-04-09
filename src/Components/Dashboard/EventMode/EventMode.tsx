@@ -8,6 +8,8 @@ const EventMode = () => {
   const [live_Seta, setLive_SETA] = useState("0");
   const [currentPointFile, setCurrentPointFile] = useState("");
   const [pointsFilessLists, setPointsFilessLists] = useState([]);
+  const isRosConnected= useRef(false)
+
 
   const livePointsUpdate = (message: any) => {
     const yaw = Math.atan2(
@@ -28,14 +30,6 @@ const EventMode = () => {
     console.log(live_Seta)
 
   };
-  useEffect(()=>{
-  subscribeTopic(
-    "/slamware_ros_sdk_server_node/odom",
-    "nav_msgs/Odometry",
-    (message: any) => livePointsUpdate(message)
-  );
-}
-)
 
   const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
@@ -67,6 +61,15 @@ const EventMode = () => {
 
   useEffect(() => {
     getEventpointsList();
+
+    if (!isRosConnected.current) {
+      subscribeTopic(
+        "/slamware_ros_sdk_server_node/odom",
+        "nav_msgs/Odometry",
+        (message: any) => livePointsUpdate(message)
+      );
+      isRosConnected.current = true;
+    }
   }, []);
 
   const handleAddNewPoint = async () => {
