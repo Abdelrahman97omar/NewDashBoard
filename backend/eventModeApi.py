@@ -31,6 +31,7 @@ async def get_points_pool(filenumber:int):
         points= f.read()
         print(points)
         print(type(points))
+    return points
 
 @router.put("/addNewPoint")
 async def get_event_points_list():
