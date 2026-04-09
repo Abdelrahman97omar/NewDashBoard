@@ -22,6 +22,9 @@ services:
       - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     working_dir: /home/NewDashBoard/backend
+    depends_on:
+      Redis:
+        condition: service_started
     command: bash -c 'uvicorn main:app --reload --host 0.0.0.0 --port 8001'
     develop:
       watch:
@@ -46,6 +49,9 @@ services:
       timeout: 3s
       retries: 5
       start_period: 10s
+    depends_on:
+      Redis:
+        condition: service_started
     working_dir: /home/NewDashBoard/backend
     command: bash -c 'python3 ws_server.py'
 
@@ -63,5 +69,11 @@ services:
       WebSocket-server:
         # condition: service_healthy
         condition: service_started
+      Redis:
+        condition: service_started
     working_dir: /home/NewDashBoard/backend
     command: bash -c 'python3 ros_subscriber.py'
+
+  Redis:
+    image: newdashboard:latest
+    command: bash -c 'redis-server --protection-mode no'
