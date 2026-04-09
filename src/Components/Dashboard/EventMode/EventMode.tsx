@@ -7,9 +7,17 @@ const EventMode = () => {
   const [live_Y, setLive_Y] = useState("0");
   const [live_Seta, setLive_SETA] = useState("0");
   const [currentPointFile, setCurrentPointFile] = useState("");
+  const [pointsPooll, setPointsPooll] = useState([12, 2, 2, 312, 421]);
   const [pointsFilessLists, setPointsFilessLists] = useState([]);
-  const isRosConnected= useRef(false)
 
+  useEffect(() => {
+    getEventpointsList();
+    subscribeTopic(
+      "/slamware_ros_sdk_server_node/odom",
+      "nav_msgs/Odometry",
+      (msg) => livePointsUpdate(msg)
+    );
+  }, []);
 
   const livePointsUpdate = (message: any) => {
     const yaw = Math.atan2(
@@ -25,10 +33,9 @@ const EventMode = () => {
     setLive_X(Number(message.pose.pose.position.x).toFixed(2));
     setLive_Y(Number(message.pose.pose.position.y).toFixed(2));
     setLive_SETA(Number(yawDeg).toFixed(2));
-    console.log(live_X)
-    console.log(live_Y)
-    console.log(live_Seta)
-
+    console.log(live_X);
+    console.log(live_Y);
+    console.log(live_Seta);
   };
 
   const setEventmodeButtonhandler = () => {
@@ -50,7 +57,7 @@ const EventMode = () => {
 
   const getEventpointsList = async () => {
     const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/getAllPoints`
+      `http://${window.location.hostname}:8001/eventMode/getAllPointsFiles`
     );
     const data = await res.json();
     setPointsFilessLists(data);
@@ -59,18 +66,15 @@ const EventMode = () => {
     setCurrentPointFile(data[0]);
   };
 
-  useEffect(() => {
-    getEventpointsList();
-
-    if (!isRosConnected.current) {
-      subscribeTopic(
-        "/slamware_ros_sdk_server_node/odom",
-        "nav_msgs/Odometry",
-        (message: any) => livePointsUpdate(message)
-      );
-      isRosConnected.current = true;
-    }
-  }, []);
+  const getpointsPool = async () => {
+    const res = await fetch(
+      `http://${window.location.hostname}:8001/eventMode/getPointsPool`,
+      { method: "GET" }
+    );
+    const data = await res.json();
+    const fetchedpoints = JSON.parse(data);
+    setPointsPooll(fetchedpoints);
+  };
 
   const handleAddNewPoint = async () => {
     const res = await fetch(
@@ -103,7 +107,7 @@ const EventMode = () => {
 
   return (
     <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
-      <div className="border-2 h-full grid grid-rows-2">
+      <div className=" h-full grid grid-rows-2">
         <div className="flex justify-between items-center">
           <button
             className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
@@ -141,7 +145,7 @@ const EventMode = () => {
           </select>
         </div>
 
-        <div className="mx-30">
+        <div className="mx-30 mt-5">
           <button
             className="rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
             onClick={setEventmodeButtonhandler}
@@ -150,12 +154,13 @@ const EventMode = () => {
           </button>
         </div>
       </div>
-      <div className="border-2 mt-10">
-        <header className="pl-5 text-4xl w-1/4  text-[#09203E] font-bold">
+      <div className="mt-7">
+        <header className="pl-5 mb-10 text-4xl w-1/4  text-[#09203E] font-bold">
           Edit Points:
         </header>
-        <div className=" grid grid-cols-3 h-full ">
-          <div className=" h-full tableModeBorders">
+
+        <div className=" grid grid-cols-3  gap-4 px-20">
+          <div className=" tableModeBorders">
             <p className="tablemodeHeaders">Live Points</p>
             <div className="XYSETA-VALUE-Position">
               <span className="font-bold text-xl mr-10">X:</span>
@@ -170,8 +175,49 @@ const EventMode = () => {
               <div className="tableModeNumberFieled">{live_Seta}</div>
             </div>
           </div>
-          <div className="border-2 h-full overflow-hidden"></div>
-          <div className="border-2 h-full overflow-hidden"></div>
+
+          <div className="h-full tableModeBorders">
+            <p className="tablemodeHeaders">Points Pool</p>
+            <div className="flex justify-center items-center">
+              <select className="Cgray w-1/2 h-10 text-center rounded-3xl">
+                {pointsPooll.map((x) => (
+                  <option key={x}>{x}</option>
+                ))}
+              </select>
+            </div>
+            <div className=" mt-4">
+              <div className="XYSETA-VALUE-Position">
+                <span className="font-bold text-xl mr-10">X:</span>
+                <div className="tableModeNumberFieled">N/a</div>
+              </div>
+              <div className="XYSETA-VALUE-Position">
+                <span className="font-bold text-xl mr-10">Y:</span>
+                <div className="tableModeNumberFieled">N/A</div>
+              </div>
+              <div className="XYSETA-VALUE-Position">
+                <span className="font-bold text-xl mr-10">Theta:</span>
+                <div className="tableModeNumberFieled">N/A</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-full tableModeBorders">
+            <p className="tablemodeHeaders">Edit Point</p>
+            <button className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20">
+              Set Live Points
+            </button>
+            <button className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20">
+              Set Manuall
+            </button>
+            <div className="flex justify-between items-center mt-6 px-3">
+              <p className="text-[#09203E] text-l font-bold">X:</p>
+              <input className="border-2 w-1/4" type=""></input>
+              <p className="text-[#09203E] text-l font-bold">Y:</p>
+              <input className="border-2 w-1/4" type=""></input>
+              <p className="text-[#09203E] text-l font-bold">Seta:</p>
+              <input  className="border-2 w-1/4"type=""></input>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -93,10 +93,6 @@ const WifiSettings = () => {
             Connect
           </button>
         </div>
-
-        {/* <div className="border-2 h-full"></div>
-        <div className="border-2 h-full"></div>
-        <div className="border-2 h-full"></div> */}
       </div>
     </>
   );

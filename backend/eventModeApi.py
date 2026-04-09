@@ -8,7 +8,7 @@ from os.path import isfile, join
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
 
-@router.get("/getAllPoints")
+@router.get("/getAllPointsFiles")
 async def get_event_points_list():
     file_list=[]
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
@@ -24,6 +24,13 @@ async def get_event_points_list():
                 print("error:" ,e)
     file_list.sort()
     return file_list
+
+@router.get("/getPointsPool")
+async def get_points_pool():
+    with open(f"/home/{os.environ.get('USER')}/Desktop/points") as f:
+        points= f.read()
+        print(points)
+        print(type(points))
 
 @router.put("/addNewPoint")
 async def get_event_points_list():
