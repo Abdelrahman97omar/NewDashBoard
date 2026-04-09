@@ -2,8 +2,6 @@ services:
   Frontend:
     network_mode: host
     image: newdashboard:latest
-    # ports:
-    #   - "5173:5173"
     volumes:
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     working_dir: /home/NewDashBoard
@@ -11,6 +9,7 @@ services:
 
   Backend:
     image: newdashboard:latest
+    privileged: true
     network_mode: host
     environment:
       - USER=${USER}
@@ -36,8 +35,6 @@ services:
     ports:
       - "9876:9876"
     volumes:
-      - /var/run/dbus:/var/run/dbus 
-      # - run/NetworkManager:/run/NetworkManager 
       - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     #The following part (health check) is not working yet
@@ -56,11 +53,7 @@ services:
   ROS:
     image: newdashboard:latest
     network_mode: host
-    ports:
-      - "9090:9090"
     volumes:
-      - /var/run/dbus:/var/run/dbus 
-      # - run/NetworkManager:/run/NetworkManager 
       - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     depends_on:
