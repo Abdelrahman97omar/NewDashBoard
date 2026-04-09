@@ -10,5 +10,6 @@ export default defineConfig({
   ],
   server: {
     host: true, // bind to 0.0.0.0 so other devices on the network can connect
+    port: 3333
   },
 })

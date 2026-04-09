@@ -106,7 +106,7 @@ const EventMode = () => {
             className="rounded-3xl w-50 h-20 Cgray m-2"
             onClick={handleRemovePoint}
           >
-            Delete Point
+            Delete Point List
           </button>
           <button
             className="rounded-3xl w-50 h-20 Cgray m-2"

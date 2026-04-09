@@ -32,7 +32,7 @@ const Table = () => {
 
   const { publishTopic,subscribeTopic } = useRosConnection();
 
-  const typer=(message:any)=>{
+  const setLivePoint=(message:any)=>{
     const yaw = Math.atan2(
       2 * (message.pose.pose.orientation.w * message.pose.pose.orientation.z + message.pose.pose.orientation.x * message.pose.pose.orientation.y),
       1 - 2 * (message.pose.pose.orientation.y * message.pose.pose.orientation.y +message.pose.pose.orientation.z * message.pose.pose.orientation.z)
@@ -46,7 +46,7 @@ const Table = () => {
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
     "nav_msgs/Odometry",
-    (message: any) => typer(message)
+    (message: any) => setLivePoint(message)
   );
 
   const fetchTables = async () => {

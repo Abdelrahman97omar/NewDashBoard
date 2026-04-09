@@ -1,9 +1,9 @@
-version: '2.3'
 services:
   Frontend:
+    network_mode: host
     image: newdashboard:latest
-    ports:
-      - "5173:5173"
+    # ports:
+    #   - "5173:5173"
     volumes:
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     working_dir: /home/NewDashBoard
@@ -12,8 +12,6 @@ services:
   Backend:
     image: newdashboard:latest
     network_mode: host
-    ports:
-      - "8001:8001"
     environment:
       - USER=${USER}
     volumes:
@@ -67,7 +65,6 @@ services:
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     depends_on:
       WebSocket-server:
-        # condition: service_healthy
         condition: service_started
       Redis:
         condition: service_started
@@ -76,4 +73,5 @@ services:
 
   Redis:
     image: newdashboard:latest
-    command: bash -c 'redis-server --protection-mode no'
+    network_mode: host
+    command: bash -c 'redis-server --protected-mode no'
