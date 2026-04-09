@@ -14,8 +14,8 @@ services:
     environment:
       - USER=${USER}
     volumes:
-      - /var/run/dbus:/var/run/dbus 
-      - /run/NetworkManager:/run/NetworkManager 
+      - /var/run/dbus:/var/run/dbus                # This file is to allow the use of dbus which allow nmcli to talk to network manager service  
+      # - /run/NetworkManager:/run/NetworkManager    # This file is to allow the use of Network 
       - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     working_dir: /home/NewDashBoard/backend
