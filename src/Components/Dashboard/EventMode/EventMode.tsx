@@ -23,6 +23,10 @@ const EventMode = () => {
     setLive_X(Number(message.pose.pose.position.x).toFixed(2));
     setLive_Y(Number(message.pose.pose.position.y).toFixed(2));
     setLive_SETA(Number(yawDeg).toFixed(2));
+    console.log(live_X)
+    console.log(live_Y)
+    console.log(live_Seta)
+
   };
   subscribeTopic(
     "/slamware_ros_sdk_server_node/odom",
@@ -141,7 +145,7 @@ const EventMode = () => {
         </div>
       </div>
       <div className="border-2 mt-10">
-        <header className="pl-5 border-2 text-4xl w-1/4  text-[#09203E] font-bold">
+        <header className="pl-5 text-4xl w-1/4  text-[#09203E] font-bold">
           Edit Points:
         </header>
         <div className=" grid grid-cols-3 h-full ">
