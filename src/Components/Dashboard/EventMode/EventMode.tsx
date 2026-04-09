@@ -5,9 +5,9 @@ const EventMode = () => {
   const { publishTopic, subscribeTopic } = useRosConnection();
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
-  const [liveSeta, setLive_SETA] = useState("0");
+  const [live_Seta, setLive_SETA] = useState("0");
   const [currentPointFile, setCurrentPointFile] = useState("");
-  const [pointsLists, setPointsLists] = useState([]);
+  const [pointsFilessLists, setPointsFilessLists] = useState([]);
 
   const livePointsUpdate = (message: any) => {
     const yaw = Math.atan2(
@@ -52,7 +52,7 @@ const EventMode = () => {
       `http://${window.location.hostname}:8001/eventMode/getAllPoints`
     );
     const data = await res.json();
-    setPointsLists(data);
+    setPointsFilessLists(data);
     console.log(data);
     console.log("The first point in teh list is:", data[0]);
     setCurrentPointFile(data[0]);
@@ -93,57 +93,76 @@ const EventMode = () => {
 
   return (
     <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
-      <div className="border-2 border-green-500 h-full grid grid-cols-3">
-
-        <div >
+      <div className="border-2 h-full grid grid-rows-2">
+        <div className="flex justify-between items-center">
           <button
-            className="rounded-3xl w-50 h-20 Cgray m-2"
+            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
             onClick={appendPointHandler}
           >
             Append Point
           </button>
           <button
-            className="rounded-3xl w-50 h-20 Cgray m-2"
+            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
             onClick={handleRemovePoint}
           >
             Delete Point List
           </button>
           <button
-            className="rounded-3xl w-50 h-20 Cgray m-2"
+            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
             onClick={handleAddNewPoint}
           >
             Add New Point List
           </button>
           <button
-            className="rounded-3xl w-50 h-20 Cgray m-2"
+            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
             onClick={handleclearPoint}
           >
             Clear Point List
           </button>
-        </div>
-
-        <div>
-          <button
-            className="rounded-3xl w-50 h-20 Cgray"
-            onClick={setEventmodeButtonhandler}
-          >
-            Set Event Mode
-          </button>
-        </div>
-
-        <div>
           <select
-            className="Cgray w-[300px] text-center h-[50px] rounded-2xl"
+            className="Cgray w-[100px] text-center h-20 mr-20 rounded-2xl"
             onChange={(e) => setCurrentPointFile(e.target.value)}
           >
-            {pointsLists.map((pointNo) => (
+            {pointsFilessLists.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>
                 {pointNo}
               </option>
             ))}
           </select>
         </div>
-        
+
+        <div className="mx-30">
+          <button
+            className="rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
+            onClick={setEventmodeButtonhandler}
+          >
+            Set Event Mode
+          </button>
+        </div>
+      </div>
+      <div className="border-2 mt-10">
+        <header className="pl-5 border-2 text-4xl w-1/4  text-[#09203E] font-bold">
+          Edit Points:
+        </header>
+        <div className=" grid grid-cols-3 h-full ">
+          <div className=" h-full tableModeBorders">
+            <p className="tablemodeHeaders">Live Points</p>
+            <div className="XYSETA-VALUE-Position">
+              <span className="font-bold text-xl mr-10">X:</span>
+              <div className="tableModeNumberFieled">{live_X}</div>
+            </div>
+            <div className="XYSETA-VALUE-Position">
+              <span className="font-bold text-xl mr-10">Y:</span>
+              <div className="tableModeNumberFieled">{live_Y}</div>
+            </div>
+            <div className="XYSETA-VALUE-Position">
+              <span className="font-bold text-xl mr-10">Theta:</span>
+              <div className="tableModeNumberFieled">{live_Seta}</div>
+            </div>
+          </div>
+          <div className="border-2 h-full overflow-hidden"></div>
+          <div className="border-2 h-full overflow-hidden"></div>
+        </div>
       </div>
     </div>
   );
