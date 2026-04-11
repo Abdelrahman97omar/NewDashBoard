@@ -27,11 +27,19 @@ async def get_event_points_list():
 
 @router.get("/getPointsPool/{filenumber}")
 async def get_points_pool(filenumber:int):
+    # all_points_list=[]
+    all_points_list=dict()
+    counter=1
     with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
-        points= f.read()
-        print(points)
-        print(type(points))
-    return points
+        for line in f:
+            the_new_line_points=[]
+            x,y,seta=line.split(",")
+            the_new_line_points.append(x.strip())
+            the_new_line_points.append(y.strip())
+            the_new_line_points.append(seta.strip())
+            all_points_list[f"{counter}"]=(the_new_line_points)
+            counter=counter+1
+    return all_points_list
 
 @router.put("/addNewPoint")
 async def get_event_points_list():

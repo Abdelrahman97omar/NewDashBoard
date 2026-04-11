@@ -1,5 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useRosConnection } from "../../../connection-provider";
+import {
+  getEventpointsList,
+  handleclearPoint,
+  getpointsPool,
+  handleAddNewPoint,
+  handleRemovePoint,
+} from "./eventAPI"
 
 const EventMode = () => {
   const { publishTopic, subscribeTopic } = useRosConnection();
@@ -7,11 +14,19 @@ const EventMode = () => {
   const [live_Y, setLive_Y] = useState("0");
   const [live_Seta, setLive_SETA] = useState("0");
   const [currentPointFile, setCurrentPointFile] = useState("");
-  const [pointsPooll, setPointsPooll] = useState([12, 2, 2, 312, 421]);
+  const [pointsPooll, setPointsPooll] = useState<string[]>([]);
   const [pointsFilessLists, setPointsFilessLists] = useState([]);
+  const [fetched_Point_x, setFetched_Point_x] = useState();
+  const [fetched_Point_y, setFetched_Point_y] = useState();
+  const [fetched_Point_seta, setFetched_Point_seta] = useState();
 
   useEffect(() => {
-    getEventpointsList();
+    const init = async () => {
+      const data = await getEventpointsList();
+      setPointsFilessLists(data);
+      setCurrentPointFile(data[0]);
+    };
+    init();
     subscribeTopic(
       "/slamware_ros_sdk_server_node/odom",
       "nav_msgs/Odometry",
@@ -44,6 +59,15 @@ const EventMode = () => {
     });
   };
 
+  const handleChooseNewFileNumber = async (e: any) => {
+    const x = await getpointsPool(e.target.value);
+    const list_of_points=Object.keys(x)
+    const pointValues=Object.values(x)
+    console.log(pointValues)
+    setPointsPooll(list_of_points);
+    setCurrentPointFile(e.target.value);
+  };
+
   const appendPointHandler = () => {
     console.log(parseFloat(currentPointFile));
     publishTopic("/points_no", "std_msgs/Float32", {
@@ -53,56 +77,6 @@ const EventMode = () => {
     publishTopic("/append", "std_msgs/Bool", {
       data: true,
     });
-  };
-
-  const getEventpointsList = async () => {
-    const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/getAllPointsFiles`
-    );
-    const data = await res.json();
-    setPointsFilessLists(data);
-    console.log(data);
-    console.log("The first point in teh list is:", data[0]);
-    setCurrentPointFile(data[0]);
-  };
-
-  const getpointsPool = async () => {
-    const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
-      { method: "GET" }
-    );
-    const data = await res.json();
-    const fetchedpoints = JSON.parse(data);
-    setPointsPooll(fetchedpoints);
-  };
-
-  const handleAddNewPoint = async () => {
-    const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/addNewPoint`,
-      {
-        method: "PUT",
-      }
-    );
-    getEventpointsList();
-  };
-
-  const handleRemovePoint = async () => {
-    console.log("the currnet files are", currentPointFile);
-    await fetch(
-      `http://${window.location.hostname}:8001/eventMode/deletePoint/${currentPointFile}`,
-      {
-        method: "DELETE",
-      }
-    );
-    getEventpointsList();
-  };
-  const handleclearPoint = async () => {
-    await fetch(
-      `http://${window.location.hostname}:8001/eventMode/clearPoint/${currentPointFile}`,
-      {
-        method: "PATCH",
-      }
-    );
   };
 
   return (
@@ -117,7 +91,7 @@ const EventMode = () => {
           </button>
           <button
             className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
-            onClick={handleRemovePoint}
+            onClick={()=>{handleRemovePoint(currentPointFile)}}
           >
             Delete Point List
           </button>
@@ -129,13 +103,13 @@ const EventMode = () => {
           </button>
           <button
             className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
-            onClick={handleclearPoint}
+            onClick={() => { handleclearPoint(currentPointFile); }}
           >
             Clear Point List
           </button>
           <select
             className="Cgray w-[100px] text-center h-20 mr-20 rounded-2xl"
-            onChange={(e) => setCurrentPointFile(e.target.value)}
+            onChange={handleChooseNewFileNumber}
           >
             {pointsFilessLists.map((pointNo) => (
               <option className="rounded-2xl" key={pointNo}>
@@ -215,7 +189,7 @@ const EventMode = () => {
               <p className="text-[#09203E] text-l font-bold">Y:</p>
               <input className="border-2 w-1/4" type=""></input>
               <p className="text-[#09203E] text-l font-bold">Seta:</p>
-              <input  className="border-2 w-1/4"type=""></input>
+              <input className="border-2 w-1/4" type=""></input>
             </div>
           </div>
         </div>
