@@ -8,14 +8,14 @@ export const getEventpointsList = async () => {
 };
 
 export const getpointsPool = async (pointsFilessLists: any) => {
-    const res = await fetch(
-      `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
-      { method: "GET" }
-    );
-    const data = await res.json();
-    console.log("The points pool is:", data)
-    return data;
-  };
+  const res = await fetch(
+    `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
+    { method: "GET" }
+  );
+  const data = await res.json();
+  console.log("The points pool is:", data);
+  return data;
+};
 
 export const handleclearPoint = async (currentPointFile: string) => {
   await fetch(
@@ -26,7 +26,31 @@ export const handleclearPoint = async (currentPointFile: string) => {
   );
 };
 
-export const handleAddNewPoint = async () => {
+export const handleEditPoint = async (
+  currentPointFile: string,
+  choosenpointsPool: Number,
+  X: String,
+  Y: String,
+  Seta: String
+) => {
+  await fetch(
+    `http://${window.location.hostname}:8001/eventMode/editPoint/${currentPointFile}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        choosenpointsPool,
+        X,
+        Y,
+        Seta,
+      })
+    }
+  );
+};
+
+export const addNewPoint = async () => {
   const res = await fetch(
     `http://${window.location.hostname}:8001/eventMode/addNewPoint`,
     {
@@ -36,7 +60,7 @@ export const handleAddNewPoint = async () => {
   getEventpointsList();
 };
 
-export const handleRemovePoint = async (currentPointFile: string) => {
+export const removePoint = async (currentPointFile: string) => {
   console.log("the currnet files are", currentPointFile);
   await fetch(
     `http://${window.location.hostname}:8001/eventMode/deletePoint/${currentPointFile}`,

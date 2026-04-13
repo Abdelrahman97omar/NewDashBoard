@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 import redis 
+from fastapi import Body
+
 from os import listdir
 import os
 from os.path import isfile, join
@@ -83,3 +85,34 @@ async def clear_points_file(pointNumber):
     import os
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     open(f"{file_path}/points{pointNumber}.txt", 'w').close()
+
+
+
+@router.patch("/editPoint/{filenumber}")
+async def edit_point(filenumber: str, incomingData: dict = Body(...)):
+    print("the current file numbe ris:" ,filenumber)
+    print(incomingData)
+    file_path = f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt"
+    cleaned_lines = []
+    try:
+        with open(file=file_path, encoding="utf-8") as f:
+            lines=f.readlines()
+            for line in lines:
+                cleaned_lines.append(line.strip())
+            print(cleaned_lines)
+    except Exception as e:
+        print("Error reading lines to edit it due to:",e)
+
+    index = incomingData['choosenpointsPool']
+
+    cleaned_lines[index] = (
+        incomingData['X'] + "," +
+        incomingData['Y'] + "," +
+        incomingData['Seta']
+    )
+    try:
+        with open(file_path, "w") as f:
+            f.writelines(cleaned_lines)
+    except Exception as e:
+        print("Error editing line due to:",e)
+
