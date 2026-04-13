@@ -112,7 +112,8 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
     )
     try:
         with open(file_path, "w") as f:
-            f.writelines(cleaned_lines)
+            for x in cleaned_lines:
+                f.write(x+'\n')
     except Exception as e:
         print("Error editing line due to:",e)
 
