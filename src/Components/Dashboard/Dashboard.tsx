@@ -34,9 +34,9 @@ const Dashboard = ({ page }: MyProp) => {
     setLive_X(X);
     setLive_Y(Y);
     setLive_SETA(Seta);
-    // console.log(live_X);
-    // console.log(live_Y);
-    // console.log(live_Seta);
+    console.log(alive_X);
+    console.log(alive_Y);
+    console.log(alive_Seta);
   };
 
   useEffect(() => {
