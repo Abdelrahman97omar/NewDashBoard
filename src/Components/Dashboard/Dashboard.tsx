@@ -17,6 +17,8 @@ const Dashboard = ({ page }: MyProp) => {
   const [alive_Y, setLive_Y] = useState("0");
   const [alive_Seta, setLive_SETA] = useState("0");
   const { subscribeTopic } = useRosConnection();
+
+
   const livePointsUpdate = (message: any) => {
     const yaw = Math.atan2(
       2 *
@@ -39,8 +41,13 @@ const Dashboard = ({ page }: MyProp) => {
     console.log(alive_Seta);
   };
 
+    useEffect(() => {
+      console.log(alive_X, alive_Y, alive_Seta);
+    }, [alive_X, alive_Y, alive_Seta]);
+
   useEffect(() => {
-    const unsubscribe = subscribeTopic(
+    console.log("Now should be subscribed")
+    subscribeTopic(
       "/slamware_ros_sdk_server_node/odom",
       "nav_msgs/Odometry",
       livePointsUpdate
