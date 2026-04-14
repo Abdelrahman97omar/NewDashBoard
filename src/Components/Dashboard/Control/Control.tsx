@@ -84,9 +84,10 @@ const Control = () => {
           </button>
 
           <button
-            className={
+            className={`  ${
               resumeState === 1 ? "pressedControlButtons" : "controlButtons"
             }
+            `}
             onClick={handleResume}
           >
             Resume
@@ -94,7 +95,6 @@ const Control = () => {
         </div>
 
         <div className="h-30  grid-rows-[15_1fr]  Cgray mx-9 rounded-3xl w-345">
-
           <div className="flex justify-center items-center px-30 pt-8 w-full">
             <p className="mr-6 text-3xl font-bold text-[#09203E]">Speed</p>
             <input
@@ -108,10 +108,12 @@ const Control = () => {
               onChange={handleSliderChange}
             />
           </div>
-            <div className="flex justify-center items-center w-full">
-                <p className="text-[#09203E] text-3xl font-bold ml-150 ">50%</p>
-                <p className="text-[#09203E] text-3xl font-bold ml-110 ">{sliderValue}%</p>
-            </div>
+          <div className="flex justify-center items-center w-full">
+            <p className="text-[#09203E] text-3xl font-bold ml-150 ">50%</p>
+            <p className="text-[#09203E] text-3xl font-bold ml-110 ">
+              {sliderValue}%
+            </p>
+          </div>
         </div>
 
         <div className=""></div>

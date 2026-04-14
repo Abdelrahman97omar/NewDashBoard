@@ -12,22 +12,28 @@
 }
 
 .dashboardSettingsButtons{
-    @apply  h-35 w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold
+    @apply  border shadow-lg shadow-black/50 h-35 w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold
 }
 
 .pressedDashboardSettingsButtons{ 
-    @apply  h-35 w-90 rounded-3xl shadow-2xl bg-[#F17137] text-[#09203E] text-2xl font-bold
+    @apply  active:scale-95 active:bg-[#d0d0d1] border shadow-lg shadow-black/50 h-35 w-90 rounded-3xl shadow-2xl bg-[#F17137] text-[#09203E] text-2xl font-bold
 }
 
 .controlButtons{
-    @apply rounded-3xl w-full h-[150px] mx-8 bg-[#E8E8E9] text-[#09203E] text-2xl font-bold
+    @apply border shadow-lg shadow-black/50 rounded-3xl w-full h-[150px] mx-8 bg-[#E8E8E9] text-[#09203E] text-2xl font-bold
 }
 .pressedControlButtons{
-    @apply rounded-3xl w-full h-[150px] mx-8 bg-[#F17137] text-[#09203E] text-2xl font-bold
+    @apply border shadow-lg shadow-black/50 rounded-3xl w-full h-[150px] mx-8 bg-[#F17137] text-[#09203E] text-2xl font-bold
 }
 
+.eventModeButtons{
+    @apply border shadow-lg shadow-black/50 rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 bg-[#E8E8E9] m-2
+}
 .tableModeButtons{
-    @apply font-bold text-2xl text-[#09203E] text-center w-[250px] h-[90px] rounded-xl bg-[#E8E8E9]
+    @apply border shadow-lg shadow-black/50 font-bold text-2xl text-[#09203E] text-center w-[250px] h-[90px] rounded-xl bg-[#E8E8E9]
+}
+.tablemodeSetpointsButtons{
+    @apply border shadow-lg shadow-black/50 bg-[#E8E8E9] my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg
 }
 .tableModeBorders{
     @apply border-2 border-[#E8E8E9] rounded-3xl
@@ -46,7 +52,7 @@
     @apply bg-[#09203E]
 }
 
-.corange{
+.Corange{
     @apply bg-[#F17137]
 }
 

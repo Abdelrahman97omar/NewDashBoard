@@ -160,25 +160,25 @@ const EventMode = () => {
       <div className=" h-full grid grid-rows-2">
         <div className="flex justify-between items-center">
           <button
-            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
+            className="eventModeButtons"
             onClick={appendPointHandler}
           >
             Append Point
           </button>
           <button
-            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
+            className="eventModeButtons"
             onClick={handleRemovePoint}
           >
             Delete Point List
           </button>
           <button
-            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
+            className="eventModeButtons"
             onClick={handleAddNewPoint}
           >
             Add New Point List
           </button>
           <button
-            className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 Cgray m-2"
+            className="eventModeButtons"
             onClick={() => {
               handleclearPoint(currentPointFile);
             }}
@@ -186,7 +186,7 @@ const EventMode = () => {
             Clear Point List
           </button>
           <select
-            className="Cgray w-[100px] text-center h-20 mr-20 rounded-2xl"
+            className="border-1 shadow-lg shadow-black/50 Cgray w-[100px] text-center h-20 mr-20 rounded-2xl"
             onChange={ChooseNewFileNumberhandle}
           >
             {pointsFilessLists.map((pointNo) => (
@@ -199,7 +199,7 @@ const EventMode = () => {
 
         <div className="mx-30 mt-5">
           <button
-            className="rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
+            className="border-1 shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
             onClick={setEventmodeButtonhandler}
           >
             Set Event Mode
@@ -273,7 +273,7 @@ const EventMode = () => {
           <div className="h-full tableModeBorders">
             <p className="tablemodeHeaders">Edit Point</p>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border-1 shadow-md shadow-black/50"
               onClick={() =>
                 handleEditPoint(currentPointFile, choosenpointsPool, live_X,live_X,live_X)
               }
@@ -281,7 +281,7 @@ const EventMode = () => {
               Set Live Points
             </button>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border-1 shadow-md shadow-black/50"
               onClick={() =>
                 handleEditPoint(currentPointFile, choosenpointsPool,  manualPoint_X,manualPoint_Y,manualPoint_SETA)
               }

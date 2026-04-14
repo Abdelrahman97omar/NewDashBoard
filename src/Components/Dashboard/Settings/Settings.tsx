@@ -52,7 +52,7 @@ const SettingS = () => {
   };
 
   const handleSetMotor = () => {
-    console.log("the previous state is:",motorState)
+    console.log("the previous state is:", motorState);
     const nextMotorState = !motorState;
     toglemotorState(nextMotorState);
     publishTopic("/enable_motors", "std_msgs/Bool", {
@@ -131,16 +131,16 @@ const SettingS = () => {
           </button>
           <button
             className={
-              motorState ? "dashboardSettingsButtons" : "pressedDashboardSettingsButtons"
+              motorState
+                ? "dashboardSettingsButtons"
+                : "pressedDashboardSettingsButtons"
             }
             onClick={handleSetMotor}
           >
-            {motorState? "Set Motor Off":"Set Motor On"}
-            
+            {motorState ? "Set Motor Off" : "Set Motor On"}
           </button>
         </div>
       </div>
-
     </>
   );
 };

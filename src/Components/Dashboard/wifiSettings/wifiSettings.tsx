@@ -89,7 +89,7 @@ const WifiSettings = () => {
             value={wifiPassword}
             onChange={enterPwHandler}
           />
-          <button className="border-2 w-50 h-15 rounded-3xl bg-[#E8E8E9]" onClick={handleConnectButton}>
+          <button className="border-1 shadow-lg shadow-black/50 w-50 h-15 rounded-3xl bg-[#E8E8E9]" onClick={handleConnectButton}>
             Connect
           </button>
         </div>

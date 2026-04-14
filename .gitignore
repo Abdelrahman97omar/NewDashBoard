@@ -3,3 +3,5 @@ myimage.tar
 launchApp.sh
 launchBackend.sh
 backend/__pycache__/*
+newDashboardDockerimage.tar
+newdashboard.tar

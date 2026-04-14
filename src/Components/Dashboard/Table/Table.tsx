@@ -256,7 +256,7 @@ const Table = () => {
 
         <div className="flex justify-center items-center">
           <select
-            className=" corange w-[300px] rounded-2xl h-[90px]"
+            className=" Corange w-[300px] rounded-2xl h-[90px]"
             name="cars"
             id="cars"
             value={selectedTable}
@@ -292,16 +292,16 @@ const Table = () => {
             <div className="tableModeNumberFieled">{live_Seta}</div>
           </div>
           <div className="grid grid-cols-1">
-            <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg" onClick={() => setNewPoints("Main",true)}>
+            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("Main",true)}>
               Set Main Table
             </button>
-            <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg" onClick={() => setNewPoints("BackUp_1",true)}>
+            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_1",true)}>
               Set backup 1
             </button>
-            <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg" onClick={() => setNewPoints("BackUp_2",true)}>
+            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_2",true)}>
               Set backup 2
             </button>
-            <button className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg" onClick={() => setNewPoints("BackUp_3",true)}>
+            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_3",true)}>
               Set backup 3
             </button>
           </div>
@@ -342,25 +342,25 @@ const Table = () => {
           </div>
           <div className="grid grid-cols-1">
             <button
-              className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg"
+              className="tablemodeSetpointsButtons"
               onClick={() => setNewPoints("Main",false)}
             >
               Set Main Table
             </button>
             <button
-              className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg"
+              className="tablemodeSetpointsButtons"
               onClick={() => setNewPoints("BackUp_1",false)}
             >
               Set backup 1
             </button>
             <button
-              className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg"
+              className="tablemodeSetpointsButtons"
               onClick={() => setNewPoints("BackUp_2",false)}
             >
               Set backup 2
             </button>
             <button
-              className="Cgray my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg"
+              className="tablemodeSetpointsButtons"
               onClick={() => setNewPoints("BackUp_3",false)}
             >
               Set backup 3
