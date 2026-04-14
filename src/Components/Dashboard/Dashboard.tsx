@@ -19,34 +19,34 @@ const Dashboard = ({ page }: MyProp) => {
   const { subscribeTopic , unsubscribeTopic} = useRosConnection();
 
 
-  const livePointsUpdate = (message: any) => {
-    const yaw = Math.atan2(
-      2 *
-        (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
-          message.pose.pose.orientation.x * message.pose.pose.orientation.y),
-      1 -
-        2 *
-          (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
-            message.pose.pose.orientation.z * message.pose.pose.orientation.z)
-    );
-    const yawDeg: any = yaw * (180 / Math.PI);
-    const X = Number(message.pose.pose.position.x).toFixed(2);
-    const Y = Number(message.pose.pose.position.y).toFixed(2);
-    const Seta = Number(yawDeg).toFixed(2);
-    setLive_X(X);
-    setLive_Y(Y);
-    setLive_SETA(Seta);
-    console.log(alive_X);
-    console.log(alive_Y);
-    console.log(alive_Seta);
-  };
+
 
     useEffect(() => {
       console.log(alive_X, alive_Y, alive_Seta);
     }, [alive_X, alive_Y, alive_Seta]);
 
   useEffect(() => {
-    console.log("Now should be subscribed")
+    const livePointsUpdate = (message: any) => {
+      const yaw = Math.atan2(
+        2 *
+          (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
+            message.pose.pose.orientation.x * message.pose.pose.orientation.y),
+        1 -
+          2 *
+            (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
+              message.pose.pose.orientation.z * message.pose.pose.orientation.z)
+      );
+      const yawDeg: any = yaw * (180 / Math.PI);
+      const X = Number(message.pose.pose.position.x).toFixed(2);
+      const Y = Number(message.pose.pose.position.y).toFixed(2);
+      const Seta = Number(yawDeg).toFixed(2);
+      setLive_X(X);
+      setLive_Y(Y);
+      setLive_SETA(Seta);
+      console.log(alive_X);
+      console.log(alive_Y);
+      console.log(alive_Seta);
+    };
     subscribeTopic(
       "/slamware_ros_sdk_server_node/odom",
       "nav_msgs/Odometry",
