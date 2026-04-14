@@ -18,6 +18,7 @@ type RosContextType = {
   ) => void;
 
   unsubscribeAllTopics: () => void;
+  unsubscribeTopic: (topicName: string) => void;
 
   isConnected: boolean;
 };
@@ -133,13 +134,25 @@ function ConnectionProvider({ children }: ProviderProps) {
 
     activeTopics = [];
   };
-
+  const unsubscribeTopic = (topicName: string) => {
+    const topic = activeTopics.find((t) => t.name === topicName);
+  
+    if (!topic) {
+      console.log(`No active subscription for ${topicName}`);
+      return;
+    }
+  
+    topic.unsubscribe();
+  
+    console.log(`Unsubscribed from ${topicName}`);
+  };
   return (
     <ConnectionContext.Provider
       value={{
         publishTopic,
         subscribeTopic,
         unsubscribeAllTopics,
+        unsubscribeTopic,
         isConnected,
       }}
     >

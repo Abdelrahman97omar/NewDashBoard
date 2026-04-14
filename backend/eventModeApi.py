@@ -35,7 +35,7 @@ async def get_points_pool(filenumber:int):
     with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
         for line in f:
             the_new_line_points=[]
-            x,y,seta=line.split(",")
+            x,y,seta,Qx,Qy,Qz,Qw=line.split(",")
             the_new_line_points.append(x.strip())
             the_new_line_points.append(y.strip())
             the_new_line_points.append(seta.strip())

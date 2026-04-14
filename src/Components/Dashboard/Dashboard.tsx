@@ -16,7 +16,7 @@ const Dashboard = ({ page }: MyProp) => {
   const [alive_X, setLive_X] = useState("0");
   const [alive_Y, setLive_Y] = useState("0");
   const [alive_Seta, setLive_SETA] = useState("0");
-  const { subscribeTopic } = useRosConnection();
+  const { subscribeTopic , unsubscribeTopic} = useRosConnection();
 
 
   const livePointsUpdate = (message: any) => {
@@ -52,6 +52,7 @@ const Dashboard = ({ page }: MyProp) => {
       "nav_msgs/Odometry",
       livePointsUpdate
     );
+    return unsubscribeTopic("/slamware_ros_sdk_server_node/odom")
   }, []);
   //Control Button
   if (page === 0) {
