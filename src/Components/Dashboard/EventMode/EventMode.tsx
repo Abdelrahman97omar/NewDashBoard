@@ -9,11 +9,17 @@ import {
   removePoint,
 } from "./eventAPI";
 
-const EventMode = () => {
-  const { publishTopic, subscribeTopic } = useRosConnection();
-  const [live_X, setLive_X] = useState("0");
-  const [live_Y, setLive_Y] = useState("0");
-  const [live_Seta, setLive_SETA] = useState("0");
+type livepointlist={
+  live_X: string
+live_Y: string
+live_Seta: string
+}
+
+const EventMode = ({live_X,live_Y,live_Seta}:livepointlist) => {
+  const { publishTopic} = useRosConnection();
+  // const [live_X, setLive_X] = useState("0");
+  // const [live_Y, setLive_Y] = useState("0");
+  // const [live_Seta, setLive_SETA] = useState("0");
   const [pointsFilessLists, setPointsFilessLists] = useState([]);
   const [currentPointFile, setCurrentPointFile] = useState("");
   const [pointsPoollList, setPointsPoollList] = useState<string[]>([]);
@@ -38,35 +44,35 @@ const EventMode = () => {
     }
   };
 
-  const livePointsUpdate = (message: any) => {
-    const yaw = Math.atan2(
-      2 *
-        (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
-          message.pose.pose.orientation.x * message.pose.pose.orientation.y),
-      1 -
-        2 *
-          (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
-            message.pose.pose.orientation.z * message.pose.pose.orientation.z)
-    );
-    const yawDeg: any = yaw * (180 / Math.PI);
-     const X= (Number(message.pose.pose.position.x)).toFixed(2);
-     const Y= (Number(message.pose.pose.position.y)).toFixed(2);
-     const Seta =(Number(yawDeg)).toFixed(2)
-    setLive_X(X)
-    setLive_Y(Y)
-    setLive_SETA(Seta);
-    console.log(live_X);
-    console.log(live_Y);
-    console.log(live_Seta);
-  };
+  // const livePointsUpdate = (message: any) => {
+  //   const yaw = Math.atan2(
+  //     2 *
+  //       (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
+  //         message.pose.pose.orientation.x * message.pose.pose.orientation.y),
+  //     1 -
+  //       2 *
+  //         (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
+  //           message.pose.pose.orientation.z * message.pose.pose.orientation.z)
+  //   );
+  //   const yawDeg: any = yaw * (180 / Math.PI);
+  //    const X= (Number(message.pose.pose.position.x)).toFixed(2);
+  //    const Y= (Number(message.pose.pose.position.y)).toFixed(2);
+  //    const Seta =(Number(yawDeg)).toFixed(2)
+  //   setLive_X(X)
+  //   setLive_Y(Y)
+  //   setLive_SETA(Seta);
+  //   console.log(live_X);
+  //   console.log(live_Y);
+  //   console.log(live_Seta);
+  // };
 
   useEffect(() => {
     init();
-    subscribeTopic(
-      "/slamware_ros_sdk_server_node/odom",
-      "nav_msgs/Odometry",
-      (msg) => livePointsUpdate(msg)
-    );
+    // subscribeTopic(
+    //   "/slamware_ros_sdk_server_node/odom",
+    //   "nav_msgs/Odometry",
+    //   (msg) => livePointsUpdate(msg)
+    // );
   }, []);
 
   const setEventmodeButtonhandler = () => {
