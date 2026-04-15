@@ -55,13 +55,6 @@ const EventMode = () => {
     setLive_SETA(Seta);
   };
 
-
-  useEffect(() => {
-    console.log("the value of live x",live_X);
-    console.log("the value of live y",live_Y);
-    console.log("the value of live seta",live_Seta);
-  },[live_X,live_Y,live_Seta])
-
   useEffect(() => {
     init();
     subscribeTopic(

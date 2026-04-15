@@ -22,7 +22,7 @@ const StatusBar = () => {
       if (all_topic_state["op_mode"] === "1") { setOpMode("Event"); }
       else { setOpMode("Table"); }
 
-      if (all_topic_state["enable_motors"] == "True") { setMotorMode("ON") }
+      if (all_topic_state["enable_motors"] == "True" || all_topic_state["enable_motors"] == "") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
 
       if (all_topic_state["emergency_state"] === "0") { setEmergencyState("pressed") }
