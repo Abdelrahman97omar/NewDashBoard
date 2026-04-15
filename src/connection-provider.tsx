@@ -136,14 +136,18 @@ function ConnectionProvider({ children }: ProviderProps) {
   };
   const unsubscribeTopic = (topicName: string) => {
     const topic = activeTopics.find((t) => t.name === topicName);
-  
     if (!topic) {
       console.log(`No active subscription for ${topicName}`);
       return;
-    }
-  
+    }  
     topic.unsubscribe();
-  
+    const index = activeTopics.findIndex(
+      (topic) => topic.name === topicName
+    );
+    
+    if (index !== -1) {
+      activeTopics.splice(index, 1);
+    }
     console.log(`Unsubscribed from ${topicName}`);
   };
 
