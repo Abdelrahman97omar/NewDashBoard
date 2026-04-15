@@ -8,9 +8,6 @@ import {
   handleEditPoint,
   removePoint,
 } from "./eventAPI";
-// import { Ros, Topic, Message } from "roslib";
-
-// const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
 
 const EventMode = () => {
   const { publishTopic, subscribeTopic, unsubscribeTopic } = useRosConnection();
@@ -26,7 +23,6 @@ const EventMode = () => {
   const [manualPoint_Y, setManualPoint_Y] = useState("0");
   const [manualPoint_SETA, setManualPoint_SETA] = useState("0");
 
-
   const init = async () => {
     const data = await getEventpointsList();
     setPointsFilessLists(data);
@@ -37,7 +33,6 @@ const EventMode = () => {
     } else {
       setPointsPoollList(Object.keys(x));
       setPointValues(Object.values(x));
-
     }
   };
 
@@ -52,35 +47,20 @@ const EventMode = () => {
             message.pose.pose.orientation.z * message.pose.pose.orientation.z)
     );
     const yawDeg: any = yaw * (180 / Math.PI);
-     const X= (Number(message.pose.pose.position.x)).toFixed(2);
-     const Y= (Number(message.pose.pose.position.y)).toFixed(2);
-     const Seta =(Number(yawDeg)).toFixed(2)
-    setLive_X(X)
-    setLive_Y(Y)
+    const X = Number(message.pose.pose.position.x).toFixed(2);
+    const Y = Number(message.pose.pose.position.y).toFixed(2);
+    const Seta = Number(yawDeg).toFixed(2);
+    setLive_X(X);
+    setLive_Y(Y);
     setLive_SETA(Seta);
-    console.log(live_X);
-    console.log(live_Y);
-    console.log(live_Seta);
   };
 
 
-  // const rosRef = useRef<InstanceType<typeof Ros> | null>(null);
-
-  // useEffect(() => {
-  //   init()
-  //   const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
-  //   rosRef.current = new Ros({ url: rosbridgeUrl });
-  //   const topic = new Topic({
-  //     ros: rosRef.current,
-  //     name: "/slamware_ros_sdk_server_node/odom",
-  //     messageType: "nav_msgs/Odometry",
-  //   });
-  //   topic.subscribe((message: any) => livePointsUpdate(message));
-  //   return () => {
-  //     topic.unsubscribe();
-  //     rosRef.current?.close();
-  //   };
-  // }, []);
+  useEffect(() => {
+    console.log("the value of live x",live_X);
+    console.log("the value of live y",live_Y);
+    console.log("the value of live seta",live_Seta);
+  },[live_X,live_Y,live_Seta])
 
   useEffect(() => {
     init();
@@ -89,9 +69,9 @@ const EventMode = () => {
       "nav_msgs/Odometry",
       (msg) => livePointsUpdate(msg)
     );
-    return ()=>{
-      unsubscribeTopic("/slamware_ros_sdk_server_node/odom")
-    }
+    return () => {
+      unsubscribeTopic("/slamware_ros_sdk_server_node/odom");
+    };
   }, []);
 
   const setEventmodeButtonhandler = () => {
@@ -104,11 +84,10 @@ const EventMode = () => {
     const x = await getpointsPool(e.target.value);
     if (!x || Object.keys(x).length === 0) {
       setPointValues([["0", "0", "0"]]);
-      setPointsPoollList(["0"])
-      setChoosenPointsPool(0)
+      setPointsPoollList(["0"]);
+      setChoosenPointsPool(0);
       console.log("Empty or invalid response");
-    }
-    else{
+    } else {
       setPointValues(Object.values(x));
       setPointsPoollList(Object.keys(x));
     }
@@ -179,27 +158,17 @@ const EventMode = () => {
     } else return;
   };
 
-
   return (
     <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
       <div className=" h-full grid grid-rows-2">
         <div className="flex justify-between items-center">
-          <button
-            className="eventModeButtons"
-            onClick={appendPointHandler}
-          >
+          <button className="eventModeButtons" onClick={appendPointHandler}>
             Append Point
           </button>
-          <button
-            className="eventModeButtons"
-            onClick={handleRemovePoint}
-          >
+          <button className="eventModeButtons" onClick={handleRemovePoint}>
             Delete Point List
           </button>
-          <button
-            className="eventModeButtons"
-            onClick={handleAddNewPoint}
-          >
+          <button className="eventModeButtons" onClick={handleAddNewPoint}>
             Add New Point List
           </button>
           <button
@@ -300,7 +269,13 @@ const EventMode = () => {
             <button
               className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border shadow-md shadow-black/50"
               onClick={() =>
-                handleEditPoint(currentPointFile, choosenpointsPool, live_X,live_X,live_X)
+                handleEditPoint(
+                  currentPointFile,
+                  choosenpointsPool,
+                  live_X,
+                  live_X,
+                  live_X
+                )
               }
             >
               Set Live Points
@@ -308,13 +283,18 @@ const EventMode = () => {
             <button
               className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border shadow-md shadow-black/50"
               onClick={() =>
-                handleEditPoint(currentPointFile, choosenpointsPool,  manualPoint_X,manualPoint_Y,manualPoint_SETA)
+                handleEditPoint(
+                  currentPointFile,
+                  choosenpointsPool,
+                  manualPoint_X,
+                  manualPoint_Y,
+                  manualPoint_SETA
+                )
               }
             >
               Set Manuall
             </button>
             <div className="flex justify-between items-center mt-6 px-3">
-
               <span className="font-bold text-xl">X:</span>
               <input
                 className="tableModeNumberFieled"
