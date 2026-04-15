@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRosConnection } from "../../../connection-provider";
 import {
   getEventpointsList,
@@ -8,12 +8,12 @@ import {
   handleEditPoint,
   removePoint,
 } from "./eventAPI";
-import { Ros, Topic, Message } from "roslib";
+// import { Ros, Topic, Message } from "roslib";
 
-const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
+// const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
 
 const EventMode = () => {
-  const { publishTopic, subscribeTopic } = useRosConnection();
+  const { publishTopic, subscribeTopic, unsubscribeTopic } = useRosConnection();
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
   const [live_Seta, setLive_SETA] = useState("0");
@@ -64,43 +64,35 @@ const EventMode = () => {
   };
 
 
-  const rosRef = useRef<InstanceType<typeof Ros> | null>(null);
-
-  useEffect(() => {
-    init()
-    const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
-    rosRef.current = new Ros({ url: rosbridgeUrl });
-    const topic = new Topic({
-      ros: rosRef.current,
-      name: "/slamware_ros_sdk_server_node/odom",
-      messageType: "nav_msgs/Odometry",
-    });
-    topic.subscribe((message: any) => livePointsUpdate(message));
-    return () => {
-      topic.unsubscribe();
-      rosRef.current?.close();
-    };
-  }, []);
+  // const rosRef = useRef<InstanceType<typeof Ros> | null>(null);
 
   // useEffect(() => {
-  //   init();
-  //   // const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
-  //   // const newRos = new Ros({ url: rosbridgeUrl });
+  //   init()
+  //   const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
+  //   rosRef.current = new Ros({ url: rosbridgeUrl });
   //   const topic = new Topic({
-  //     ros: newRos.current,
+  //     ros: rosRef.current,
   //     name: "/slamware_ros_sdk_server_node/odom",
-  //     messageType: "nav_msgs/Odometry"
+  //     messageType: "nav_msgs/Odometry",
   //   });
-  //   topic.subscribe((message: any) => {
-  //     livePointsUpdate(message);
-  //   });
-  //   return ()=>{topic.unsubscribe();}
-  //   // subscribeTopic(
-  //   //   "/slamware_ros_sdk_server_node/odom",
-  //   //   "nav_msgs/Odometry",
-  //   //   (msg) => livePointsUpdate(msg)
-  //   // );
+  //   topic.subscribe((message: any) => livePointsUpdate(message));
+  //   return () => {
+  //     topic.unsubscribe();
+  //     rosRef.current?.close();
+  //   };
   // }, []);
+
+  useEffect(() => {
+    init();
+    subscribeTopic(
+      "/slamware_ros_sdk_server_node/odom",
+      "nav_msgs/Odometry",
+      (msg) => livePointsUpdate(msg)
+    );
+    return ()=>{
+      unsubscribeTopic("/slamware_ros_sdk_server_node/odom")
+    }
+  }, []);
 
   const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
