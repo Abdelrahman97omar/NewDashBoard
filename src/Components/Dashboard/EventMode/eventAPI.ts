@@ -51,7 +51,7 @@ export const handleEditPoint = async (
 };
 
 export const addNewPoint = async () => {
-  const res = await fetch(
+  await fetch(
     `http://${window.location.hostname}:8001/eventMode/addNewPoint`,
     {
       method: "PUT",

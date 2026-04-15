@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { useRosConnection } from "../../../connection-provider";
 import {
   getEventpointsList,
@@ -8,6 +8,9 @@ import {
   handleEditPoint,
   removePoint,
 } from "./eventAPI";
+import { Ros, Topic, Message } from "roslib";
+
+const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
 
 const EventMode = () => {
   const { publishTopic, subscribeTopic } = useRosConnection();
@@ -60,14 +63,44 @@ const EventMode = () => {
     console.log(live_Seta);
   };
 
+
+  const rosRef = useRef<InstanceType<typeof Ros> | null>(null);
+
   useEffect(() => {
-    init();
-    subscribeTopic(
-      "/slamware_ros_sdk_server_node/odom",
-      "nav_msgs/Odometry",
-      (msg) => livePointsUpdate(msg)
-    );
+    init()
+    const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
+    rosRef.current = new Ros({ url: rosbridgeUrl });
+    const topic = new Topic({
+      ros: rosRef.current,
+      name: "/slamware_ros_sdk_server_node/odom",
+      messageType: "nav_msgs/Odometry",
+    });
+    topic.subscribe((message: any) => livePointsUpdate(message));
+    return () => {
+      topic.unsubscribe();
+      rosRef.current?.close();
+    };
   }, []);
+
+  // useEffect(() => {
+  //   init();
+  //   // const rosbridgeUrl = `ws://${window.location.hostname}:9090`;
+  //   // const newRos = new Ros({ url: rosbridgeUrl });
+  //   const topic = new Topic({
+  //     ros: newRos.current,
+  //     name: "/slamware_ros_sdk_server_node/odom",
+  //     messageType: "nav_msgs/Odometry"
+  //   });
+  //   topic.subscribe((message: any) => {
+  //     livePointsUpdate(message);
+  //   });
+  //   return ()=>{topic.unsubscribe();}
+  //   // subscribeTopic(
+  //   //   "/slamware_ros_sdk_server_node/odom",
+  //   //   "nav_msgs/Odometry",
+  //   //   (msg) => livePointsUpdate(msg)
+  //   // );
+  // }, []);
 
   const setEventmodeButtonhandler = () => {
     publishTopic("/op_mode", "std_msgs/Int32", {
@@ -186,7 +219,7 @@ const EventMode = () => {
             Clear Point List
           </button>
           <select
-            className="border-1 shadow-lg shadow-black/50 Cgray w-[100px] text-center h-20 mr-20 rounded-2xl"
+            className="border shadow-lg shadow-black/50 Cgray w-25 text-center h-20 mr-20 rounded-2xl"
             onChange={ChooseNewFileNumberhandle}
           >
             {pointsFilessLists.map((pointNo) => (
@@ -199,7 +232,7 @@ const EventMode = () => {
 
         <div className="mx-30 mt-5">
           <button
-            className="border-1 shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
+            className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
             onClick={setEventmodeButtonhandler}
           >
             Set Event Mode
@@ -273,7 +306,7 @@ const EventMode = () => {
           <div className="h-full tableModeBorders">
             <p className="tablemodeHeaders">Edit Point</p>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border-1 shadow-md shadow-black/50"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border shadow-md shadow-black/50"
               onClick={() =>
                 handleEditPoint(currentPointFile, choosenpointsPool, live_X,live_X,live_X)
               }
@@ -281,7 +314,7 @@ const EventMode = () => {
               Set Live Points
             </button>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border-1 shadow-md shadow-black/50"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border shadow-md shadow-black/50"
               onClick={() =>
                 handleEditPoint(currentPointFile, choosenpointsPool,  manualPoint_X,manualPoint_Y,manualPoint_SETA)
               }

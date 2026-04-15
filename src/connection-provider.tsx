@@ -18,7 +18,7 @@ type RosContextType = {
   ) => void;
 
   unsubscribeAllTopics: () => void;
-  unsubscribeTopic: (topicName: string) => void;
+  // unsubscribeTopic: (topicName: string) => void;
 
   isConnected: boolean;
 };
@@ -152,7 +152,6 @@ function ConnectionProvider({ children }: ProviderProps) {
         publishTopic,
         subscribeTopic,
         unsubscribeAllTopics,
-        unsubscribeTopic,
         isConnected,
       }}
     >
