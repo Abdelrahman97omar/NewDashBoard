@@ -20,6 +20,7 @@ all_topics_state={
     "localization_weight":"",
     "manual_auto_mode":"",
     "robot_speed":"",
+    "next_option":"false"
 }
 def publish_data_ws():
     try:
@@ -108,16 +109,13 @@ def set_robot_speed(data):
         print("There is an error in setting robot speed in redis:",e)
     publish_data_ws()
 
-
-# def get_robot_odom(data):
-#     x=data.pose.pose.position.x
-#     y=data.pose.pose.position.y
-#     orientation_q = data.pose.pose.orientation
-#     orientation_list = [orientation_q.x, orientation_q.y,orientation_q.z, orientation_q.w]
-#     (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
-#     yaw=yaw * 57.2958
-#     rospy.loginfo("Robot Theta (yaw): %f", yaw)
-
+def set_next_option(data):
+    try:
+        all_topics_state["next_option"]=str(data.data)
+        r.set("all_topics", json.dumps(all_topics_state))
+    except Exception as e:
+        print("There is an error in setting robot speed in redis:",e)
+    publish_data_ws()
 
 
 def listener():
@@ -128,7 +126,7 @@ def listener():
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
     rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.Subscriber("/set_speed", Float32, set_robot_speed)
-    # rospy.Subscriber("/slamware_ros_sdk_server_node/odom", Odometry,get_robot_odom )
+    rospy.Subscriber("/robot_apps/next_on", Bool,set_next_option )
     rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.spin()
 

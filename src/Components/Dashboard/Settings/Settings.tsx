@@ -3,8 +3,8 @@ import { useRosConnection } from "../../../connection-provider";
 
 const SettingS = () => {
   const { publishTopic } = useRosConnection();
-  const [nextOptionState, togleNextOptionState] = useState(false);
   const [motorState, toglemotorState] = useState(false);
+  const [isNextOption, togleIsNextOption] = useState<boolean>();
 
   const getRobotStates = async () => {
     const resp = await fetch(
@@ -14,7 +14,14 @@ const SettingS = () => {
     const data = await resp.json();
     const all_topic_state = JSON.parse(data);
     const motorState = all_topic_state["enable_motors"];
+    const next_option_state = all_topic_state["next_option"];
+
     if (motorState === "True") {
+      toglemotorState(true);
+    } else {
+      toglemotorState;
+    }
+    if (next_option_state === "True") {
       toglemotorState(true);
     } else {
       toglemotorState;
@@ -32,8 +39,8 @@ const SettingS = () => {
   };
 
   const handleNextOptionOn = () => {
-    const newState = !nextOptionState;
-    togleNextOptionState(newState);
+    const newState = !isNextOption;
+    togleIsNextOption(newState);
     publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
       data: newState,
     });
@@ -115,7 +122,7 @@ const SettingS = () => {
         <div className="flex justify-around items-center">
           <button
             className={
-              nextOptionState === true
+              isNextOption === true
                 ? "pressedDashboardSettingsButtons"
                 : "dashboardSettingsButtons "
             }
