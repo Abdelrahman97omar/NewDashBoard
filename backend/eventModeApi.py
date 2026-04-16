@@ -116,8 +116,8 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
         incomingData['Seta'] + "," +
         Qx + "," +
         Qy + "," +
-        Qz + "," +
-        Qw + "," 
+        str(Qz) + "," +
+        str(Qw) + "," 
     )
     try:
         with open(file_path, "w") as f:
