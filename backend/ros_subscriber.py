@@ -113,6 +113,7 @@ def set_next_option(data):
     try:
         all_topics_state["next_option"]=str(data.data)
         r.set("all_topics", json.dumps(all_topics_state))
+        # print( from)
     except Exception as e:
         print("There is an error in setting robot speed in redis:",e)
     publish_data_ws()

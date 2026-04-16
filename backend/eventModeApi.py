@@ -36,9 +36,11 @@ async def get_points_pool(filenumber:int):
         for line in f:
             the_new_line_points=[]
             x,y,seta,Qx,Qy,Qz,Qw=line.split(",")
-            the_new_line_points.append(x.strip())
-            the_new_line_points.append(y.strip())
-            the_new_line_points.append(seta.strip())
+            the_new_line_points.append(float("{:.2f}".format(x.strip())))
+            the_new_line_points.append(float("{:.2f}".format(y.strip())))
+            the_new_line_points.append(float("{:.2f}".format(seta.strip())))
+            # the_new_line_points.append(y.strip())
+            # the_new_line_points.append(seta.strip())
             all_points_list[f"{counter}"]=(the_new_line_points)
             counter=counter+1
     return all_points_list
