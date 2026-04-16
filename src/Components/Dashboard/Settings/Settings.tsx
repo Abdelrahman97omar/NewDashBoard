@@ -24,7 +24,7 @@ const SettingS = () => {
     if (next_option_state === "True") {
       togleIsNextOption(true);
     } else {
-      toglemotorState(false);
+      togleIsNextOption(false);
     }
   };
 
