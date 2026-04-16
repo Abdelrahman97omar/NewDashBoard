@@ -4,18 +4,20 @@ const WifiSettings = () => {
   const [wifilist, setWifilist] = useState([]);
   const [SSID, setSSID] = useState("");
 
+  const get_wifi_list = async () => {
+    setWifilist([])
+    const res = await fetch(
+      `http://${window.location.hostname}:8001/settings/wifi/getNetworks`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    setWifilist(data);
+  };
+  
   useEffect(() => {
-    const get_wifi_list = async () => {
-      const res = await fetch(
-        `http://${window.location.hostname}:8001/settings/wifi/getNetworks`,
-        {
-          method: "GET",
-        }
-      );
-      const data = await res.json();
-      console.log(data);
-      setWifilist(data);
-    };
     get_wifi_list();
   }, []);
 
@@ -25,17 +27,15 @@ const WifiSettings = () => {
       {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json",
-          },
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          ssid: SSID, 
+          ssid: SSID,
           password: wifiPassword,
         }),
       }
     );
   };
-
-
 
   const handleConnectButton = () => {
     console.log("Buttin is pressed");
@@ -57,41 +57,48 @@ const WifiSettings = () => {
     <>
       <div className="grid grid-rows-4 h-full">
         <div className="flex justify-around items-center h-full">
-
-
-        <select
-        className="border-2 w-50 h-15 rounded-2xl"
-        value={SSID}
-        onChange={(e) => setSSID(e.target.value)}
-        >
-        {wifilist.length === 0 ? (
-            <option className="text-center" value="">
-            Scanning Network...
-            </option>
-        ) : (
-            <>
-            <option className="text-center" value="" disabled>
-                Select Network
-            </option>
-
-            {wifilist.map((x) => (
-                <option className="text-center" value={x} key={x}>
-                {x}
+          <select
+            className="border-2 w-50 h-15 rounded-2xl"
+            value={SSID}
+            onChange={(e) => setSSID(e.target.value)}
+          >
+            {wifilist.length === 0 ? (
+              <option className="text-center" value="">
+                Scanning Network...
+              </option>
+            ) : (
+              <>
+                <option className="text-center" value="" disabled>
+                  Select Network
                 </option>
-            ))}
-            </>
-        )}
-        </select>
-          
+
+                {wifilist.map((x) => (
+                  <option className="text-center" value={x} key={x}>
+                    {x}
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
+
+          <button
+            className="border-1 shadow-lg shadow-black/50 w-50 h-15 rounded-3xl bg-[#E8E8E9] transition
+                    duration-100 active:scale-90 active:bg-[#F17137]! active:translate-y-1 active:shadow-inner"
+                    onClick={get_wifi_list}
+          >
+            Retry Search
+          </button>
 
           <input
             className="border-2 w-50 h-10 rounded-xl text-center"
             value={wifiPassword}
             onChange={enterPwHandler}
           />
-          <button className="border-1 shadow-lg shadow-black/50 w-50 h-15 rounded-3xl bg-[#E8E8E9] transition
+          <button
+            className="border-1 shadow-lg shadow-black/50 w-50 h-15 rounded-3xl bg-[#E8E8E9] transition
                     duration-100 active:scale-90 active:bg-[#F17137]! active:translate-y-1 active:shadow-inner"
-          onClick={handleConnectButton}>
+            onClick={handleConnectButton}
+          >
             Connect
           </button>
         </div>
