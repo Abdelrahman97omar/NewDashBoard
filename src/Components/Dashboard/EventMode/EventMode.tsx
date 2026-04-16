@@ -173,20 +173,21 @@ const EventMode = () => {
             Clear Point List
           </button>
           <select
-            className="border shadow-lg shadow-black/50 Cgray w-25 text-center h-20 mr-20 rounded-2xl"
+            className="shadow-lg shadow-black/50 Corange w-25 text-center h-20 mr-20 rounded-2xl"
             onChange={ChooseNewFileNumberhandle}
           >
             {pointsFilessLists.map((pointNo) => (
-              <option className="rounded-2xl" key={pointNo}>
+              <option className="rounded-2xl Cgray" key={pointNo}>
                 {pointNo}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="mx-30 mt-5">
+        <div className="mx-50 mt-8">
           <button
-            className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray"
+            className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray transition
+                        duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={setEventmodeButtonhandler}
           >
             Set Event Mode
@@ -260,7 +261,8 @@ const EventMode = () => {
           <div className="h-full tableModeBorders">
             <p className="tablemodeHeaders">Edit Point</p>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border shadow-md shadow-black/50"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border shadow-md shadow-black/50 transition
+                        duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
               onClick={() =>
                 handleEditPoint(
                   currentPointFile,
@@ -274,7 +276,8 @@ const EventMode = () => {
               Set Live Points
             </button>
             <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border shadow-md shadow-black/50"
+              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border shadow-md shadow-black/50 transition
+                        duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
               onClick={() =>
                 handleEditPoint(
                   currentPointFile,
