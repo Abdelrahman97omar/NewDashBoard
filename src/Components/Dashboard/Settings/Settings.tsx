@@ -120,6 +120,8 @@ const SettingS = () => {
         </div>
 
         <div className="flex justify-around items-center">
+
+
           <button
             className={
               isNextOption === true
@@ -128,8 +130,9 @@ const SettingS = () => {
             }
             onClick={handleNextOptionOn}
           >
-            Next Option On
+           {isNextOption? "Set Next Option OFF": "Set Next Option ON"}
           </button>
+
           <button
             className="dashboardSettingsButtons "
             onClick={handleClearvirtualPath}
