@@ -19,12 +19,12 @@ const SettingS = () => {
     if (motorState === "True") {
       toglemotorState(true);
     } else {
-      toglemotorState;
+      toglemotorState(false);
     }
     if (next_option_state === "True") {
-      toglemotorState(true);
+      togleIsNextOption(true);
     } else {
-      toglemotorState;
+      toglemotorState(false);
     }
   };
 
@@ -124,10 +124,7 @@ const SettingS = () => {
 
           <button
             className={
-              isNextOption === true
-                ? "pressedDashboardSettingsButtons"
-                : "dashboardSettingsButtons "
-            }
+              isNextOption ? "pressedDashboardSettingsButtons" : "dashboardSettingsButtons "}
             onClick={handleNextOptionOn}
           >
            {isNextOption? "Set Next Option OFF": "Set Next Option ON"}
