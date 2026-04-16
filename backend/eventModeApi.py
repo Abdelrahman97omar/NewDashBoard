@@ -107,8 +107,8 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
 
     Qx="0.0"
     Qy="0.0"
-    Qz = math.sin(incomingData['Seta'] / 2)
-    Qw = math.cos(incomingData['Seta'] / 2)
+    Qz = math.sin(str(incomingData['Seta']) / 2)
+    Qw = math.cos(str(incomingData['Seta']) / 2)
     index = incomingData['choosenpointsPool']
     cleaned_lines[index] = (
         incomingData['X'] + "," +
