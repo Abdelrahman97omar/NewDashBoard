@@ -15,13 +15,13 @@ global ws
 all_topics_state={
     "enable_motors":"",
     "op_mode":"",
-    "voltage_sensor":"",
+    "voltage_sensor":"0",
     "emergency_state":"",
     "localization_weight":"",
     "manual_auto_mode":"",
     "robot_speed":"",
 }
-def publush_data_ws():
+def publish_data_ws():
     try:
         msg_to_ws=json.dumps(all_topics_state)
         ws.send(msg_to_ws)
@@ -35,7 +35,6 @@ def set_battery_state(data):
         current_states = json.loads(r.get("all_topics"))
         previous_battery_state = int(current_states["voltage_sensor"])
     except TypeError as e:
-        print("IF you see this code twice try removing None from op mode")
         all_topics_state["voltage_sensor"]=data.data
         r.set("all_topics", json.dumps(current_states)) 
         return
@@ -51,7 +50,7 @@ def set_battery_state(data):
     except Exception as e:
         print(f"Error saving to Redis: {e}")
         return
-    publush_data_ws()
+    publish_data_ws()
 
 def set_op_mode(data):
     global ws
@@ -60,7 +59,7 @@ def set_op_mode(data):
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("Error saving op_mode to Redis:", e)
-    publush_data_ws()
+    publish_data_ws()
 
 def set_motor_mode(data):
     global ws
@@ -69,7 +68,7 @@ def set_motor_mode(data):
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("Error saving motor state to Redis:", e)
-    publush_data_ws()
+    publish_data_ws()
 
 def set_manual_auto_mode(data):
     global ws
@@ -79,7 +78,7 @@ def set_manual_auto_mode(data):
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("Error saving manual_auto_mode to Redis:", e)
-    publush_data_ws()
+    publish_data_ws()
 
 def set_emergency_state(data):
     global ws
@@ -89,7 +88,7 @@ def set_emergency_state(data):
         print("Saved emergency state to redis")
     except Exception as e:
         print("Error saving to Redis:", e)
-    publush_data_ws()
+    publish_data_ws()
 
 def set_localization_weight(data):
     global ws
@@ -99,7 +98,7 @@ def set_localization_weight(data):
         print("saved localization_weight in redis")
     except Exception as e:
         print("Error saving to Redis:", e)
-    publush_data_ws()
+    publish_data_ws()
 
 def set_robot_speed(data):
     try:
@@ -107,7 +106,7 @@ def set_robot_speed(data):
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("There is an error in setting robot speed in redis:",e)
-    publush_data_ws()
+    publish_data_ws()
 
 
 # def get_robot_odom(data):
