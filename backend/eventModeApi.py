@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 import redis 
 from fastapi import Body
-
+import math
 from os import listdir
 import os
 from os.path import isfile, join
@@ -105,12 +105,19 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
     except Exception as e:
         print("Error reading lines to edit it due to:",e)
 
+    Qx="0.0"
+    Qy="0.0"
+    Qz = math.sin(incomingData['Seta'] / 2)
+    Qw = math.cos(incomingData['Seta'] / 2)
     index = incomingData['choosenpointsPool']
-
     cleaned_lines[index] = (
         incomingData['X'] + "," +
         incomingData['Y'] + "," +
-        incomingData['Seta']
+        incomingData['Seta'] + "," +
+        Qx + "," +
+        Qy + "," +
+        Qz + "," +
+        Qw + "," 
     )
     try:
         with open(file_path, "w") as f:

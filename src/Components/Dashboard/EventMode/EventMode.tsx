@@ -268,8 +268,8 @@ const EventMode = () => {
                   currentPointFile,
                   choosenpointsPool,
                   live_X,
-                  live_X,
-                  live_X
+                  live_Y,
+                  live_Seta
                 )
               }
             >
