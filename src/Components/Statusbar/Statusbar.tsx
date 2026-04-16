@@ -28,24 +28,19 @@ const StatusBar = () => {
         setOpMode("Event");
       } else if (all_topic_state["op_mode"] === "0") {
         setOpMode("Table");
-      } else if (!all_topic_state["op_mode"]) {
+      } 
+      else {
         setOpMode("Event");
         publishTopic("/op_mode", "std_msgs/Bool", {
           data: 1,
         });
       }
-      console.log(
-        "value:",
-        all_topic_state["enable_motors"],
-        "type:",
-        typeof all_topic_state["enable_motors"]
-      );
       // Check motor enable
       if (all_topic_state["enable_motors"] == "True") {
         setMotorMode("ON");
       } else if (all_topic_state["enable_motors"] == "False") {
         setMotorMode("OFF");
-      } else if (!all_topic_state["enable_motors"]) {
+      } else {
         setMotorMode("ON");
         publishTopic("/enable_motors", "std_msgs/Bool", {
           data: true,
@@ -58,7 +53,7 @@ const StatusBar = () => {
         setEmergencyState("Released");
       }
 
-      // Check manual mode 
+      // Check manual mode
       if (all_topic_state["manual_auto_mode"] === "1") {
         setmanualAutoMode("Manual");
       } else {
