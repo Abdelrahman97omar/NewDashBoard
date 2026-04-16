@@ -18,9 +18,12 @@ const StatusBar = () => {
       const resp = await fetch(`http://${window.location.hostname}:8001/stausBar/States`, { method: "GET" });
       const data = await resp.json();
       const all_topic_state = JSON.parse(data)
-
+      console.log("Enable motor",all_topic_state["enable_motors"])
+      console.log("op_mode",all_topic_state["enable_motors"])
+      console.log("robotSpeed",all_topic_state["robot_speed"])
+      console.log()
       if (all_topic_state["op_mode"] === "1") { setOpMode("Event"); }
-      else { setOpMode("Table"); }
+      else if(all_topic_state["op_mode"] === "0"){ setOpMode("Table"); }
 
       if (all_topic_state["enable_motors"] == "True" || all_topic_state["enable_motors"] == "") { setMotorMode("ON") }
       else { setMotorMode("OFF") }
