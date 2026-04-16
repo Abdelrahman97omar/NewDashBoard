@@ -90,6 +90,7 @@ async def clear_points_file(pointNumber):
 
 
 
+
 @router.patch("/editPoint/{filenumber}")
 async def edit_point(filenumber: str, incomingData: dict = Body(...)):
     print("the current file numbe ris:" ,filenumber)
@@ -107,8 +108,8 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
 
     Qx="0.0"
     Qy="0.0"
-    Qz = math.sin(float(incomingData['Seta']) / 2)
-    Qw = math.cos(float(incomingData['Seta']) / 2)
+    Qz = str(math.sin(float(incomingData['Seta']) / 2))
+    Qw = str(math.cos(float(incomingData['Seta']) / 2))
     index = incomingData['choosenpointsPool']
     cleaned_lines[index] = (
         incomingData['X'] + "," +
@@ -116,8 +117,8 @@ async def edit_point(filenumber: str, incomingData: dict = Body(...)):
         incomingData['Seta'] + "," +
         Qx + "," +
         Qy + "," +
-        str(Qz) + "," +
-        str(Qw) + "," 
+        Qz + "," +
+        Qw
     )
     try:
         with open(file_path, "w") as f:

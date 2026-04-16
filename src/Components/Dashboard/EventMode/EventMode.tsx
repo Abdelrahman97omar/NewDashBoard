@@ -47,9 +47,9 @@ const EventMode = () => {
             message.pose.pose.orientation.z * message.pose.pose.orientation.z)
     );
     const yawDeg: any = yaw * (180 / Math.PI);
-    const X = Number(message.pose.pose.position.x).toFixed(2);
-    const Y = Number(message.pose.pose.position.y).toFixed(2);
-    const Seta = Number(yawDeg).toFixed(2);
+    const X = message.pose.pose.position.x
+    const Y = message.pose.pose.position.y
+    const Seta = yawDeg
     setLive_X(X);
     setLive_Y(Y);
     setLive_SETA(Seta);
@@ -204,15 +204,15 @@ const EventMode = () => {
             <p className="tablemodeHeaders">Live Points</p>
             <div className="XYSETA-VALUE-Position">
               <span className="font-bold text-xl mr-10">X:</span>
-              <div className="tableModeNumberFieled">{live_X}</div>
+              <div className="tableModeNumberFieled">{(Number(live_X)).toFixed(2)}</div>
             </div>
             <div className="XYSETA-VALUE-Position">
               <span className="font-bold text-xl mr-10">Y:</span>
-              <div className="tableModeNumberFieled">{live_Y}</div>
+              <div className="tableModeNumberFieled">{(Number(live_Y)).toFixed(2)}</div>
             </div>
             <div className="XYSETA-VALUE-Position">
               <span className="font-bold text-xl mr-10">Theta:</span>
-              <div className="tableModeNumberFieled">{live_Seta}</div>
+              <div className="tableModeNumberFieled">{(Number(live_Seta)).toFixed(2)}</div>
             </div>
           </div>
 
