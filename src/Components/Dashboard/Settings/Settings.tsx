@@ -15,15 +15,17 @@ const SettingS = () => {
     const all_topic_state = JSON.parse(data);
     const motorState = all_topic_state["enable_motors"];
     const next_option_state = all_topic_state["next_option"];
-
+    console.log("The state of next option", next_option_state)
     if (motorState === "True") {
       toglemotorState(true);
     } else {
       toglemotorState(false);
     }
     if (next_option_state === "True") {
+      console.log("TRUE FROM NEXT")
       togleIsNextOption(true);
     } else {
+      console.log("False FROM NEXT")
       togleIsNextOption(false);
     }
   };
