@@ -30,7 +30,7 @@ const Table = () => {
   const [B3_saved_Y, B3_setSaved_Y] = useState("0");
   const [B3_saved_SETA, B3_setSaved_SETA] = useState("0");
 
-  const { publishTopic,subscribeTopic } = useRosConnection();
+  const { publishTopic, subscribeTopic, unsubscribeTopic } = useRosConnection();
 
   const setLivePoint=(message:any)=>{
     const yaw = Math.atan2(
@@ -43,11 +43,6 @@ const Table = () => {
     setLive_Y(Number((message.pose.pose.position.y)).toFixed(2))
     setLive_SETA((Number(yawDeg)).toFixed(2))
   }
-  subscribeTopic(
-    "/slamware_ros_sdk_server_node/odom",
-    "nav_msgs/Odometry",
-    (message: any) => setLivePoint(message)
-  );
 
   const fetchTables = async () => {
     const res = await fetch(`http://${window.location.hostname}:8001/tablemode/gettable`, {
@@ -60,6 +55,14 @@ const Table = () => {
 
   useEffect(() => {
     fetchTables();
+    subscribeTopic(
+      "/slamware_ros_sdk_server_node/odom",
+      "nav_msgs/Odometry",
+      (message: any) => setLivePoint(message)
+    );
+    return () => {
+      unsubscribeTopic("/slamware_ros_sdk_server_node/odom");
+    };
   }, []);
 
   const getSelectedTableFromList = (tableNumber: number) => {
