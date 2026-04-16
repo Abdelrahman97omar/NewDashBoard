@@ -288,7 +288,7 @@ const EventMode = () => {
                 )
               }
             >
-              Set Manuall
+              Set Manual
             </button>
             <div className="flex justify-between items-center mt-6 px-3">
               <span className="font-bold text-xl">X:</span>

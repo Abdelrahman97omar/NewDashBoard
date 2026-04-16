@@ -29,7 +29,6 @@ async def get_event_points_list():
 
 @router.get("/getPointsPool/{filenumber}")
 async def get_points_pool(filenumber:int):
-    # all_points_list=[]
     all_points_list=dict()
     counter=1
     with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
@@ -39,8 +38,6 @@ async def get_points_pool(filenumber:int):
             the_new_line_points.append(round(float(x.strip()), 2))
             the_new_line_points.append(round(float(y.strip()), 2))
             the_new_line_points.append(round(float(seta.strip()), 2))
-            # the_new_line_points.append(y.strip())
-            # the_new_line_points.append(seta.strip())
             all_points_list[f"{counter}"]=(the_new_line_points)
             counter=counter+1
     return all_points_list
@@ -54,7 +51,9 @@ async def get_event_points_list():
         if "points" in file and "txt" in file:
             try:
                 file=file.split(".txt")[0]
+                print("the file 1 is", file)
                 file=file.split("points")[1]
+                print("the file 2 is", file)
                 file_number=int(file)
                 file_list.append(file_number)
             except Exception as e:
