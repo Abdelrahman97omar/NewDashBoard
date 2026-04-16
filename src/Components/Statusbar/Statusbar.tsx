@@ -34,7 +34,12 @@ const StatusBar = () => {
           data: 1,
         });
       }
-
+      console.log(
+        "value:",
+        all_topic_state["enable_motors"],
+        "type:",
+        typeof all_topic_state["enable_motors"]
+      );
       // Check motor enable
       if (all_topic_state["enable_motors"] == "True") {
         setMotorMode("ON");
@@ -77,7 +82,7 @@ const StatusBar = () => {
 
       // Set localization state
       setlocalizationState(all_topic_state["localization_weight"]);
-      
+
       const CurrentRobotSpeed = (
         Number(all_topic_state["robot_speed"]) * 0.007
       ).toFixed(2);

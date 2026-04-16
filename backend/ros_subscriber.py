@@ -28,7 +28,7 @@ def publish_data_ws():
         print("The websocket msg is sent successfully..")
     except Exception as e:
         print(f"failed to send websocket msg from set_op_mode, the error is: {e}")
-
+#########################################################################################################
 def set_battery_state(data):
     global ws
     try:
@@ -51,7 +51,7 @@ def set_battery_state(data):
         print(f"Error saving to Redis: {e}")
         return
     publish_data_ws()
-
+#########################################################################################################
 def set_op_mode(data):
     global ws
     try:

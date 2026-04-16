@@ -6,7 +6,8 @@ from websockets.exceptions import ConnectionClosedOK
 url = "0.0.0.0"
 port = 9876
 connected_clients = set()  
-async def handler(websocket):
+
+async def handler(websocket): # This will called and handle any new connection
     print("New client is connected.")
     connected_clients.add(websocket)
     try:
