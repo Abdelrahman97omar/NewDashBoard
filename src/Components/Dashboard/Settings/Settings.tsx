@@ -15,8 +15,6 @@ const SettingS = () => {
     const all_topic_state = JSON.parse(data);
     const motorState = all_topic_state["enable_motors"];
     const next_option_state = all_topic_state["next_option"];
-    console.log("The state of next option", next_option_state);
-    console.log("The state of next option", typeof(next_option_state));
     if (motorState === "True") {
       toglemotorState(true);
     } else {
@@ -24,11 +22,9 @@ const SettingS = () => {
     }
 
     if (next_option_state === true) {
-      console.log("TRUE FROM NEXT");
       togleIsNextOption(true);
     } 
     else if (next_option_state === false) {
-      console.log("False FROM NEXT");
       togleIsNextOption(false);
     }
   };
@@ -46,17 +42,12 @@ const SettingS = () => {
   const handleNextOptionOn = () => {
     const newState = !isNextOption;
     togleIsNextOption(newState);
-    console.log("The newstate is:",newState)
-    console.log("The newstate type ise:",typeof(newState))
     if (newState){
-      console.log("New state of robotapps_next shiuld be on and it is:",newState)
-
       publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
         data: newState,
       });
     }
     else if (!newState){
-      console.log("New state of robotapps_next shiuld be of and it is:",newState)
       publishTopic("/robot_apps/next_off", "std_msgs/Bool", {
         data: newState,
       });
