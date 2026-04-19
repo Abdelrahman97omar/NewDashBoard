@@ -23,11 +23,11 @@ const SettingS = () => {
       toglemotorState(false);
     }
 
-    if (next_option_state === "True") {
+    if (next_option_state === true) {
       console.log("TRUE FROM NEXT");
       togleIsNextOption(true);
     } 
-    else if (next_option_state === "False") {
+    else if (next_option_state === false) {
       console.log("False FROM NEXT");
       togleIsNextOption(false);
     }
@@ -145,12 +145,7 @@ const SettingS = () => {
                 : "dashboardSettingsButtons "
             }
               onClick={() => {
-                console.log("RAW CLICK");  // add BEFORE handleNextOptionOn
-                try {
                   handleNextOptionOn();
-                } catch(e) {
-                  console.error("Handler crashed:", e);
-                }
               }}
           >
             {isNextOption ? "Set Next Option OFF" : "Set Next Option ON"}
