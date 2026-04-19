@@ -24,7 +24,7 @@ const SettingS = () => {
     if (next_option_state === "True") {
       console.log("TRUE FROM NEXT")
       togleIsNextOption(true);
-    } else {
+    } else if (next_option_state === "False"){
       console.log("False FROM NEXT")
       togleIsNextOption(false);
     }
@@ -39,11 +39,16 @@ const SettingS = () => {
       data: true,
     });
   };
-
   const handleNextOptionOn = () => {
     const newState = !isNextOption;
     togleIsNextOption(newState);
+
+    if (newState)
     publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
+      data: newState,
+    });
+    else if (!newState)
+    publishTopic("/robot_apps/next_off", "std_msgs/Bool", {
       data: newState,
     });
   };

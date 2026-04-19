@@ -66,6 +66,10 @@ const Control = () => {
       data: newResumeState,
     });
   };
+
+  const handleNextPoint =()=>{
+    
+  }
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-3 h-full">
@@ -88,9 +92,19 @@ const Control = () => {
               resumeState === 1 ? "pressedControlButtons" : "controlButtons"
             }
             `}
-            onClick={handleResume}
+            onClick={handleNextPoint}
           >
             Resume
+          </button>
+
+          <button
+            className={`  ${
+              resumeState === 1 ? "pressedControlButtons" : "controlButtons"
+            }
+            `}
+            onClick={handleResume}
+          >
+            Next Point
           </button>
         </div>
 

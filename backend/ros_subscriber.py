@@ -109,9 +109,17 @@ def set_robot_speed(data):
         print("There is an error in setting robot speed in redis:",e)
     publish_data_ws()
 
-def set_next_option(data):
+def set_next_option_on(data):
     try:
-        all_topics_state["next_option"]=str(data.data)
+        all_topics_state["next_option"]=True
+        r.set("all_topics", json.dumps(all_topics_state))
+    except Exception as e:
+        print("There is an error in setting robot speed in redis:",e)
+    publish_data_ws()
+
+def set_next_option_off(data):
+    try:
+        all_topics_state["next_option"]=False
         r.set("all_topics", json.dumps(all_topics_state))
     except Exception as e:
         print("There is an error in setting robot speed in redis:",e)
@@ -126,7 +134,8 @@ def listener():
     rospy.Subscriber("/localization_weight", String, set_localization_weight)
     rospy.Subscriber("/manual_flag", Int32, set_manual_auto_mode)
     rospy.Subscriber("/set_speed", Float32, set_robot_speed)
-    rospy.Subscriber("/robot_apps/next_on", Bool,set_next_option )
+    rospy.Subscriber("/robot_apps/next_on", Bool,set_next_option_on)
+    rospy.Subscriber("/robot_apps/next_off", Bool,set_next_option_off)
     rospy.Subscriber("/voltage_sensor", Float32, set_battery_state)
     rospy.spin()
 
