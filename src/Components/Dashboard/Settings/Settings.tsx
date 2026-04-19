@@ -44,12 +44,12 @@ const SettingS = () => {
     togleIsNextOption(newState);
     if (newState){
       publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
-        data: newState,
+        data: true,
       });
     }
     else if (!newState){
       publishTopic("/robot_apps/next_off", "std_msgs/Bool", {
-        data: newState,
+        data: true,
       });
     }
   };

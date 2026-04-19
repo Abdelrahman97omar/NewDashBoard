@@ -15,7 +15,6 @@ const Control = () => {
     const all_topic_state = JSON.parse(data);
     const robotSpeed = all_topic_state["robot_speed"];
     const robotMode = all_topic_state["manual_auto_mode"];
-    // console.log("the robot speed is:",robotSpeed,"of type:",typeof(robotSpeed))
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
   };
@@ -53,6 +52,8 @@ const Control = () => {
     });
   };
   const handleResume = () => {
+
+    console.log("Resume is pressed")
     let newResumeState = 0;
 
     if (resumeState === 1) {
@@ -68,6 +69,7 @@ const Control = () => {
   };
 
   const handleNextPoint =()=>{
+    console.log("Next point is pressed")
     
   }
   return (
@@ -92,7 +94,7 @@ const Control = () => {
               resumeState === 1 ? "pressedControlButtons" : "controlButtons"
             }
             `}
-            onClick={handleNextPoint}
+            onClick={handleResume}
           >
             Resume
           </button>
@@ -102,7 +104,7 @@ const Control = () => {
               resumeState === 1 ? "pressedControlButtons" : "controlButtons"
             }
             `}
-            onClick={handleResume}
+            onClick={handleNextPoint}
           >
             Next Point
           </button>
