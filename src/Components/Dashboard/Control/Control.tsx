@@ -70,6 +70,9 @@ const Control = () => {
 
   const handleNextPoint =()=>{
     console.log("Next point is pressed")
+    publishTopic("/next_toggle", "std_msgs/Int32", {
+      data: 1,
+    });
     
   }
   return (
