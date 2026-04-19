@@ -144,10 +144,14 @@ const SettingS = () => {
                 ? "pressedDashboardSettingsButtons"
                 : "dashboardSettingsButtons "
             }
-            onClick={()=>{
-              console.log("RAW CLICK");
-              handleNextOptionOn}
-            }
+              onClick={() => {
+                console.log("RAW CLICK");  // add BEFORE handleNextOptionOn
+                try {
+                  handleNextOptionOn();
+                } catch(e) {
+                  console.error("Handler crashed:", e);
+                }
+              }}
           >
             {isNextOption ? "Set Next Option OFF" : "Set Next Option ON"}
           </button>
