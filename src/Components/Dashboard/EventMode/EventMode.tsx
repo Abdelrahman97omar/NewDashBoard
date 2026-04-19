@@ -85,8 +85,11 @@ const EventMode = () => {
       setPointsPoollList(Object.keys(x));
     }
     setCurrentPointFile(e.target.value);
+    publishTopic("/points_no", "std_msgs/Float32", {
+      data: parseFloat(e.target.value),
+    });
   };
-
+  
   const ChooseNewPointsPoolHandler = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -172,6 +175,7 @@ const EventMode = () => {
           >
             Clear Point List
           </button>
+
           <select
             className="shadow-lg shadow-black/50 Corange w-25 text-center h-20 mr-20 rounded-2xl"
             onChange={ChooseNewFileNumberhandle}

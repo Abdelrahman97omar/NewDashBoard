@@ -86,7 +86,7 @@ const WifiSettings = () => {
                     duration-100 active:scale-90 active:bg-[#F17137]! active:translate-y-1 active:shadow-inner"
                     onClick={get_wifi_list}
           >
-            Retry Search
+            Scan Networks
           </button>
 
           <input
