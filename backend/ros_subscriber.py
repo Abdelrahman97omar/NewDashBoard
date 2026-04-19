@@ -15,12 +15,12 @@ global ws
 all_topics_state={
     "enable_motors":"",
     "op_mode":"",
-    "voltage_sensor":"0",
+    "voltage_sensor":"",
     "emergency_state":"",
     "localization_weight":"",
     "manual_auto_mode":"",
     "robot_speed":"",
-    "next_option":"false"
+    "next_option":""
 }
 def publish_data_ws():
     try:
