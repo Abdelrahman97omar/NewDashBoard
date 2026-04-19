@@ -45,7 +45,8 @@ const SettingS = () => {
   const handleNextOptionOn = () => {
     const newState = !isNextOption;
     togleIsNextOption(newState);
-
+    console.log("The newstate is:",newState)
+    console.log("The newstate type ise:",typeof(newState))
     if (newState){
       console.log("New state of robotapps_next shiuld be on and it is:",newState)
 
@@ -135,6 +136,7 @@ const SettingS = () => {
         </div>
 
         <div className="flex justify-around items-center">
+
           <button
             className={
               isNextOption
