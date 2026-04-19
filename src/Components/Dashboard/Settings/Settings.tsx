@@ -42,6 +42,7 @@ const SettingS = () => {
       data: true,
     });
   };
+
   const handleNextOptionOn = () => {
     const newState = !isNextOption;
     togleIsNextOption(newState);
@@ -143,7 +144,10 @@ const SettingS = () => {
                 ? "pressedDashboardSettingsButtons"
                 : "dashboardSettingsButtons "
             }
-            onClick={handleNextOptionOn}
+            onClick={()=>{
+              console.log("RAW CLICK");
+              handleNextOptionOn}
+            }
           >
             {isNextOption ? "Set Next Option OFF" : "Set Next Option ON"}
           </button>
