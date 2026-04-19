@@ -15,17 +15,20 @@ const SettingS = () => {
     const all_topic_state = JSON.parse(data);
     const motorState = all_topic_state["enable_motors"];
     const next_option_state = all_topic_state["next_option"];
-    console.log("The state of next option", next_option_state)
+    console.log("The state of next option", next_option_state);
+    console.log("The state of next option", typeof(next_option_state));
     if (motorState === "True") {
       toglemotorState(true);
     } else {
       toglemotorState(false);
     }
+
     if (next_option_state === "True") {
-      console.log("TRUE FROM NEXT")
+      console.log("TRUE FROM NEXT");
       togleIsNextOption(true);
-    } else if (next_option_state === "False"){
-      console.log("False FROM NEXT")
+    } 
+    else if (next_option_state === "False") {
+      console.log("False FROM NEXT");
       togleIsNextOption(false);
     }
   };
@@ -43,14 +46,19 @@ const SettingS = () => {
     const newState = !isNextOption;
     togleIsNextOption(newState);
 
-    if (newState)
-    publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
-      data: newState,
-    });
-    else if (!newState)
-    publishTopic("/robot_apps/next_off", "std_msgs/Bool", {
-      data: newState,
-    });
+    if (newState){
+      console.log("New state of robotapps_next shiuld be on and it is:",newState)
+
+      publishTopic("/robot_apps/next_on", "std_msgs/Bool", {
+        data: newState,
+      });
+    }
+    else if (!newState){
+      console.log("New state of robotapps_next shiuld be of and it is:",newState)
+      publishTopic("/robot_apps/next_off", "std_msgs/Bool", {
+        data: newState,
+      });
+    }
   };
 
   const handleSaveMap = () => {
@@ -127,14 +135,15 @@ const SettingS = () => {
         </div>
 
         <div className="flex justify-around items-center">
-
-
           <button
             className={
-              isNextOption ? "pressedDashboardSettingsButtons" : "dashboardSettingsButtons "}
+              isNextOption
+                ? "pressedDashboardSettingsButtons"
+                : "dashboardSettingsButtons "
+            }
             onClick={handleNextOptionOn}
           >
-           {isNextOption? "Set Next Option OFF": "Set Next Option ON"}
+            {isNextOption ? "Set Next Option OFF" : "Set Next Option ON"}
           </button>
 
           <button
