@@ -31,18 +31,15 @@ services:
   WebSocket-server:
     image: newdashboard:latest
     network_mode: host
-    ports:
-      - "9876:9876"
     volumes:
-      - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     #The following part (health check) is not working yet
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9876/health"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-      start_period: 10s
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:9876/health"]
+    #   interval: 5s
+    #   timeout: 3s
+    #   retries: 5
+    #   start_period: 10s
     depends_on:
       Redis:
         condition: service_started
@@ -52,8 +49,10 @@ services:
   ROS:
     image: newdashboard:latest
     network_mode: host
+    environment:
+      - USER=${USER}
     volumes:
-      - /home/$USER/Desktop/points:/home/$USER/Desktop/points 
+      - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
       - /var/www/html/NewDashBoard:/home/NewDashBoard
     depends_on:
       WebSocket-server:

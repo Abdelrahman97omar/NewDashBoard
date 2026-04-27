@@ -46,7 +46,7 @@ const Layout = () => {
 
         <div className="grid grid-rows-[250px_1fr]">
 
-          <div className="bg-white grid grid-cols-4 gird-rows-2 rounded-4xl gap-5 pl-15 p-4 m-3 ">
+          <div className="bg-white flex gap-5 p-5 rounded-4xl">
               <StatusBar/>
           </div>
 

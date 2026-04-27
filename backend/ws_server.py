@@ -2,13 +2,15 @@ import asyncio
 import json
 import websockets
 from websockets.exceptions import ConnectionClosedOK
+import logging
 
 url = "0.0.0.0"
 port = 9876
 connected_clients = set()  
-
+logging.basicConfig(level=logging.INFO)
 async def handler(websocket): # This will called and handle any new connection
-    print("New client is connected.")
+    # print("New client is connected.",flush=True)
+    logging.info("New client connected, Logging works")
     connected_clients.add(websocket)
     try:
         while True:

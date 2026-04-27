@@ -92,6 +92,7 @@ const WifiSettings = () => {
           <input
             className="border-2 w-50 h-10 rounded-xl text-center"
             value={wifiPassword}
+            type='password'
             onChange={enterPwHandler}
           />
           <button

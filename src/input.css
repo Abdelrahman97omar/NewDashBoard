@@ -19,7 +19,7 @@
 }
 
 .statusbarlayout{
-    @apply flex justify-center text-[#09203E] items-end pb-3.5 rounded-2xl w-70
+    @apply flex justify-center text-[#09203E] rounded-2xl w-full h-full
 }
 
 .dashboardSettingsButtons{

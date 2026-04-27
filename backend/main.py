@@ -5,6 +5,7 @@ from tableModeApi import router as table_mode_router
 from eventModeApi import router as event_mode_router 
 from robotsettingsApi import router as robor_settings_router
 import redis 
+import os
 import json
 app = FastAPI()
 r =redis.Redis(host="localhost",port="6379")
@@ -16,6 +17,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 @app.get("/stausBar/States")
 async def returnCurrentStates():
     """
@@ -24,6 +26,14 @@ async def returnCurrentStates():
     CurrentStates=r.get("all_topics")
     print(CurrentStates)
     return CurrentStates
+
+@app.get("/getUser")
+async def returnUserName():
+    """
+    This endpoint will return the UseName - duet - mozo ... 
+    """  
+    return os.getenv("USER")
+     
 app.include_router(table_mode_router,prefix="/tablemode")
 app.include_router(event_mode_router, prefix="/eventMode")
 app.include_router(robor_settings_router, prefix="/settings")

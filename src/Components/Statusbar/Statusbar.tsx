@@ -3,6 +3,20 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import BatteryIcon from "./batteryIcon";
 import { useRosConnection } from "../../connection-provider";
 import { useEffect, useState, useRef } from "react";
+import lowBattery from "../../assets/icons/dashboard ui-07.png";
+import midBattery from "../../assets/icons/dashboard ui-16.png";
+import fullBattery from "../../assets/icons/dashboard ui-08.png";
+
+import autobtn from "../../assets/icons/dashboard ui-09.png";
+import manualbtn from "../../assets/icons/dashboard ui-10.png";
+import motoron from "../../assets/icons/motor.png";
+import motoroff from "../../assets/icons/dashboard ui-11.png";
+import eventimg from "../../assets/icons/dashboard ui-13.png";
+import tableimg from "../../assets/icons/dashboard ui-14.png";
+import speedimg from "../../assets/icons/dashboard ui-15.png";
+import localizationimg from "../../assets/icons/dashboard ui-17.png";
+import emergencyOnBtn from "../../assets/icons/dashboard ui-18.png";
+import emergencyOffBtn from "../../assets/icons/dashboard ui-19.png";
 
 const StatusBar = () => {
   const { publishTopic, subscribeTopic, unsubscribeTopic } = useRosConnection();
@@ -23,17 +37,31 @@ const StatusBar = () => {
       const data = await resp.json();
       const all_topic_state = JSON.parse(data);
 
+      const getUser = await fetch(
+        "http://${window.location.hostname}:8001/return",
+        { method: "GET" }
+      );
+      let username = await getUser.json();
+      username = JSON.parse(username);
+      console.log(username);
+
       // Check Event Mode
       if (all_topic_state["op_mode"] === "1") {
         setOpMode("Event");
       } else if (all_topic_state["op_mode"] === "0") {
         setOpMode("Table");
-      } 
-      else {
-        setOpMode("Event");
-        publishTopic("/op_mode", "std_msgs/Bool", {
-          data: 1,
-        });
+      } else {
+        if (username === "duet") {
+          setOpMode("Event");
+          publishTopic("/op_mode", "std_msgs/Bool", {
+            data: 1,
+          });
+        } else {
+          setOpMode("Table");
+          publishTopic("/op_mode", "std_msgs/Bool", {
+            data: 0,
+          });
+        }
       }
       // Check motor enable
       if (all_topic_state["enable_motors"] == "True") {
@@ -49,7 +77,7 @@ const StatusBar = () => {
       //check emergency state
       if (all_topic_state["emergency_state"] === "0") {
         setEmergencyState("pressed");
-      } else {
+      } else if (all_topic_state["emergency_state"] === "1") {
         setEmergencyState("Released");
       }
 
@@ -77,7 +105,6 @@ const StatusBar = () => {
 
       // Set localization state
       setlocalizationState(all_topic_state["localization_weight"]);
-
       const CurrentRobotSpeed = (
         Number(all_topic_state["robot_speed"]) * 0.007
       ).toFixed(2);
@@ -87,7 +114,6 @@ const StatusBar = () => {
   }, []);
 
   const ws = useRef<WebSocket | null>(null);
-
   useEffect(() => {
     ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
     ws.current.onopen = () => {
@@ -155,16 +181,106 @@ const StatusBar = () => {
 
   return (
     <>
-      <div className="Cgray statusbarlayout">Battery: {BatteryLevel}</div>
-      <div className="Cgray statusbarlayout">Motors: {MotorMode}</div>
-      <div className="Cgray statusbarlayout">Emergency: {emergencyState}</div>
-      <div className="Cgray statusbarlayout">Speed: {robotSpeed} m/s</div>
+      {/* Done */}
       <div className="Cgray statusbarlayout">
-        Localization: {localizationState}
+        <div className="flex flex-col justify-around items-center">
+          <img
+            src={
+              BatteryLevel === "High"
+                ? fullBattery
+                : BatteryLevel === "Miduem"
+                ? midBattery
+                : lowBattery
+            }
+          ></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Battery</p>
+            <p> {BatteryLevel ? BatteryLevel : "N/A"}</p>
+          </div>
+        </div>
       </div>
-      <div className="Cgray statusbarlayout">Mode: {manualAutoMode}</div>
-      <div className="Cgray statusbarlayout">Operation Mode: {opMode}</div>
-      <div className="Cgray statusbarlayout">Location:N/A</div>
+
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col justify-around items-center">
+          <img src={MotorMode === "ON" ? motoron : motoroff}></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Motors</p>
+            <p> {MotorMode ? MotorMode : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+      {/* Done */}
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col justify-around items-center">
+          <img
+            src={
+              emergencyState === "pressed" ? emergencyOnBtn : emergencyOffBtn
+            }
+          ></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Emergency</p>
+            <p> {emergencyState ? emergencyState : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+      {/* Done */}
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col justify-around items-center">
+          <img src={speedimg}></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Speed</p>
+            <p> {robotSpeed ? robotSpeed : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+      {/* Done */}
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col justify-around items-center">
+          <img src={localizationimg}></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Localization</p>
+            <p> {localizationState ? localizationState : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+      {/* Done */}
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col  items-center">
+          <img
+            className="mt-7 mb-4"
+            src={manualAutoMode === "Manual" ? manualbtn : autobtn}
+          ></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2 text-center">Mode</p>
+            <p> {manualAutoMode ? manualAutoMode : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+      {/* Done */}
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col  items-center">
+          <img
+            className="mt-7 mb-4"
+            src={opMode === "Event" ? eventimg : tableimg}
+          ></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2 text-center">
+              Operation Mode
+            </p>
+            <p> {opMode ? opMode : "N/A"}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="Cgray statusbarlayout">
+        <div className="flex flex-col justify-around items-center">
+          <img src={lowBattery}></img>
+          <div className="flex flex-col justify-around items-center">
+            <p className="font-bold text-2xl mb-2">Location</p>
+            <p> {opMode ? opMode : "N/A"}</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
