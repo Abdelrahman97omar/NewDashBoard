@@ -6,7 +6,7 @@ from os import listdir
 import os
 from os.path import isfile, join
 from typing import List
-# from fastapi import HTTPException
+from fastapi import HTTPException
 
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
