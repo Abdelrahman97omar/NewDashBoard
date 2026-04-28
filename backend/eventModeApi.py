@@ -22,8 +22,9 @@ async def get_event_points_list():
                 file=file.split("points")[1]
                 file_number=int(file)
                 file_list.append(file_number)
-            except Exception as e:
-                print("error:" ,e)
+            except (ValueError, Exception) as e:
+                print(f"Skipping invalid file: {file}, error: {e}")
+                continue
     file_list.sort()
     return file_list
 

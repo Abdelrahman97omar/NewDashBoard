@@ -1,10 +1,19 @@
 export const getEventpointsList = async () => {
-  const res = await fetch(
-    `http://${window.location.hostname}:8001/eventMode/getAllPointsFiles`,
-    { method: "GET" }
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(
+      `http://${window.location.hostname}:8001/eventMode/getAllPointsFiles`,
+      { method: "GET" }
+    );
+    if (!res.ok) {
+      console.error(`Server error: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Failed to fetch event points list:", error);
+    return [];
+  }
 };
 
 export const getpointsPool = async (pointsFilessLists: any) => {
