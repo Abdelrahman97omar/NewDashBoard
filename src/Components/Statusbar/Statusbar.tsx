@@ -42,7 +42,14 @@ const StatusBar = () => {
       );
       const username = await getUser.json(); 
       console.log(username);
-      
+      // ======================== Important Note ========================
+        // the following topics are not published by default:
+          /*
+           1. /op_mode
+           2. /manual_mode
+           3. /speed
+           */ 
+      //=================================================================    
       // Check Event Mode
       if (all_topic_state["op_mode"] === "1") {
         setOpMode("Event");
