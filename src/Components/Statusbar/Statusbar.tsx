@@ -57,11 +57,13 @@ const StatusBar = () => {
         setOpMode("Table");
       } else {
         if (username === "duet") {
+          console.log("due to error setting the the robot to event as the robot is duet")
           setOpMode("Event");
           publishTopic("/op_mode", "std_msgs/Bool", {
             data: 1,
           });
         } else {
+          console.log("due to error setting the the robot to table as the robot is mozo")
           setOpMode("Table");
           publishTopic("/op_mode", "std_msgs/Bool", {
             data: 0,

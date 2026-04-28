@@ -17,10 +17,6 @@ export const getEventpointsList = async () => {
 };
 
 export const getpointsPool = async (pointsFilessLists: any) => {
-  // const res = await fetch(
-  //   `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
-  //   { method: "GET" }
-  // );
   if (pointsFilessLists === undefined || pointsFilessLists === null) {
     console.error("filenumber is not set yet");
     return;
