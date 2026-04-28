@@ -25,8 +25,11 @@ async def get_event_points_list():
             except (ValueError, Exception) as e:
                 print(f"Skipping invalid file: {file}, error: {e}")
                 continue
-    file_list.sort()
-    return file_list
+    if file_list is not None:
+        file_list.sort()
+        return file_list
+    else:
+        return []
 
 @router.get("/getPointsPool/{filenumber}")
 async def get_points_pool(filenumber:int):
