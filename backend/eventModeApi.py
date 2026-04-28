@@ -35,15 +35,18 @@ async def get_event_points_list():
 async def get_points_pool(filenumber:int):
     all_points_list=dict()
     counter=1
-    with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
-        for line in f:
-            the_new_line_points=[]
-            x,y,seta,Qx,Qy,Qz,Qw=line.split(",")
-            the_new_line_points.append(round(float(x.strip()), 2))
-            the_new_line_points.append(round(float(y.strip()), 2))
-            the_new_line_points.append(round(float(seta.strip()), 2))
-            all_points_list[f"{counter}"]=(the_new_line_points)
-            counter=counter+1
+    try:
+        with open(f"/home/{os.environ.get('USER')}/Desktop/points/points{filenumber}.txt") as f:
+            for line in f:
+                the_new_line_points=[]
+                x,y,seta,Qx,Qy,Qz,Qw=line.split(",")
+                the_new_line_points.append(round(float(x.strip()), 2))
+                the_new_line_points.append(round(float(y.strip()), 2))
+                the_new_line_points.append(round(float(seta.strip()), 2))
+                all_points_list[f"{counter}"]=(the_new_line_points)
+                counter=counter+1
+    except Exception as e:
+        print("No avaliable file to get points from")
     return all_points_list
 
 @router.put("/addNewPoint")
