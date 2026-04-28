@@ -35,12 +35,13 @@ def set_battery_state(data):
     try:
         current_states = json.loads(r.get("all_topics"))
         print("hte current state is:",current_states)
-        # previous_battery_state = int(current_states["voltage_sensor"])
-        previous_battery_state = current_states["voltage_sensor"]
+        previous_battery_state = int(current_states["voltage_sensor"])
+        # previous_battery_state = current_states["voltage_sensor"]
         print("hte previous_battery_state is:",previous_battery_state)
         
     except TypeError as e:
-        all_topics_state["voltage_sensor"]=data.data
+        # This will run only one time on the first time when the "voltage_sensor" value is none "when no previous reading is saved"
+        all_topics_state["voltage_sensor"]=int(data.data)
         r.set("all_topics", json.dumps(current_states)) 
         return
     except Exception as e:
@@ -56,6 +57,7 @@ def set_battery_state(data):
         print(f"Error saving to Redis: {e}")
         return
     publish_data_ws()
+
 def set_op_mode(data):
     global ws
     try:
