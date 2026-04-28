@@ -35,7 +35,8 @@ def set_battery_state(data):
     try:
         current_states = json.loads(r.get("all_topics"))
         print("hte current state is:",current_states)
-        previous_battery_state = int(current_states["voltage_sensor"])
+        # previous_battery_state = int(current_states["voltage_sensor"])
+        previous_battery_state = current_states["voltage_sensor"]
         print("hte previous_battery_state is:",previous_battery_state)
         
     except TypeError as e:
