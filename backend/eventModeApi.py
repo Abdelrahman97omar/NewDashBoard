@@ -5,12 +5,12 @@ import math
 from os import listdir
 import os
 from os.path import isfile, join
-
+from typing import List
 
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
 
-@router.get("/getAllPointsFiles",response_model=list[int])
+@router.get("/getAllPointsFiles",response_model=List[int])
 async def get_event_points_list():
     file_list=[]
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
