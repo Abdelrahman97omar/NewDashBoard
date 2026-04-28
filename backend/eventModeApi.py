@@ -10,7 +10,7 @@ from os.path import isfile, join
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
 
-@router.get("/getAllPointsFiles")
+@router.get("/getAllPointsFiles",response_model=list[int])
 async def get_event_points_list():
     file_list=[]
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
@@ -25,7 +25,7 @@ async def get_event_points_list():
             except (ValueError, Exception) as e:
                 print(f"Skipping invalid file: {file}, error: {e}")
                 continue
-    if file_list is not None:
+    if file_list:
         file_list.sort()
         return file_list
     else:
