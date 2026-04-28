@@ -57,13 +57,13 @@ const StatusBar = () => {
         setOpMode("Table");
       } else {
         if (username === "duet") {
-          console.log("due to error setting the the robot to event as the robot is duet")
+          console.log("due to previous state, setting the robot to event as the robot is duet")
           setOpMode("Event");
           publishTopic("/op_mode", "std_msgs/Bool", {
             data: 1,
           });
         } else {
-          console.log("due to error setting the the robot to table as the robot is mozo")
+          console.log("due to no previous state, setting the  robot to table as the robot is mozo")
           setOpMode("Table");
           publishTopic("/op_mode", "std_msgs/Bool", {
             data: 0,
@@ -77,6 +77,8 @@ const StatusBar = () => {
         setMotorMode("OFF");
       } else {
         setMotorMode("ON");
+        console.log("due to no previous state, setting the robot motor to enable")
+      
         publishTopic("/enable_motors", "std_msgs/Bool", {
           data: true,
         });
@@ -92,6 +94,7 @@ const StatusBar = () => {
       if (all_topic_state["manual_auto_mode"] === "1") {
         setmanualAutoMode("Manual");
       } else {
+        console.log("due to no previous state, setting auto mode")
         setmanualAutoMode("Auto");
       }
 
