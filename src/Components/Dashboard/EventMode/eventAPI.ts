@@ -17,9 +17,16 @@ export const getEventpointsList = async () => {
 };
 
 export const getpointsPool = async (pointsFilessLists: any) => {
+  // const res = await fetch(
+  //   `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
+  //   { method: "GET" }
+  // );
+  if (pointsFilessLists === undefined || pointsFilessLists === null) {
+    console.error("filenumber is not set yet");
+    return;
+  }
   const res = await fetch(
-    `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`,
-    { method: "GET" }
+    `http://${window.location.hostname}:8001/getPointsPool/${filenumber}`
   );
   const data = await res.json();
   console.log("The points pool is:", data);
@@ -47,25 +54,22 @@ export const handleEditPoint = async (
     {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         choosenpointsPool,
         X,
         Y,
         Seta,
-      })
+      }),
     }
   );
 };
 
 export const addNewPoint = async () => {
-  await fetch(
-    `http://${window.location.hostname}:8001/eventMode/addNewPoint`,
-    {
-      method: "PUT",
-    }
-  );
+  await fetch(`http://${window.location.hostname}:8001/eventMode/addNewPoint`, {
+    method: "PUT",
+  });
   getEventpointsList();
 };
 
