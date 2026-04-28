@@ -6,6 +6,7 @@ from os import listdir
 import os
 from os.path import isfile, join
 from typing import List
+# from fastapi import HTTPException
 
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
@@ -47,6 +48,7 @@ async def get_points_pool(filenumber:int):
                 counter=counter+1
     except Exception as e:
         print("No avaliable file to get points from")
+        return []
     return all_points_list
 
 @router.put("/addNewPoint")
