@@ -47,8 +47,8 @@ async def get_points_pool(filenumber:int):
                 all_points_list[f"{counter}"]=(the_new_line_points)
                 counter=counter+1
     except Exception as e:
-        print("No avaliable file to get points from")
-        return []
+        print(f"Error: {e}")
+        raise HTTPException(status_code=404, detail=f"Points file {filenumber} not found")
     return all_points_list
 
 @router.put("/addNewPoint")
