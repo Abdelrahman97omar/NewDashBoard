@@ -26,7 +26,7 @@ export const getpointsPool = async (pointsFilessLists: any) => {
     return;
   }
   const res = await fetch(
-    `http://${window.location.hostname}:8001/getPointsPool/${filenumber}`
+    `http://${window.location.hostname}:8001/eventMode/getPointsPool/${pointsFilessLists}`
   );
   const data = await res.json();
   console.log("The points pool is:", data);
