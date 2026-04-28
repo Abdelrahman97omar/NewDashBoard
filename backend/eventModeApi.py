@@ -7,6 +7,7 @@ import os
 from os.path import isfile, join
 from typing import List
 from fastapi import HTTPException
+import re
 
 router = APIRouter()
 r =redis.Redis(host="localhost",port="6379")
@@ -17,7 +18,7 @@ async def get_event_points_list():
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     pointFiles = [f for f in listdir(file_path) if isfile(join(file_path, f))]
     for file in pointFiles:
-        if "points" in file and "txt" in file:
+        if re.fullmatch(r"points\d+\.txt", file):
             try:
                 file=file.split(".txt")[0]
                 file=file.split("points")[1]
@@ -53,7 +54,7 @@ async def get_points_pool(filenumber:int):
     return all_points_list
 
 @router.put("/addNewPoint")
-async def get_event_points_list():
+async def add_new_point():
     file_list=[]
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
     pointFiles = [f for f in listdir(file_path) if isfile(join(file_path, f))]
@@ -68,34 +69,38 @@ async def get_event_points_list():
                 file_list.append(file_number)
             except Exception as e:
                 print("error:" ,e)
-    file_list.sort()
+    
     if not file_list:
         new_file_number=f"points1.txt"
         with open(f"{file_path}/{new_file_number}", "w") as f:
             print("Creating new file",new_file_number)
             f.write("")
-            f.close()
             return
     else:
+        file_list.sort()
         new_file_number=f"points{file_list[-1]+1}.txt"
         with open(f"{file_path}/{new_file_number}", "w") as f:
             print("Creating new file",new_file_number)
             f.write("")
-            f.close()
 
     
 @router.delete("/deletePoint/{pointNumber}")
 async def remove_event_points_file(pointNumber):
-    import os
     print(pointNumber)
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
-    os.remove(f"{file_path}/points{pointNumber}.txt") 
+    try:
+        os.remove(f"{file_path}/points{pointNumber}.txt")
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail=f"File {pointNumber} not found")
 
 @router.patch("/clearPoint/{pointNumber}")
 async def clear_points_file(pointNumber):
-    import os
     file_path = f"/home/{os.environ.get('USER')}/Desktop/points"
-    open(f"{file_path}/points{pointNumber}.txt", 'w').close()
+    try:
+        with open(f"{file_path}/points{pointNumber}.txt", 'w'):
+            pass
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail=f"File {pointNumber} not found")
 
 
 
