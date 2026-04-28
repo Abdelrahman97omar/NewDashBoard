@@ -40,10 +40,9 @@ const StatusBar = () => {
       const getUser = await fetch(
         `http://${window.location.hostname}:8001/getUser`
       );
-      let username = await getUser.json();
-      username = JSON.parse(username);
+      const username = await getUser.json(); 
       console.log(username);
-
+      
       // Check Event Mode
       if (all_topic_state["op_mode"] === "1") {
         setOpMode("Event");
