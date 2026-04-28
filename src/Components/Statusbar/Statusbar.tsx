@@ -38,8 +38,7 @@ const StatusBar = () => {
       const all_topic_state = JSON.parse(data);
 
       const getUser = await fetch(
-        "http://${window.location.hostname}:8001/return",
-        { method: "GET" }
+        `http://${window.location.hostname}:8001/getUser`
       );
       let username = await getUser.json();
       username = JSON.parse(username);
