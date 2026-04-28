@@ -34,6 +34,7 @@ async def get_event_points_list():
 
 @router.get("/getPointsPool/{filenumber}")
 async def get_points_pool(filenumber:int):
+    print("Now It is working")
     all_points_list=dict()
     counter=1
     try:
