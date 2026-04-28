@@ -29,11 +29,15 @@ def publish_data_ws():
         print("The websocket msg is sent successfully..")
     except Exception as e:
         print(f"failed to send websocket msg from set_op_mode, the error is: {e}")
+
 def set_battery_state(data):
     global ws
     try:
         current_states = json.loads(r.get("all_topics"))
+        print("hte current state is:",current_states)
         previous_battery_state = int(current_states["voltage_sensor"])
+        print("hte previous_battery_state is:",previous_battery_state)
+        
     except TypeError as e:
         all_topics_state["voltage_sensor"]=data.data
         r.set("all_topics", json.dumps(current_states)) 
