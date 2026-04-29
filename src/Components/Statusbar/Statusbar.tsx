@@ -1,6 +1,5 @@
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import BatteryIcon from "./batteryIcon";
 import { useRosConnection } from "../../connection-provider";
 import { useEffect, useState, useRef } from "react";
 import lowBattery from "../../assets/icons/dashboard ui-07.png";

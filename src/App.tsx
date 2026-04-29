@@ -11,10 +11,5 @@ function App() {
     </>
   )
 }
-// <Layout>
-{/* <Dashboard /> */ }
-{/* {(page) => <Dashboard page={page} />} */ }
-{/* </Layout> */ }
-
 
 export default App

@@ -1,5 +1,5 @@
 import { useRosConnection } from "../../../connection-provider";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 const Control = () => {
   const { publishTopic } = useRosConnection();
   const [isManual, setisManual] = useState(0);
@@ -18,10 +18,29 @@ const Control = () => {
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
   };
-
+  
   useEffect(() => {
     getRobotState();
   }, []);
+  const ws = useRef<WebSocket | null>(null);
+
+    useEffect(() => {
+      ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
+      ws.current.onopen = () => {
+        console.log("Control tab is connected to websocket!");
+      };
+      ws.current.onmessage = (msg) => {
+        const all_topic_state = JSON.parse(msg.data);
+
+        if (all_topic_state["manual_auto_mode"] === "1") {
+          setisManual(1);
+        } else {
+          setisManual(0);
+        }
+  
+      }
+    })
+  
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const new_speed = Number(event.target.value);
@@ -93,22 +112,17 @@ const Control = () => {
           </button>
 
           <button
-            className={`  ${
-              resumeState === 1 ? "pressedControlButtons" : "controlButtons"
-            }
-            `}
+            // className={`  ${
+            //   resumeState === 1 ? "pressedControlButtons" : "controlButtons"
+            // }
+            // `}
+            className="controlButtons"
             onClick={handleResume}
           >
             Resume
           </button>
 
-          <button
-            className={`  ${
-              resumeState === 1 ? "pressedControlButtons" : "controlButtons"
-            }
-            `}
-            onClick={handleNextPoint}
-          >
+          <button className="controlButtons" onClick={handleNextPoint} >
             Next Point
           </button>
         </div>

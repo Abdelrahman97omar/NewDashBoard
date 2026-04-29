@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { useRosConnection } from "../../../connection-provider";
 
 const SettingS = () => {
@@ -29,8 +29,34 @@ const SettingS = () => {
     }
   };
 
+  const ws = useRef<WebSocket | null>(null);
+
+    useEffect(() => {
+      ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
+      ws.current.onopen = () => {
+        console.log("Control tab is connected to websocket!");
+      };
+      ws.current.onmessage = (msg) => {
+        const all_topic_state = JSON.parse(msg.data);
+
+        if (all_topic_state["enable_motors"] == "True") {
+          toglemotorState(true);
+        } else {
+          toglemotorState(false);
+        }
+
+        if (all_topic_state["next_option"] == "True") {
+          toglemotorState(true);
+        } else {
+          toglemotorState(false);
+        }
+  
+      }
+    })
+  
   useEffect(() => {
     getRobotStates();
+    
   }, []);
 
   const handleClearMap = () => {
