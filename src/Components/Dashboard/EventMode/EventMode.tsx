@@ -14,7 +14,7 @@ const EventMode = () => {
   const [live_X, setLive_X] = useState("0");
   const [live_Y, setLive_Y] = useState("0");
   const [live_Seta, setLive_SETA] = useState("0");
-  const [pointsFilessLists, setPointsFilessLists] = useState([]);
+  const [pointsFilessLists, setPointsFilessLists] = useState<string[]>([]);
   const [currentPointFile, setCurrentPointFile] = useState("");
   const [pointsPoollList, setPointsPoollList] = useState<string[]>([]);
   const [choosenpointsPool, setChoosenPointsPool] = useState(0);
