@@ -58,9 +58,10 @@ const StatusBar = () => {
         if (username === "duet") {
           console.log("due to previous state, setting the robot to event as the robot is duet")
           setOpMode("Event");
-          publishTopic("/op_mode", "std_msgs/Bool", {
+          publishTopic("/op_mode", "std_msgs/Int32", {
             data: 1,
-          });
+          });      
+          console.log("Publish 1")
         } else {
           console.log("due to no previous state, setting the  robot to table as the robot is mozo")
           setOpMode("Table");
