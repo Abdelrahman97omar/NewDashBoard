@@ -190,7 +190,6 @@ const StatusBar = () => {
 
   return (
     <>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img
@@ -203,7 +202,7 @@ const StatusBar = () => {
             }
           ></img>
           <div className="flex flex-col justify-around items-center">
-            <p className="font-bold text-2xl mb-2">Battery</p>
+            <p className="font-bold text-2xl mt-4 mb-2">Battery</p>
             <p> {BatteryLevel ? BatteryLevel : "N/A"}</p>
           </div>
         </div>
@@ -218,7 +217,6 @@ const StatusBar = () => {
           </div>
         </div>
       </div>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img
@@ -232,7 +230,6 @@ const StatusBar = () => {
           </div>
         </div>
       </div>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img src={speedimg}></img>
@@ -242,7 +239,6 @@ const StatusBar = () => {
           </div>
         </div>
       </div>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img src={localizationimg}></img>
@@ -252,7 +248,6 @@ const StatusBar = () => {
           </div>
         </div>
       </div>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col  items-center">
           <img
@@ -260,20 +255,19 @@ const StatusBar = () => {
             src={manualAutoMode === "Manual" ? manualbtn : autobtn}
           ></img>
           <div className="flex flex-col justify-around items-center">
-            <p className="font-bold text-2xl mb-2 text-center">Mode</p>
+            <p className="font-bold text-2xl mt-4 mb-2 text-center">Mode</p>
             <p> {manualAutoMode ? manualAutoMode : "N/A"}</p>
           </div>
         </div>
       </div>
-      {/* Done */}
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col  items-center">
           <img
-            className="mt-7 mb-4"
+            className="mt-4 mb-6"
             src={opMode === "Event" ? eventimg : tableimg}
           ></img>
-          <div className="flex flex-col justify-around items-center">
-            <p className="font-bold text-2xl mb-2 text-center">
+          <div className="flex flex-col mt-2 justify-around items-center">
+            <p className="font-bold text-xl mb-2 text-center">
               Operation Mode
             </p>
             <p> {opMode ? opMode : "N/A"}</p>
