@@ -46,9 +46,9 @@ const SettingS = () => {
         }
 
         if (all_topic_state["next_option"] == "True") {
-          toglemotorState(true);
+          togleIsNextOption(true);
         } else {
-          toglemotorState(false);
+          togleIsNextOption(false);
         }
   
       }
