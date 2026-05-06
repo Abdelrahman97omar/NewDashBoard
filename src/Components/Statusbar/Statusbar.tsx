@@ -65,20 +65,19 @@ const StatusBar = () => {
         } else {
           console.log("due to no previous state, setting the  robot to table as the robot is mozo")
           setOpMode("Table");
-          publishTopic("/op_mode", "std_msgs/Bool", {
+          publishTopic("/op_mode", "std_msgs/Int32", {
             data: 0,
-          });
+          });   
         }
       }
       // Check motor enable
-      if (all_topic_state["enable_motors"] == "True") {
+      if (all_topic_state["enable_motors"] === "True") {
         setMotorMode("ON");
-      } else if (all_topic_state["enable_motors"] == "False") {
+      } else if (all_topic_state["enable_motors"] === "False") {
         setMotorMode("OFF");
       } else {
         setMotorMode("ON");
         console.log("due to no previous state, setting the robot motor to enable")
-      
         publishTopic("/enable_motors", "std_msgs/Bool", {
           data: true,
         });
@@ -100,13 +99,13 @@ const StatusBar = () => {
 
       // Set battery state
       if (
-        all_topic_state["voltage_sensor"] == "23" ||
-        all_topic_state["voltage_sensor"] == "22"
+        all_topic_state["voltage_sensor"] === "23" ||
+        all_topic_state["voltage_sensor"] === "22"
       ) {
         setBatteryLeve("High");
       } else if (
-        all_topic_state["voltage_sensor"] == "21" ||
-        all_topic_state["voltage_sensor"] == "20"
+        all_topic_state["voltage_sensor"] === "21" ||
+        all_topic_state["voltage_sensor"] === "20"
       ) {
         setBatteryLeve("Meduim");
       } else {
@@ -121,7 +120,7 @@ const StatusBar = () => {
       setRobotSpeed(CurrentRobotSpeed);
     };
     get_current_states();
-  }, []);
+  }, [publishTopic]);
 
   const ws = useRef<WebSocket | null>(null);
   useEffect(() => {
@@ -198,7 +197,7 @@ const StatusBar = () => {
             src={
               BatteryLevel === "High"
                 ? fullBattery
-                : BatteryLevel === "Miduem"
+                : BatteryLevel === "Meduim"
                 ? midBattery
                 : lowBattery
             }
