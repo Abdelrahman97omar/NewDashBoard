@@ -32,17 +32,21 @@ async def connect_to_wifi(commingData: dict = Body(...)):
     password = commingData.get("password")
     if not ssid or not password:
         raise HTTPException(status_code=400, detail="SSID and password are required")
-    try:
-        subprocess.run(
-            ["nmcli", "d", "wifi", "connect", ssid, "password", password],
-            check=True,
-            capture_output=True,
-            text=True
-        )
-        return {"message": "Connected successfully"}
-    except subprocess.CalledProcessError as e:
-        print("NMCLI ERROR:", e.stderr)
+    result = subprocess.run(
+        ["nmcli", "d", "wifi", "connect", ssid, "password", password],
+        capture_output=True,
+        text=True
+    )
+    print("Return code:", result.returncode)
+    print("STDOUT:", result.stdout)
+    print("STDERR:", result.stderr)
+
+    if result.returncode != 0 or "Error" in result.stdout or "Error" in result.stderr:
         raise HTTPException(
             status_code=400,
-            detail=f"Failed to connect to WiFi: {e.stderr.strip()}"
+            detail=f"Failed to connect: {result.stderr.strip() or result.stdout.strip()}"
         )
+    return {"message": "Connected successfully"}
+
+
+    

@@ -193,6 +193,7 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img
+          className="mt-7"
             src={
               BatteryLevel === "High"
                 ? fullBattery
@@ -262,10 +263,12 @@ const StatusBar = () => {
       </div>
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col  items-center">
-          <img
-            className="mt-4 mb-6"
-            src={opMode === "Event" ? eventimg : tableimg}
-          ></img>
+
+            {/* <img className="mt-7 mb-8" src={tableimg }></img> */}
+            {
+              opMode === "Event"?<img className="mt-4 mb-6" src={eventimg }></img>:<img className="mt-7 mb-8" src={tableimg }></img>
+            }
+
           <div className="flex flex-col mt-2 justify-around items-center">
             <p className="font-bold text-xl mb-2 text-center">
               Operation Mode
@@ -279,7 +282,7 @@ const StatusBar = () => {
         <div className="flex flex-col justify-around items-center">
           <img src={lowBattery}></img>
           <div className="flex flex-col justify-around items-center">
-            <p className="font-bold text-2xl mb-2">Location</p>
+            <p className="font-bold text-2xl mt-2 mb-2">State</p>
             <p> {opMode ? opMode : "N/A"}</p>
           </div>
         </div>

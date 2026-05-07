@@ -4,7 +4,7 @@ import Table from "./Table/Table";
 import SettingS from "./Settings/Settings";
 import EventMode from "./EventMode/EventMode";
 import Control from "./Control/Control";
-import WifiSettings from "./wifiSettings/wifiSettings"
+import WifiSettings from "./system/system"
 import Information from "./information/information"
 
 type MyProp = {

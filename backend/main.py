@@ -6,7 +6,9 @@ from eventModeApi import router as event_mode_router
 from robotsettingsApi import router as robor_settings_router
 import redis 
 import os
-import json
+from fastapi.responses import FileResponse
+from fastapi import HTTPException
+
 app = FastAPI()
 r =redis.Redis(host="localhost",port="6379")
 
@@ -33,7 +35,20 @@ async def returnUserName():
     This endpoint will return the UseName - duet - mozo ... 
     """  
     return os.getenv("USER")
-     
+
+@app.get("/downloadLogs")
+def download_logs():
+    file_path = "/home/abdelrahman/.logs/latest-stats.pdf"
+    if not os.path.exists(file_path):
+        raise HTTPException(
+            status_code=404, 
+            detail="Log file not found"
+        )
+    return FileResponse(
+        file_path,
+        filename="latest-stats.pdf"
+    )
+
 app.include_router(table_mode_router,prefix="/tablemode")
 app.include_router(event_mode_router, prefix="/eventMode")
 app.include_router(robor_settings_router, prefix="/settings")
