@@ -39,15 +39,15 @@ const StatusBar = () => {
       const getUser = await fetch(
         `http://${window.location.hostname}:8001/getUser`
       );
-      const username = await getUser.json(); 
+      const username = await getUser.json();
       console.log(username);
       // ======================== Important Note ========================
-        // the following topics are not published by default:
-          /*
-           1. /op_mode
-           2. /manual_mode
-           3. /speed
-           */ 
+      // the following topics are not published by default:
+      /*
+       1. /op_mode
+       2. /manual_mode
+       3. /speed
+       */
       //=================================================================    
       // Check Event Mode
       if (all_topic_state["op_mode"] === "1") {
@@ -60,14 +60,14 @@ const StatusBar = () => {
           setOpMode("Event");
           publishTopic("/op_mode", "std_msgs/Int32", {
             data: 1,
-          });      
+          });
           console.log("Publish 1")
         } else {
           console.log("due to no previous state, setting the  robot to table as the robot is mozo")
           setOpMode("Table");
           publishTopic("/op_mode", "std_msgs/Int32", {
             data: 0,
-          });   
+          });
         }
       }
       // Check motor enable
@@ -193,13 +193,13 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
           <img
-          className="mt-7"
+            className="mt-7"
             src={
               BatteryLevel === "High"
                 ? fullBattery
                 : BatteryLevel === "Meduim"
-                ? midBattery
-                : lowBattery
+                  ? midBattery
+                  : lowBattery
             }
           ></img>
           <div className="flex flex-col justify-around items-center">
@@ -264,10 +264,10 @@ const StatusBar = () => {
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col  items-center">
 
-            {/* <img className="mt-7 mb-8" src={tableimg }></img> */}
-            {
-              opMode === "Event"?<img className="mt-4 mb-6" src={eventimg }></img>:<img className="mt-7 mb-8" src={tableimg }></img>
-            }
+          {/* <img className="mt-7 mb-8" src={tableimg }></img> */}
+          {
+            opMode === "Event" ? <img className="mt-4 mb-6" src={eventimg}></img> : <img className="mt-7 mb-8" src={tableimg}></img>
+          }
 
           <div className="flex flex-col mt-2 justify-around items-center">
             <p className="font-bold text-xl mb-2 text-center">
