@@ -9,6 +9,8 @@ import fullBattery from "../../assets/icons/dashboard ui-08.png";
 import autobtn from "../../assets/icons/dashboard ui-09.png";
 import manualbtn from "../../assets/icons/dashboard ui-10.png";
 import motoron from "../../assets/icons/motor.png";
+import idleState from "../../assets/icons/dashborad-11-01.png";
+import movingState from "../../assets/icons/dashborad-11-02.png";
 import motoroff from "../../assets/icons/dashboard ui-11.png";
 import eventimg from "../../assets/icons/dashboard ui-13.png";
 import tableimg from "../../assets/icons/dashboard ui-14.png";
@@ -97,7 +99,7 @@ const StatusBar = () => {
         setmanualAutoMode("Auto");
       }
 
-      // Set battery state
+      // Check battery state
       if (
         all_topic_state["voltage_sensor"] === "23" ||
         all_topic_state["voltage_sensor"] === "22"
@@ -112,8 +114,10 @@ const StatusBar = () => {
         setBatteryLeve("Low");
       }
 
-      // Set localization state
+      // Check localization state
       setlocalizationState(all_topic_state["localization_weight"]);
+      
+      // Check robot speed
       const CurrentRobotSpeed = (
         Number(all_topic_state["robot_speed"]) * 0.007
       ).toFixed(2);
@@ -280,7 +284,7 @@ const StatusBar = () => {
 
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col justify-around items-center">
-          <img src={lowBattery}></img>
+          {/* <img src={lowBattery}></img> */}
           <div className="flex flex-col justify-around items-center">
             <p className="font-bold text-2xl mt-2 mb-2">State</p>
             <p> {opMode ? opMode : "N/A"}</p>

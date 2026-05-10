@@ -31,29 +31,30 @@ const Information = () => {
   }, []);
   if (robotName) {
     return (
-      <div className="h-full grid grid-cols-[100px_1fr] overflow-hidden flex justify-center">
-        <div className=" flex-col justify-center">
-          {/* <button
-            className="border shadow-lg shadow-black/50 h-35 w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+      <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden flex justify-center">
+        <div className="flex flex-col border h-full p-4">
+          <button
+            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             User Guide
           </button>
           <button
-            className="border shadow-lg shadow-black/50 h-35 w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             User Manual
           </button>
           <button
-            className="border shadow-lg shadow-black/50 h-35 w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             Catalog
-          </button> */}
+          </button>
         </div>
-        <div className="h-screen pl-130 w-full overflow-y-auto">
+        <div className="border shadow-inner h-150 w-260 ml-20 bg-gray-100  rounded-2xl  overflow-y-auto overflow-hidden">
           <Document
+            className="p-5 pb-20 rounded-2xl"
             file={`/${robotName}.pdf`}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("PDF load error:", error)}
@@ -71,6 +72,6 @@ const Information = () => {
       </div>
     );
   }
-}
+};
 
 export default Information;

@@ -1,10 +1,11 @@
 import { useRosConnection } from "../../../connection-provider";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 const Control = () => {
   const { publishTopic } = useRosConnection();
   const [isManual, setisManual] = useState(0);
   const [resumeState, setresumeState] = useState(0);
   const [sliderValue, setSliderValue] = useState(50);
+  const ws = useRef<WebSocket | null>(null);
 
   const getRobotState = async () => {
     const resp = await fetch(
@@ -15,34 +16,43 @@ const Control = () => {
     const all_topic_state = JSON.parse(data);
     const robotSpeed = all_topic_state["robot_speed"];
     const robotMode = all_topic_state["manual_auto_mode"];
+    if (robotSpeed) {
+      setSliderValue(Number(robotSpeed));
+      console.log("setting robot speed as:",robotSpeed)
+    } else {
+      setSliderValue(100);
+      console.log("No robot speed")
+      publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+    }
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
   };
-  
+
   useEffect(() => {
     getRobotState();
   }, []);
-  const ws = useRef<WebSocket | null>(null);
 
-    useEffect(() => {
-      ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
-      ws.current.onopen = () => {
-        console.log("Control tab is connected to websocket!");
-      };
-      ws.current.onmessage = (msg) => {
-        const all_topic_state = JSON.parse(msg.data);
+  useEffect(() => {
+    ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
 
-        if (all_topic_state["manual_auto_mode"] === "1") {
-          setisManual(1);
-        } else {
-          setisManual(0);
-        }
-  
+    ws.current.onmessage = (msg) => {
+      const all_topic_state = JSON.parse(msg.data);
+      if (all_topic_state["manual_auto_mode"] === "1") {
+        setisManual(1);
+      } else {
+        setisManual(0);
       }
-    })
-  
+      const robotSpeed = all_topic_state["robot_speed"];
+      if (robotSpeed != 0) {
+        setSliderValue(Number(robotSpeed));
+      } else {
+        setSliderValue(100);
+        publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+      }
+    };
+  });
 
-  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSliderChange = (event: any) => {
     const new_speed = Number(event.target.value);
     if (new_speed <= 49) return;
 
@@ -71,8 +81,7 @@ const Control = () => {
     });
   };
   const handleResume = () => {
-
-    console.log("Resume is pressed")
+    console.log("Resume is pressed");
     let newResumeState = 0;
 
     if (resumeState === 1) {
@@ -87,13 +96,12 @@ const Control = () => {
     });
   };
 
-  const handleNextPoint =()=>{
-    console.log("Next point is pressed")
+  const handleNextPoint = () => {
+    console.log("Next point is pressed");
     publishTopic("/next_toggle", "std_msgs/Int32", {
       data: 1,
     });
-    
-  }
+  };
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-3 h-full">
@@ -122,7 +130,7 @@ const Control = () => {
             Resume
           </button>
 
-          <button className="controlButtons" onClick={handleNextPoint} >
+          <button className="controlButtons" onClick={handleNextPoint}>
             Next Point
           </button>
         </div>
@@ -149,7 +157,7 @@ const Control = () => {
           </div>
         </div>
 
-        <div className=""></div>
+        <div className="border-1"></div>
       </div>
     </>
   );
