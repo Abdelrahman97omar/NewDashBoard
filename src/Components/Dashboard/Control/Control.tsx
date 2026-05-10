@@ -1,4 +1,5 @@
 import { useRosConnection } from "../../../connection-provider";
+import Joystick from "rc-joystick";
 import { useEffect, useState, useRef } from "react";
 const Control = () => {
   const { publishTopic } = useRosConnection();
@@ -6,6 +7,7 @@ const Control = () => {
   const [resumeState, setresumeState] = useState(0);
   const [sliderValue, setSliderValue] = useState(50);
   const ws = useRef<WebSocket | null>(null);
+  const joystickRef = useRef<any>(null);
 
   const getRobotState = async () => {
     const resp = await fetch(
@@ -16,14 +18,7 @@ const Control = () => {
     const all_topic_state = JSON.parse(data);
     const robotSpeed = all_topic_state["robot_speed"];
     const robotMode = all_topic_state["manual_auto_mode"];
-    // if (robotSpeed) {
-    //   setSliderValue(Number(robotSpeed));
-    //   console.log("setting robot speed as:",robotSpeed)
-    // } else {
-    //   setSliderValue(100);
-    //   console.log("No robot speed")
-    //   publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
-    // }
+
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
   };
@@ -34,7 +29,9 @@ const Control = () => {
 
   useEffect(() => {
     ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
-
+    setTimeout(() => {
+      joystickRef.current?.reset();
+  }, 600);
     ws.current.onmessage = (msg) => {
       const all_topic_state = JSON.parse(msg.data);
       if (all_topic_state["manual_auto_mode"] === "1") {
@@ -45,14 +42,9 @@ const Control = () => {
       const robotSpeed = all_topic_state["robot_speed"];
       setSliderValue(Number(robotSpeed));
 
-      // if (robotSpeed != 0) {
-      //   setSliderValue(Number(robotSpeed));
-      // } else {
-      //   setSliderValue(100);
-      //   publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
-      // }
+
     };
-  });
+  }, []);
 
   const handleSliderChange = (event: any) => {
     const new_speed = Number(event.target.value);
@@ -104,6 +96,29 @@ const Control = () => {
       data: 1,
     });
   };
+
+  const handleJoystickChange = (val: any) => {
+    // When joystick returns to center or is released, val.distance is 0
+    if (!val || !val.distance || val.distance === 0) {
+      publishTopic("/cmd_vel", "geometry_msgs/Twist", {
+        linear: { x: 0.0, y: 0.0, z: 0.0 },
+        angular: { x: 0.0, y: 0.0, z: 0.0 },
+      });
+      return;
+    }
+
+    const maxLinear = 0.5;
+    const maxAngular = 1.0;
+    const angleRad = (val.angle * Math.PI) / 180;
+    const linear_x = Math.cos(angleRad) * val.distance * maxLinear;
+    const angular_z = -Math.sin(angleRad) * val.distance * maxAngular;
+
+    publishTopic("/cmd_vel", "geometry_msgs/Twist", {
+      linear: { x: linear_x, y: 0.0, z: 0.0 },
+      angular: { x: 0.0, y: 0.0, z: angular_z },
+    });
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 grid-rows-3 h-full">
@@ -121,14 +136,7 @@ const Control = () => {
             Go Home
           </button>
 
-          <button
-            // className={`  ${
-            //   resumeState === 1 ? "pressedControlButtons" : "controlButtons"
-            // }
-            // `}
-            className="controlButtons"
-            onClick={handleResume}
-          >
+          <button className="controlButtons" onClick={handleResume}>
             Resume
           </button>
 
@@ -158,8 +166,18 @@ const Control = () => {
             </p>
           </div>
         </div>
-
-        <div className="border-1"></div>
+        <div className="flex flex-col items-center justify-center h-full gap-4">
+          <Joystick
+            ref={joystickRef}
+            baseRadius={150}
+            controllerRadius={40}
+            insideMode={true}
+            throttle={100}
+            autoReset={true}
+            onChange={handleJoystickChange}
+          />
+          <p className="text-sm text-gray-400">Drag to move the robot</p>
+        </div>
       </div>
     </>
   );
