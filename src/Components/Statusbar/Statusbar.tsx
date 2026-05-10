@@ -297,15 +297,12 @@ const StatusBar = () => {
         </div>
       </div>
 
-      <div className="Cgray statusbarlayout">
-        <div className="flex flex-col justify-around items-center">
-          {/* <img src={lowBattery}></img> */}
-          <div className="flex flex-col justify-around items-center">
-            <p className="font-bold text-2xl mt-2 mb-2">State</p>
-            <p> {opMode ? opMode : "N/A"}</p>
-          </div>
-        </div>
-      </div>
+      {/* <div>
+        <p>
+          This was meant to be set for robot state, but It will not be used now
+        </p>
+        {/* Robot state-> Idle , running */}
+      {/* </div> */}
     </>
   );
 };
