@@ -50,7 +50,7 @@ const StatusBar = () => {
        2. /manual_mode
        3. /speed
        */
-      //=================================================================    
+      //=================================================================
       // Check Event Mode
       if (all_topic_state["op_mode"] === "1") {
         setOpMode("Event");
@@ -58,14 +58,18 @@ const StatusBar = () => {
         setOpMode("Table");
       } else {
         if (username === "duet") {
-          console.log("due to previous state, setting the robot to event as the robot is duet")
+          console.log(
+            "due to previous state, setting the robot to event as the robot is duet"
+          );
           setOpMode("Event");
           publishTopic("/op_mode", "std_msgs/Int32", {
             data: 1,
           });
-          console.log("Publish 1")
+          console.log("Publish 1");
         } else {
-          console.log("due to no previous state, setting the  robot to table as the robot is mozo")
+          console.log(
+            "due to no previous state, setting the  robot to table as the robot is mozo"
+          );
           setOpMode("Table");
           publishTopic("/op_mode", "std_msgs/Int32", {
             data: 0,
@@ -79,7 +83,9 @@ const StatusBar = () => {
         setMotorMode("OFF");
       } else {
         setMotorMode("ON");
-        console.log("due to no previous state, setting the robot motor to enable")
+        console.log(
+          "due to no previous state, setting the robot motor to enable"
+        );
         publishTopic("/enable_motors", "std_msgs/Bool", {
           data: true,
         });
@@ -95,7 +101,7 @@ const StatusBar = () => {
       if (all_topic_state["manual_auto_mode"] === "1") {
         setmanualAutoMode("Manual");
       } else {
-        console.log("due to no previous state, setting auto mode")
+        console.log("due to no previous state, setting auto mode");
         setmanualAutoMode("Auto");
       }
 
@@ -116,12 +122,17 @@ const StatusBar = () => {
 
       // Check localization state
       setlocalizationState(all_topic_state["localization_weight"]);
-      
+
       // Check robot speed
-      const CurrentRobotSpeed = (
-        Number(all_topic_state["robot_speed"]) * 0.007
-      ).toFixed(2);
-      setRobotSpeed(CurrentRobotSpeed);
+      const CurrentRobotSpeed = all_topic_state["robot_speed"];
+      if (CurrentRobotSpeed) {
+        const robotSpeed = (Number(CurrentRobotSpeed) * 0.007).toFixed(2);
+        setRobotSpeed(robotSpeed);
+      } else {
+        setRobotSpeed("0.7");
+        console.log("No robot speed from status bar");
+        publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+      }
     };
     get_current_states();
   }, [publishTopic]);
@@ -182,10 +193,15 @@ const StatusBar = () => {
 
       setlocalizationState(all_topic_state["localization_weight"]);
 
-      const CurrentRobotSpeed = (
-        Number(all_topic_state["robot_speed"]) * 0.007
-      ).toFixed(2);
-      setRobotSpeed(CurrentRobotSpeed);
+      const CurrentRobotSpeed = all_topic_state["robot_speed"];
+      if (CurrentRobotSpeed) {
+        const robotSpeed = (Number(CurrentRobotSpeed) * 0.007).toFixed(2);
+        setRobotSpeed(robotSpeed);
+      } else {
+        setRobotSpeed("0.7");
+        console.log("No robot speed from status bar");
+        publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+      }
     };
     return () => {
       ws.current?.close();
@@ -202,8 +218,8 @@ const StatusBar = () => {
               BatteryLevel === "High"
                 ? fullBattery
                 : BatteryLevel === "Meduim"
-                  ? midBattery
-                  : lowBattery
+                ? midBattery
+                : lowBattery
             }
           ></img>
           <div className="flex flex-col justify-around items-center">
@@ -267,16 +283,15 @@ const StatusBar = () => {
       </div>
       <div className="Cgray statusbarlayout">
         <div className="flex flex-col  items-center">
-
           {/* <img className="mt-7 mb-8" src={tableimg }></img> */}
-          {
-            opMode === "Event" ? <img className="mt-4 mb-6" src={eventimg}></img> : <img className="mt-7 mb-8" src={tableimg}></img>
-          }
+          {opMode === "Event" ? (
+            <img className="mt-4 mb-6" src={eventimg}></img>
+          ) : (
+            <img className="mt-7 mb-8" src={tableimg}></img>
+          )}
 
           <div className="flex flex-col mt-2 justify-around items-center">
-            <p className="font-bold text-xl mb-2 text-center">
-              Operation Mode
-            </p>
+            <p className="font-bold text-xl mb-2 text-center">Operation Mode</p>
             <p> {opMode ? opMode : "N/A"}</p>
           </div>
         </div>
