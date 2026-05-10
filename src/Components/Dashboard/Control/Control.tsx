@@ -108,12 +108,12 @@ const Control = () => {
 
     const maxLinear = 0.35;
     const maxAngular = 0.65;
-    const angleRad = (val.angle * Math.PI) / 180;
+    const angleRad = ((val.angle - 90) * Math.PI) / 180;
     console.log("angleRad",angleRad)
     console.log("val.distance",val.distance)
     console.log("val.angle: ",val.angle)
-    const linear_x = Math.cos(angleRad) * val.distance * maxLinear; // This should be 0 at 
-    const angular_z = -Math.sin(angleRad) * val.distance * maxAngular;
+    const linear_x = Math.cos(angleRad)  * maxLinear; // This should be 0 at 
+    const angular_z = -Math.sin(angleRad)  * maxAngular;
 
     publishTopic("/cmd_vel", "geometry_msgs/Twist", {
       linear: { x: linear_x, y: 0.0, z: 0.0 },
@@ -168,7 +168,7 @@ const Control = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center h-full gap-4">
+        <div className="flex flex-col items-center justify-center h-full">
           <Joystick
             ref={joystickRef}
             baseRadius={150}

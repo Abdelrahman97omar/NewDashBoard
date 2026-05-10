@@ -466,6 +466,9 @@
   .border-collapse {
     border-collapse: collapse;
   }
+  .rotate-90 {
+    rotate: 90deg;
+  }
   .resize {
     resize: both;
   }
