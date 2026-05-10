@@ -106,10 +106,12 @@ const Control = () => {
       return;
     }
 
-    const maxLinear = 0.7;
+    const maxLinear = 0.35;
     const maxAngular = 0.65;
     const angleRad = (val.angle * Math.PI) / 180;
-    console.log(angleRad)
+    console.log("angleRad",angleRad)
+    console.log("val.distance",val.distance)
+    console.log("val.angle: ",val.angle)
     const linear_x = Math.cos(angleRad) * val.distance * maxLinear; // This should be 0 at 
     const angular_z = -Math.sin(angleRad) * val.distance * maxAngular;
 
