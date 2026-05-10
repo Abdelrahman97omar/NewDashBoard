@@ -38,7 +38,8 @@ async def returnUserName():
 
 @app.get("/downloadLogs")
 def download_logs():
-    file_path = "/home/abdelrahman/.logs/latest-stats.pdf"
+    user=os.getenv("USER")
+    file_path = f"/home/{user}/.logs/latest-stats.pdf"
     if not os.path.exists(file_path):
         raise HTTPException(
             status_code=404, 

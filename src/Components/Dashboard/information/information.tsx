@@ -30,30 +30,32 @@ const Information = () => {
   }, []);
   if (robotName) {
     return (
-      <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden flex justify-center">
-        <div className="flex flex-col border h-full p-4">
+      <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden  justify-center">
+        {/* <div className="border bg-gray-100 rounded-2xl shadow-inner py-10 flex flex-col justify-between h-full px-2"> */}
+        <div className=" bg-gray-100 rounded-2xl shadow-[inset_0_4px_10px_rgba(0,0,0,0.25)] py-10 flex flex-col justify-between h-full px-2">
           <button
-            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className=" shadow-lg  shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             User Guide
           </button>
           <button
-            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className=" shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             User Manual
           </button>
           <button
-            className="border shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className="  shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
           >
             Catalog
           </button>
         </div>
-        <div className="border shadow-inner h-150 w-260 ml-20 bg-gray-100  rounded-2xl  overflow-y-auto overflow-hidden">
+
+        <div className=" shadow-inner h-150 w-260 ml-15 bg-gray-100 rounded-2xl  overflow-y-auto overflow-hidden">
+          <div className="px-5 py-5">
           <Document
-            className="p-5 pb-20 rounded-2xl"
             file={`/${robotName}.pdf`}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("PDF load error:", error)}
@@ -67,6 +69,7 @@ const Information = () => {
               />
             ))}
           </Document>
+          </div>
         </div>
       </div>
     );
