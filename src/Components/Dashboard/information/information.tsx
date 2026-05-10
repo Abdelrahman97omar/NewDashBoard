@@ -31,7 +31,6 @@ const Information = () => {
   if (robotName) {
     return (
       <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden  justify-center">
-        {/* <div className="border bg-gray-100 rounded-2xl shadow-inner py-10 flex flex-col justify-between h-full px-2"> */}
         <div className=" bg-gray-100 rounded-2xl shadow-[inset_0_4px_10px_rgba(0,0,0,0.25)] py-10 flex flex-col justify-between h-full px-2">
           <button
             className=" shadow-lg  shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
@@ -53,10 +52,11 @@ const Information = () => {
           </button>
         </div>
 
-        <div className=" shadow-inner h-150 w-260 ml-15 bg-gray-100 rounded-2xl  overflow-y-auto overflow-hidden">
-          <div className="px-5 py-5">
+        <div className=" shadow-inner h-150 w-260 ml-15 py-10 bg-gray-100 rounded-2xl">
+          <div className="px-5  h-full bg-gray-100 overflow-y-auto overflow-hidden">
           <Document
             file={`/${robotName}.pdf`}
+            className="rounded-2xl"
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("PDF load error:", error)}
           >

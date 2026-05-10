@@ -29,9 +29,7 @@ const Control = () => {
 
   useEffect(() => {
     ws.current = new WebSocket(`ws://${window.location.hostname}:9876`);
-    setTimeout(() => {
-      joystickRef.current?.reset();
-  }, 600);
+
     ws.current.onmessage = (msg) => {
       const all_topic_state = JSON.parse(msg.data);
       if (all_topic_state["manual_auto_mode"] === "1") {
@@ -123,8 +121,8 @@ const Control = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 grid-rows-3 h-full">
-        <div className=" flex justify-around items-center h-full">
+      <div className="grid grid-cols-1 grid-rows-[auto_auto_1fr] h-full">
+        <div className=" flex justify-around items-center h-full mb-20">
           <button
             className={
               isManual === 1 ? "pressedControlButtons" : "controlButtons"
@@ -168,11 +166,12 @@ const Control = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center h-full">
+        {/* <div className="flex flex-col items-center justify-center h-full"> */}
+        <div className="flex flex-col items-center pb-10 justify-center" style={{ height: "320px" }}>
           <Joystick
             ref={joystickRef}
-            baseRadius={150}
-            controllerRadius={40}
+            baseRadius={100}
+            controllerRadius={35}
             insideMode={true}
             throttle={100}
             autoReset={true}
