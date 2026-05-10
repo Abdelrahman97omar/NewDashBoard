@@ -98,7 +98,6 @@ const Control = () => {
   };
 
   const handleJoystickChange = (val: any) => {
-    // When joystick returns to center or is released, val.distance is 0
     if (!val || !val.distance || val.distance === 0) {
       publishTopic("/cmd_vel", "geometry_msgs/Twist", {
         linear: { x: 0.0, y: 0.0, z: 0.0 },
@@ -107,10 +106,11 @@ const Control = () => {
       return;
     }
 
-    const maxLinear = 0.5;
-    const maxAngular = 1.0;
+    const maxLinear = 0.7;
+    const maxAngular = 0.65;
     const angleRad = (val.angle * Math.PI) / 180;
-    const linear_x = Math.cos(angleRad) * val.distance * maxLinear;
+    console.log(angleRad)
+    const linear_x = Math.cos(angleRad) * val.distance * maxLinear; // This should be 0 at 
     const angular_z = -Math.sin(angleRad) * val.distance * maxAngular;
 
     publishTopic("/cmd_vel", "geometry_msgs/Twist", {
