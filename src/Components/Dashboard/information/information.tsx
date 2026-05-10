@@ -25,7 +25,6 @@ const Information = () => {
       if (username === "duet") setRobotName("Duet");
       else if (username === "mozo") setRobotName("Mozo");
       else setRobotName("Duet");
-      // else setRobotName(null)
     };
     fetchUserFromBackend();
   }, []);

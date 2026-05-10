@@ -40,21 +40,21 @@ def set_battery_state(data):
         
     except TypeError as e:
         # This will run only one time on the first time when the "voltage_sensor" value is none "when no previous reading is saved"
-        all_topics_state["voltage_sensor"]=int(data.data)
+        all_topics_state["voltage_sensor"]=int(round(data.data))
         r.set("all_topics", json.dumps(all_topics_state))
         return
     except ValueError as e:
         # This will run only one time on the first time when the "voltage_sensor" value is none "when no previous reading is saved"
-        all_topics_state["voltage_sensor"]=int(data.data)
+        all_topics_state["voltage_sensor"]=int(round(data.data))
         r.set("all_topics", json.dumps(all_topics_state))
         return
     except Exception as e:
         print(f"Error fetching latest battery state: {e}")
         return
-    if int(data.data) == previous_battery_state:
+    if int(round(data.data)) == previous_battery_state:
         return
     try:
-        current_states["voltage_sensor"] = int(data.data)   
+        current_states["voltage_sensor"] = int(round(data.data))   
         r.set("all_topics", json.dumps(current_states))     
         print("Saved new battery data successfully in Redis")
     except Exception as e:
