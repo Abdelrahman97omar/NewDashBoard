@@ -51,7 +51,7 @@ def set_battery_state(data):
     except Exception as e:
         print(f"Error fetching latest battery state: {e}")
         return
-    if int(round(data.data)) == previous_battery_state:
+    if abs(data.data - previous_battery_state) < 0.5:
         return
     try:
         current_states["voltage_sensor"] = int(round(data.data))   
