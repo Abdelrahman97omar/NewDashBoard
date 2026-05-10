@@ -16,14 +16,14 @@ const Control = () => {
     const all_topic_state = JSON.parse(data);
     const robotSpeed = all_topic_state["robot_speed"];
     const robotMode = all_topic_state["manual_auto_mode"];
-    if (robotSpeed) {
-      setSliderValue(Number(robotSpeed));
-      console.log("setting robot speed as:",robotSpeed)
-    } else {
-      setSliderValue(100);
-      console.log("No robot speed")
-      publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
-    }
+    // if (robotSpeed) {
+    //   setSliderValue(Number(robotSpeed));
+    //   console.log("setting robot speed as:",robotSpeed)
+    // } else {
+    //   setSliderValue(100);
+    //   console.log("No robot speed")
+    //   publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+    // }
     setSliderValue(Number(robotSpeed));
     setisManual(Number(robotMode));
   };
@@ -43,12 +43,14 @@ const Control = () => {
         setisManual(0);
       }
       const robotSpeed = all_topic_state["robot_speed"];
-      if (robotSpeed != 0) {
-        setSliderValue(Number(robotSpeed));
-      } else {
-        setSliderValue(100);
-        publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
-      }
+      setSliderValue(Number(robotSpeed));
+
+      // if (robotSpeed != 0) {
+      //   setSliderValue(Number(robotSpeed));
+      // } else {
+      //   setSliderValue(100);
+      //   publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
+      // }
     };
   });
 
