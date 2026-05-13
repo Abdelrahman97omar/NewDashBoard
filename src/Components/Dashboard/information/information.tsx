@@ -34,10 +34,10 @@ const Information = () => {
   }, []);
 
   const handleSetManualGuide= ()=>{
-    setFileName(`${fileName}.txt`)
+    setFileName(`${fileName}`)
   }
   const handleSetRobotCatalog= ()=>{
-    setFileName(`${fileName}Catalog.txt`)
+    setFileName(`${fileName}Catalog`)
   }
 
   if (robotName) {
