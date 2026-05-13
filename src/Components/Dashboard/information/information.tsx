@@ -11,7 +11,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 const Information = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [robotName, setRobotName] = useState<string | null>("duet");
-  // const [robotName , setRobotName]=useState<string | null>("");
+  const [fileName, setFileName] = useState<string | null>("duet");
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
@@ -22,40 +22,49 @@ const Information = () => {
         `http://${window.location.hostname}:8001/getUser`
       );
       const username = await getUser.json();
-      if (username === "duet") setRobotName("Duet");
-      else if (username === "mozo") setRobotName("Mozo");
-      else setRobotName("Duet");
+      if (username === "duet") {setRobotName("Duet");
+        setFileName("Duet.txt")
+      }
+      else if (username === "mozo") {
+        setRobotName("Mozo");
+        setFileName("Mozo.txt")
+      }
     };
     fetchUserFromBackend();
   }, []);
+
+  const handleSetManualGuide= ()=>{
+    setFileName(`${fileName}.txt`)
+  }
+  const handleSetRobotCatalog= ()=>{
+    setFileName(`${fileName}Catalog.txt`)
+  }
+
   if (robotName) {
     return (
       <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden  justify-center">
-        <div className=" bg-gray-100 rounded-2xl shadow-[inset_0_4px_10px_rgba(0,0,0,0.25)] py-10 flex flex-col justify-between h-full px-2">
+        <div className="flex h-fit flex-col ml-8 px-4 py-10  rounded-2xl  gap-y-10">
           <button
-            className=" shadow-lg  shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className="shadow-md  shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+    onClick={handleSetRobotCatalog}
           >
-            User Guide
+            Robot Catalog 
           </button>
           <button
-            className=" shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
+            className="shadow-md shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+    onClick={handleSetManualGuide}
+
           >
-            User Manual
-          </button>
-          <button
-            className="  shadow-lg shadow-black/50 h-35 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
-    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
-          >
-            Catalog
+            Manual Guide
           </button>
         </div>
 
         <div className=" shadow-inner h-150 w-260 ml-15 py-10 bg-gray-100 rounded-2xl">
           <div className="px-5  h-full bg-gray-100 overflow-y-auto overflow-hidden">
           <Document
-            file={`/${robotName}.pdf`}
+            file={`/${fileName}.pdf`}
             className="rounded-2xl display-none"
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("PDF load error:", error)}
