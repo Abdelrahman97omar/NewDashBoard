@@ -56,7 +56,7 @@ const Information = () => {
           <div className="px-5  h-full bg-gray-100 overflow-y-auto overflow-hidden">
           <Document
             file={`/${robotName}.pdf`}
-            className="rounded-2xl"
+            className="rounded-2xl display-none"
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("PDF load error:", error)}
           >

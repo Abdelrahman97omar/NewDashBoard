@@ -488,6 +488,15 @@
   .gap-y-12 {
     row-gap: calc(var(--spacing) * 12);
   }
+  .gap-y-15 {
+    row-gap: calc(var(--spacing) * 15);
+  }
+  .gap-y-18 {
+    row-gap: calc(var(--spacing) * 18);
+  }
+  .gap-y-25 {
+    row-gap: calc(var(--spacing) * 25);
+  }
   .overflow-hidden {
     overflow: hidden;
   }
