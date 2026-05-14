@@ -47,6 +47,7 @@ async def returnRobotSpeed():
             for line in f:
                 line = line.strip()
                 if line.startswith(f"export ROBOT_MAX_SPEED="):
+                    print(line.split("=", 1)[1])
                     return line.split("=", 1)[1]
         return None
     except FileNotFoundError:
