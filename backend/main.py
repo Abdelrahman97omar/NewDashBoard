@@ -46,6 +46,7 @@ async def returnRobotSpeed():
     print(robotName)
     try:
         with open(f"/home/{robotName}/.bash_profile", "r") as f:
+            print("in the loop")
             for line in f:
                 line = line.strip()
                 print(line)
