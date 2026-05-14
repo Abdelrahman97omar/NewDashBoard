@@ -27,6 +27,7 @@ const StatusBar = () => {
   const [localizationState, setlocalizationState] = useState("");
   const [manualAutoMode, setmanualAutoMode] = useState("");
   const [robotSpeed, setRobotSpeed] = useState("");
+  const [maxRobotSpeed,setMaxRobotSpeed]=useState<number>(0)
 
   useEffect(() => {
     const get_current_states = async () => {
@@ -46,8 +47,8 @@ const StatusBar = () => {
       const getRobotSpeed = await fetch(
         `http://${window.location.hostname}:8001/robotSpeed`
       );
-      const envRobotSpeed = await getRobotSpeed.json();
-      console.log(username);
+      const envRobotSpeed = parseFloat(await getRobotSpeed.json());
+      setMaxRobotSpeed(envRobotSpeed)
       // ======================== Important Note ========================
       // the following topics are not published by default:
       /*
@@ -136,7 +137,7 @@ const StatusBar = () => {
         const robotSpeed = (Number(CurrentRobotSpeed) * envRobotSpeed/100).toFixed(2);
         setRobotSpeed(robotSpeed);
       } else {
-        setRobotSpeed(envRobotSpeed);
+        setRobotSpeed(String(envRobotSpeed));
         console.log("No previous robot speed, setting it to",envRobotSpeed);
         publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
       }
@@ -202,10 +203,10 @@ const StatusBar = () => {
 
       const CurrentRobotSpeed = all_topic_state["robot_speed"];
       if (CurrentRobotSpeed) {
-        const robotSpeed = (Number(CurrentRobotSpeed) * 0.007).toFixed(2);
+        const robotSpeed = (Number(CurrentRobotSpeed) * maxRobotSpeed/100).toFixed(2);
         setRobotSpeed(robotSpeed);
       } else {
-        setRobotSpeed("0.7");
+        setRobotSpeed(String(maxRobotSpeed));
         console.log("No robot speed from status bar");
         publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
       }

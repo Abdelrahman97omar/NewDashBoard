@@ -62,12 +62,6 @@ async def returnRobotSpeed():
                 print("the speed is:",line.split("=", 1)[1])
                 return line.split("=", 1)[1]
         return None
-    except FileNotFoundError as e:
-        print(f"File not found: {e}")
-        return None
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return None
 
 @app.get("/downloadLogs")
 def download_logs():
