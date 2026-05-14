@@ -34,7 +34,7 @@ async def returnUserName():
     """
     This endpoint will return the UseName - duet - mozo ... 
     """  
-    print("the robot speed is:",os.getenv("USER"))
+    print("the robot name is:",os.getenv("USER"))
     return os.getenv("USER")
 
 @app.get("/robotSpeed")
@@ -42,8 +42,15 @@ async def returnRobotSpeed():
     """
     This endpoint will return the robot speed from env variables ... 
     """  
-    print("fetched roboto speed as",os.getenv("ROBOT_MAX_SPEED"))
-    return os.getenv("ROBOT_MAX_SPEED")
+    try:
+        with open("/home/duet/.bash_profile", "r") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith(f"export ROBOT_MAX_SPEED="):
+                    return line.split("=", 1)[1]
+        return None
+    except FileNotFoundError:
+        return None
 
 @app.get("/downloadLogs")
 def download_logs():
