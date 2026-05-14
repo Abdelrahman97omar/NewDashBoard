@@ -12,7 +12,7 @@ const Information = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [robotName, setRobotName] = useState<string | null>("");
   const [fileName, setFileName] = useState<string | null>("");
-  
+
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
@@ -35,6 +35,10 @@ const Information = () => {
   }, []);
 
   const handleSetManualGuide = () => {
+    if (robotName === fileName)
+    {
+      return
+    }
     setNumPages(0);
     console.log("Robot name is", robotName);
     setFileName(`${robotName}`);
