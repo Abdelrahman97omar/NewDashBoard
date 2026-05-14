@@ -42,8 +42,9 @@ async def returnRobotSpeed():
     """
     This endpoint will return the robot speed from env variables ... 
     """  
+    robotName=os.getenv("USER")
     try:
-        with open("/home/duet/.bash_profile", "r") as f:
+        with open(f"/home/{robotName}/.bash_profile", "r") as f:
             for line in f:
                 line = line.strip()
                 if line.startswith(f"export ROBOT_MAX_SPEED="):
