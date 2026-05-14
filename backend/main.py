@@ -36,6 +36,7 @@ async def returnUserName():
     """  
     print("the robot name is:",os.getenv("USER"))
     return os.getenv("USER")
+
 @app.get("/debug")
 async def debug():
     return {
