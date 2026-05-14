@@ -103,7 +103,7 @@ const StatusBar = () => {
       }
 
       // Check manual mode
-      if (all_topic_state["manual_auto_mode"] === "1") {
+      if (all_topic_state["manual_auto_mode"] === null) {
         setmanualAutoMode("Manual");
       } else {
         console.log("due to no previous state, setting auto mode");
