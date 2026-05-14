@@ -39,22 +39,24 @@ async def returnUserName():
 
 @app.get("/robotSpeed")
 async def returnRobotSpeed():
-    """
-    This endpoint will return the robot speed from env variables ... 
-    """  
-    robotName=os.getenv("USER")
-    print(robotName)
+    robotName = os.getenv("USER")
+    print("Robot name is:", robotName)
     try:
         with open(f"/home/{robotName}/.bash_profile", "r") as f:
-            print("in the loop")
+            print("File opened successfully")
             for line in f:
                 line = line.strip()
-                print(line)
-                if line.startswith(f"export ROBOT_MAX_SPEED="):
-                    print(line.split("=", 1)[1])
+                if line.startswith("export ROBOT_MAX_SPEED="):
                     return line.split("=", 1)[1]
         return None
-    except FileNotFoundError:
+    except FileNotFoundError as e:
+        print(f"File not found: {e}")
+        return None
+    except PermissionError as e:        
+        print(f"Permission denied: {e}")
+        return None
+    except Exception as e:              
+        print(f"Unexpected error: {e}")
         return None
 
 @app.get("/downloadLogs")
