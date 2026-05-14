@@ -36,6 +36,13 @@ async def returnUserName():
     """  
     print("the robot name is:",os.getenv("USER"))
     return os.getenv("USER")
+@app.get("/debug")
+async def debug():
+    return {
+        "USER": os.getenv("USER"),
+        "HOME": os.getenv("HOME"),
+        "path_attempt": f"/home/{os.getenv('USER')}/.bash_profile"
+    }
 
 @app.get("/robotSpeed")
 async def returnRobotSpeed():
