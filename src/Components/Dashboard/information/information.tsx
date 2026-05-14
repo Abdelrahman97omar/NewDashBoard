@@ -23,11 +23,11 @@ const Information = () => {
       );
       const username = await getUser.json();
       if (username === "duet") {setRobotName("Duet");
-        setFileName("Duet.txt")
+        setFileName("Duet")
       }
       else if (username === "mozo") {
         setRobotName("Mozo");
-        setFileName("Mozo.txt")
+        setFileName("Mozo")
       }
     };
     fetchUserFromBackend();
