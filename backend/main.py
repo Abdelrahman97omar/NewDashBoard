@@ -41,6 +41,7 @@ async def returnRobotSpeed():
     """
     This endpoint will return the robot speed from env variables ... 
     """  
+    print("fetched roboto speed as",os.getenv("ROBOT_MAX_SPEED"))
     return os.getenv("ROBOT_MAX_SPEED")
 
 @app.get("/downloadLogs")
