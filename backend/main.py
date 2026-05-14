@@ -39,7 +39,7 @@ async def returnUserName():
 
 @app.get("/robotSpeed")
 async def returnRobotSpeed():
-    robotName = os.getenv("USER")
+    robotName = (os.getenv("USER")).strip()
     print("Robot name is:", robotName)
     try:
         with open(f"/home/{robotName}/.bash_profile", "r") as f:
