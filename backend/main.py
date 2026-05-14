@@ -34,6 +34,7 @@ async def returnUserName():
     """
     This endpoint will return the UseName - duet - mozo ... 
     """  
+    print("the robot speed is:",os.getenv("USER"))
     return os.getenv("USER")
 
 @app.get("/robotSpeed")
