@@ -18,6 +18,7 @@ services:
       - /home/${USER}/Desktop/points:/home/${USER}/Desktop/points
       - /var/www/html/NewDashBoard:/home/NewDashBoard
       - /home/${USER}/.logs:/home/${USER}/.logs
+      - /home/${USER}/.bash_profile:/home/${USER}/.bash_profile
     working_dir: /home/NewDashBoard/backend
     depends_on:
       Redis:
