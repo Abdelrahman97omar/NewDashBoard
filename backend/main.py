@@ -47,10 +47,10 @@ async def returnRobotSpeed():
             for line in f:
                 line = line.strip()
                 if line.startswith("export ROBOT_MAX_SPEED="):
+                    print("the speed is:",line.split("=", 1)[1])
                     return line.split("=", 1)[1]
         return None
     except PermissionError:
-        # Service runs as root, use sudo to read the file
         result = subprocess.run(
             ["sudo", "cat", f"/home/{robotName}/.bash_profile"],
             capture_output=True,
@@ -59,6 +59,7 @@ async def returnRobotSpeed():
         for line in result.stdout.splitlines():
             line = line.strip()
             if line.startswith("export ROBOT_MAX_SPEED="):
+                print("the speed is:",line.split("=", 1)[1])
                 return line.split("=", 1)[1]
         return None
     except FileNotFoundError as e:
