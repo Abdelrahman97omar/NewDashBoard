@@ -5,7 +5,6 @@ import { useEffect, useState, useRef } from "react";
 import lowBattery from "../../assets/icons/dashboard ui-07.png";
 import midBattery from "../../assets/icons/dashboard ui-16.png";
 import fullBattery from "../../assets/icons/dashboard ui-08.png";
-
 import autobtn from "../../assets/icons/dashboard ui-09.png";
 import manualbtn from "../../assets/icons/dashboard ui-10.png";
 import motoron from "../../assets/icons/motor.png";
@@ -42,6 +41,12 @@ const StatusBar = () => {
         `http://${window.location.hostname}:8001/getUser`
       );
       const username = await getUser.json();
+      console.log(username);
+
+      const getRobotSpeed = await fetch(
+        `http://${window.location.hostname}:8001/robotSpeed`
+      );
+      const envRobotSpeed = await getRobotSpeed.json();
       console.log(username);
       // ======================== Important Note ========================
       // the following topics are not published by default:
@@ -126,11 +131,11 @@ const StatusBar = () => {
       // Check robot speed
       const CurrentRobotSpeed = all_topic_state["robot_speed"];
       if (CurrentRobotSpeed) {
-        const robotSpeed = (Number(CurrentRobotSpeed) * 0.007).toFixed(2);
+        const robotSpeed = (Number(CurrentRobotSpeed) * envRobotSpeed/100).toFixed(2);
         setRobotSpeed(robotSpeed);
       } else {
-        setRobotSpeed("0.7");
-        console.log("No robot speed from status bar");
+        setRobotSpeed(envRobotSpeed);
+        console.log("No previous robot speed, setting it to",envRobotSpeed);
         publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
       }
     };

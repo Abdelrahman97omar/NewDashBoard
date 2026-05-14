@@ -36,6 +36,13 @@ async def returnUserName():
     """  
     return os.getenv("USER")
 
+@app.get("/robotSpeed")
+async def returnRobotSpeed():
+    """
+    This endpoint will return the robot speed from env variables ... 
+    """  
+    return os.getenv("ROBOT_MAX_SPEED")
+
 @app.get("/downloadLogs")
 def download_logs():
     user=os.getenv("USER")

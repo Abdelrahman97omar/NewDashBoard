@@ -12,6 +12,7 @@ const Information = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [robotName, setRobotName] = useState<string | null>("");
   const [fileName, setFileName] = useState<string | null>("");
+  
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
@@ -49,14 +50,14 @@ const Information = () => {
         <div className="flex h-fit flex-col ml-8 px-4 py-10  rounded-2xl  gap-y-10">
           <button
             className="shadow-md shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
-    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+            duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={handleSetManualGuide}
           >
             Manual Guide
           </button>
           <button
             className="shadow-md  shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
-    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+            duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={handleSetRobotCatalog}
           >
             Robot Catalog
