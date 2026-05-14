@@ -27,8 +27,8 @@ const StatusBar = () => {
   const [localizationState, setlocalizationState] = useState("");
   const [manualAutoMode, setmanualAutoMode] = useState("");
   const [robotSpeed, setRobotSpeed] = useState("");
-  const [maxRobotSpeed,setMaxRobotSpeed]=useState<number>(0)
-
+  // const [maxRobotSpeed,setMaxRobotSpeed]=useState<number>(0)
+  const maxRobotSpeed =useRef(0)
   useEffect(() => {
     const get_current_states = async () => {
       const resp = await fetch(
@@ -48,7 +48,7 @@ const StatusBar = () => {
         `http://${window.location.hostname}:8001/robotSpeed`
       );
       const envRobotSpeed = parseFloat(await getRobotSpeed.json());
-      setMaxRobotSpeed(envRobotSpeed)
+      maxRobotSpeed.current=envRobotSpeed
       // ======================== Important Note ========================
       // the following topics are not published by default:
       /*
@@ -132,7 +132,7 @@ const StatusBar = () => {
       setlocalizationState(all_topic_state["localization_weight"]);
 
       // Check robot speed
-      const CurrentRobotSpeed = all_topic_state["robot_speed"];
+      const CurrentRobotSpeed = all_topic_state["robot_speed"]; //precentage
       if (CurrentRobotSpeed) {
         const robotSpeed = (Number(CurrentRobotSpeed) * envRobotSpeed/100).toFixed(2);
         setRobotSpeed(robotSpeed);
@@ -160,31 +160,31 @@ const StatusBar = () => {
         "of type",
         typeof all_topic_state
       );
-
+      // check op mode
       if (all_topic_state["op_mode"] === "1") {
         setOpMode("Event");
       } else {
         setOpMode("Table");
       }
-
+      // check motors
       if (all_topic_state["enable_motors"] == "True") {
         setMotorMode("ON");
       } else {
         setMotorMode("OFF");
       }
-
+      // check emergency state
       if (all_topic_state["emergency_state"] === "0") {
         setEmergencyState("pressed");
       } else {
         setEmergencyState("Released");
       }
-
+      // Check manual mode
       if (all_topic_state["manual_auto_mode"] === "1") {
         setmanualAutoMode("Manual");
       } else {
         setmanualAutoMode("Auto");
       }
-
+      // Battery precentage
       if (
         all_topic_state["voltage_sensor"] == "23" ||
         all_topic_state["voltage_sensor"] == "22"
@@ -198,15 +198,15 @@ const StatusBar = () => {
       } else {
         setBatteryLeve("Low");
       }
-
+      // Check Localization
       setlocalizationState(all_topic_state["localization_weight"]);
-
+      //Check speed
       const CurrentRobotSpeed = all_topic_state["robot_speed"];
       if (CurrentRobotSpeed) {
-        const robotSpeed = (Number(CurrentRobotSpeed) * maxRobotSpeed/100).toFixed(2);
+        const robotSpeed = (Number(CurrentRobotSpeed) * maxRobotSpeed.current/100).toFixed(2);
         setRobotSpeed(robotSpeed);
       } else {
-        setRobotSpeed(String(maxRobotSpeed));
+        setRobotSpeed(String(maxRobotSpeed.current));
         console.log("No robot speed from status bar");
         publishTopic("/set_speed", "std_msgs/Float32", { data: 100 });
       }
