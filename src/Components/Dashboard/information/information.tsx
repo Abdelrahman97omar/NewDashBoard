@@ -32,7 +32,9 @@ const Information = () => {
     };
     fetchUserFromBackend();
   }, []);
-
+  useEffect(() => {
+  console.log("The file name is",fileName)
+  },[fileName])
   const handleSetManualGuide= ()=>{
     setNumPages(0)
     console.log("Robot name is", robotName)
