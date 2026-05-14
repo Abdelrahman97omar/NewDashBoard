@@ -10,8 +10,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 const Information = () => {
   const [numPages, setNumPages] = useState<number>(0);
-  const [robotName, setRobotName] = useState<string | null>("duet");
-  const [fileName, setFileName] = useState<string | null>("duet");
+  const [robotName, setRobotName] = useState<string | null>("");
+  const [fileName, setFileName] = useState<string | null>("");
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
@@ -34,10 +34,13 @@ const Information = () => {
   }, []);
 
   const handleSetManualGuide= ()=>{
-    setFileName(`${fileName}`)
+    setNumPages(0)
+    console.log("Robot name is", robotName)
+    setFileName(`${robotName}`)
   }
   const handleSetRobotCatalog= ()=>{
-    setFileName(`${fileName}Catalog`)
+    setNumPages(0)
+    setFileName(`${robotName}Catalog`)  
   }
 
   if (robotName) {
