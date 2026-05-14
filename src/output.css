@@ -250,6 +250,9 @@
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
+  .mr-5 {
+    margin-right: calc(var(--spacing) * 5);
+  }
   .mr-6 {
     margin-right: calc(var(--spacing) * 6);
   }
@@ -259,8 +262,17 @@
   .mr-10\.5 {
     margin-right: calc(var(--spacing) * 10.5);
   }
+  .mr-15 {
+    margin-right: calc(var(--spacing) * 15);
+  }
   .mr-20 {
     margin-right: calc(var(--spacing) * 20);
+  }
+  .mr-25 {
+    margin-right: calc(var(--spacing) * 25);
+  }
+  .mr-55 {
+    margin-right: calc(var(--spacing) * 55);
   }
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
@@ -285,9 +297,6 @@
   }
   .mb-20 {
     margin-bottom: calc(var(--spacing) * 20);
-  }
-  .ml-2 {
-    margin-left: calc(var(--spacing) * 2);
   }
   .ml-8 {
     margin-left: calc(var(--spacing) * 8);
@@ -337,6 +346,9 @@
   .h-11 {
     height: calc(var(--spacing) * 11);
   }
+  .h-15 {
+    height: calc(var(--spacing) * 15);
+  }
   .h-20 {
     height: calc(var(--spacing) * 20);
   }
@@ -348,6 +360,9 @@
   }
   .h-35 {
     height: calc(var(--spacing) * 35);
+  }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
   }
   .h-150 {
     height: calc(var(--spacing) * 150);
@@ -367,6 +382,9 @@
   .h-screen {
     height: 100vh;
   }
+  .min-h-0 {
+    min-height: calc(var(--spacing) * 0);
+  }
   .w-1 {
     width: calc(var(--spacing) * 1);
   }
@@ -382,11 +400,20 @@
   .w-25 {
     width: calc(var(--spacing) * 25);
   }
+  .w-30 {
+    width: calc(var(--spacing) * 30);
+  }
   .w-48 {
     width: calc(var(--spacing) * 48);
   }
   .w-60 {
     width: calc(var(--spacing) * 60);
+  }
+  .w-70 {
+    width: calc(var(--spacing) * 70);
+  }
+  .w-90 {
+    width: calc(var(--spacing) * 90);
   }
   .w-260 {
     width: calc(var(--spacing) * 260);
@@ -394,17 +421,26 @@
   .w-345 {
     width: calc(var(--spacing) * 345);
   }
+  .w-900 {
+    width: calc(var(--spacing) * 900);
+  }
   .w-\[250px\] {
     width: 250px;
   }
   .w-\[300px\] {
     width: 300px;
   }
+  .w-fit {
+    width: fit-content;
+  }
   .w-full {
     width: 100%;
   }
   .w-screen {
     width: 100vw;
+  }
+  .flex-1 {
+    flex: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -435,6 +471,9 @@
   }
   .grid-rows-3 {
     grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+  .grid-rows-5 {
+    grid-template-rows: repeat(5, minmax(0, 1fr));
   }
   .grid-rows-\[15_1fr\] {
     grid-template-rows: 15 1fr;
@@ -496,6 +535,9 @@
   .gap-9 {
     gap: calc(var(--spacing) * 9);
   }
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
+  }
   .gap-30 {
     gap: calc(var(--spacing) * 30);
   }
@@ -506,35 +548,14 @@
       margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
-  .gap-y-0 {
-    row-gap: calc(var(--spacing) * 0);
-  }
-  .gap-y-0\.5 {
-    row-gap: calc(var(--spacing) * 0.5);
-  }
   .gap-y-2 {
     row-gap: calc(var(--spacing) * 2);
-  }
-  .gap-y-2\.5 {
-    row-gap: calc(var(--spacing) * 2.5);
-  }
-  .gap-y-4 {
-    row-gap: calc(var(--spacing) * 4);
   }
   .gap-y-10 {
     row-gap: calc(var(--spacing) * 10);
   }
   .gap-y-12 {
     row-gap: calc(var(--spacing) * 12);
-  }
-  .gap-y-15 {
-    row-gap: calc(var(--spacing) * 15);
-  }
-  .gap-y-18 {
-    row-gap: calc(var(--spacing) * 18);
-  }
-  .gap-y-25 {
-    row-gap: calc(var(--spacing) * 25);
   }
   .overflow-hidden {
     overflow: hidden;
@@ -559,6 +580,12 @@
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-tl-2xl {
+    border-top-left-radius: var(--radius-2xl);
+  }
+  .rounded-bl-2xl {
+    border-bottom-left-radius: var(--radius-2xl);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -637,6 +664,9 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -675,6 +705,9 @@
   }
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
+  }
+  .pr-10 {
+    padding-right: calc(var(--spacing) * 10);
   }
   .pb-1 {
     padding-bottom: calc(var(--spacing) * 1);
@@ -770,8 +803,8 @@
   .accent-\[\#09203E\] {
     accent-color: #09203E;
   }
-  .shadow-\[inset_0_4px_10px_rgba\(0\,0\,0\,0\.25\)\] {
-    --tw-shadow: inset 0 4px 10px var(--tw-shadow-color, rgba(0,0,0,0.25));
+  .shadow-\[inset_0_4px_10px_rgba\(0\,0\,0\,0\.3\)\] {
+    --tw-shadow: inset 0 4px 10px var(--tw-shadow-color, rgba(0,0,0,0.3));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-inner {
