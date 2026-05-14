@@ -37,17 +37,9 @@ async def returnUserName():
     print("the robot name is:",os.getenv("USER"))
     return os.getenv("USER")
 
-@app.get("/debug")
-async def debug():
-    return {
-        "USER": os.getenv("USER"),
-        "HOME": os.getenv("HOME"),
-        "path_attempt": f"/home/{os.getenv('USER')}/.bash_profile"
-    }
-
 @app.get("/robotSpeed")
 async def returnRobotSpeed():
-    robotName = (os.getenv("USER")).strip()
+    robotName = os.getenv("USER")
     print("Robot name is:", robotName)
     try:
         with open(f"/home/{robotName}/.bash_profile", "r") as f:
@@ -57,13 +49,22 @@ async def returnRobotSpeed():
                 if line.startswith("export ROBOT_MAX_SPEED="):
                     return line.split("=", 1)[1]
         return None
+    except PermissionError:
+        # Service runs as root, use sudo to read the file
+        result = subprocess.run(
+            ["sudo", "cat", f"/home/{robotName}/.bash_profile"],
+            capture_output=True,
+            text=True
+        )
+        for line in result.stdout.splitlines():
+            line = line.strip()
+            if line.startswith("export ROBOT_MAX_SPEED="):
+                return line.split("=", 1)[1]
+        return None
     except FileNotFoundError as e:
         print(f"File not found: {e}")
         return None
-    except PermissionError as e:        
-        print(f"Permission denied: {e}")
-        return None
-    except Exception as e:              
+    except Exception as e:
         print(f"Unexpected error: {e}")
         return None
 
