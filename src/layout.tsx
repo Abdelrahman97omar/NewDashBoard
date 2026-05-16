@@ -35,22 +35,23 @@ const Layout = () => {
   };
   return (
     <div className="Cgray w-screen h-screen p-4 overflow-hidden">
-      <div className="grid grid-cols-[330px_1fr] h-full">
+      <div className="grid grid-cols-[120px_1fr] lg:grid-cols-[330px_1fr] h-full">
 
-        <div className="grid grid-cols-1 h-[hv] px-3.5 py-10 Cblue rounded-4xl m-3">
+        <div className="grid grid-cols-1 h-[hv] lg:px-3.5 py-10 Cblue rounded-4xl m-0 lg:m-3">
           <div className=" flex justify-center items-center mt-5 mb-20 h-1/2 ">
             <img className="" src={logo} />
           </div>
           <Sidebar returnNumber={getPageNumber} />
         </div>
 
-        <div className="grid grid-rows-[250px_1fr] overflow-hidden">
+        {/* <div className="grid grid-rows-[250px_1fr] overflow-hidden"> */}
+        <div className="grid grid-rows-1 lg:grid-rows-[250px_1fr] overflow-hidden">
 
-          <div className="bg-white flex gap-5 p-5 rounded-4xl">
+          <div className="hidden bg-white lg:flex gap-5 p-5 rounded-4xl">
             <StatusBar />
           </div>
 
-          <div className="bg-white p-3 m-3 mb-12 rounded-4xl overflow-hidden">
+          <div className="bg-white p-3 m-0 lg:m-3 mb-12 rounded-4xl overflow-hidden">
             <Dashboard page={dashboardPage} />
           </div>
 

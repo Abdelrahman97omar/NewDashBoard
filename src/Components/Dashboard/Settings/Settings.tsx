@@ -117,8 +117,8 @@ const SettingS = () => {
 
   return (
     <>
-      <div className="grid grid-col-1 grid-rows-3 gap-y-12 pt-10">
-        <div className="flex justify-around items-center">
+      <div className="flex flex-col mt-10 lg:mt-0 lg:grid lg:grid-cols-1 lg:grid-rows-3 lg:gap-y-12 lg:pt-10">
+        <div className="flex flex-col gap-3 pb-3 lg:pb-0 lg:gap-0 lg:flex-row lg:justify-around lg:items-center">
           <button
             className={"dashboardSettingsButtons"}
             onClick={handleClearMap}
@@ -132,7 +132,7 @@ const SettingS = () => {
             Load Map
           </button>
         </div>
-        <div className="flex justify-around items-center">
+        <div className="flex flex-col gap-3 pb-3 lg:pb-0 lg:gap-0 lg:flex-row lg:justify-around lg:items-center">
           <button
             className="dashboardSettingsButtons "
             onClick={handleResumeMap}
@@ -153,8 +153,7 @@ const SettingS = () => {
           </button>
         </div>
 
-        <div className="flex justify-around items-center">
-
+        <div className="flex flex-col gap-3 lg:flex-row lg:justify-around lg:items-center">
           <button
             className={
               isNextOption

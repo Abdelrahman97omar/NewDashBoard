@@ -20,7 +20,10 @@ const Dashboard = ({ page }: MyProp) => {
   }
   //Settings Button
   if (page === 1) {
-    return <SettingS />;
+    return (
+    <div className="h-full">
+      <SettingS />
+    </div>)
   }
   //Event Mode Button
   if (page === 2) {
@@ -35,13 +38,13 @@ const Dashboard = ({ page }: MyProp) => {
     );
   }
   //Specealization
-
   if (page === 4) {
     return (
+      <div className="h-full">
         <Specialization/>
+      </div>
     );
   }
-
   //Information page 
   if (page === 5) {
     return (
