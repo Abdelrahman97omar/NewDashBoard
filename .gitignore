@@ -5,3 +5,4 @@ launchBackend.sh
 backend/__pycache__/*
 newDashboardDockerimage.tar
 newdashboard.tar
+src/output.css
