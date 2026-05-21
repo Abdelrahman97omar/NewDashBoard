@@ -4,7 +4,7 @@ import { useRosConnection } from "../../../connection-provider";
 const SettingS = () => {
   const { publishTopic } = useRosConnection();
   const [motorState, toglemotorState] = useState(false);
-  const [isNextOption, togleIsNextOption] = useState<boolean>(false);
+  const [isNextOption, togleIsNextOption] = useState<boolean>();
 
   const getRobotStates = async () => {
     const resp = await fetch(
