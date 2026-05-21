@@ -4,7 +4,7 @@ import { useRosConnection } from "../../../connection-provider";
 const SettingS = () => {
   const { publishTopic } = useRosConnection();
   const [motorState, toglemotorState] = useState(false);
-  const [isNextOption, togleIsNextOption] = useState<boolean>();
+  const [isNextOption, togleIsNextOption] = useState<boolean>(false);
 
   const getRobotStates = async () => {
     const resp = await fetch(
@@ -15,6 +15,7 @@ const SettingS = () => {
     const all_topic_state = JSON.parse(data);
     const motorState = all_topic_state["enable_motors"];
     const next_option_state = all_topic_state["next_option"];
+    console.log("the type od next option is", typeof(next_option_state) )
     if (motorState === "True") {
       toglemotorState(true);
     } else {
@@ -52,7 +53,7 @@ const SettingS = () => {
         }
   
       }
-    })
+    },[])
   
   useEffect(() => {
     getRobotStates();
