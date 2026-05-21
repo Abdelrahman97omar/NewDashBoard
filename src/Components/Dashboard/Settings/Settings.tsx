@@ -16,6 +16,7 @@ const SettingS = () => {
     const motorState = all_topic_state["enable_motors"];
     const next_option_state = all_topic_state["next_option"];
     console.log("the type od next option is", typeof(next_option_state) )
+    console.log("the type od motor state is", typeof(motorState) )
     if (motorState === "True") {
       toglemotorState(true);
     } else {
@@ -46,7 +47,7 @@ const SettingS = () => {
           toglemotorState(false);
         }
 
-        if (all_topic_state["next_option"] == "True") {
+        if (all_topic_state["next_option"] == true) {
           togleIsNextOption(true);
         } else {
           togleIsNextOption(false);
