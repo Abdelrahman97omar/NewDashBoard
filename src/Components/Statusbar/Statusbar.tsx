@@ -133,6 +133,8 @@ const StatusBar = () => {
 
       // Check robot speed
       const CurrentRobotSpeed = all_topic_state["robot_speed"]; //precentage
+      console.log("the robot speed is:",CurrentRobotSpeed)
+      console.log("the robot speed data type is:",CurrentRobotSpeed)
       if (CurrentRobotSpeed) {
         const robotSpeed = (Number(CurrentRobotSpeed) * envRobotSpeed/100).toFixed(2);
         setRobotSpeed(robotSpeed);
