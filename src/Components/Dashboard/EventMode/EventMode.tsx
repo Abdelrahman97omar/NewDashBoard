@@ -28,11 +28,14 @@ const EventMode = () => {
     setPointsFilessLists(data);
     setCurrentPointFile(data[0]);
     const x = await getpointsPool(data[0]);
-    if (!x || Object.keys(x).length === 0) {
-      console.log("Empty or invalid response");
+    if (!x) {
+      console.log("Empty or invalid response from getpointsPool");
+      setPointValues([["N/A", "N/A", "N/A"]]);
     } else {
       setPointsPoollList(Object.keys(x));
       setPointValues(Object.values(x));
+      console.log("the objects are",Object.values(x))
+      console.log("the objects are",Object.keys(x))
     }
   };
 
