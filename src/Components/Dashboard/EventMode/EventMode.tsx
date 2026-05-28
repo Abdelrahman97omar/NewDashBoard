@@ -34,20 +34,18 @@ const EventMode = () => {
     } else {
       setPointsPoollList(Object.keys(x));
       setPointValues(Object.values(x));
-      console.log("the objects are",Object.values(x))
-      console.log("the objects are",Object.keys(x))
     }
   };
 
   const livePointsUpdate = (message: any) => {
     const yaw = Math.atan2(
       2 *
-        (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
-          message.pose.pose.orientation.x * message.pose.pose.orientation.y),
+      (message.pose.pose.orientation.w * message.pose.pose.orientation.z +
+        message.pose.pose.orientation.x * message.pose.pose.orientation.y),
       1 -
-        2 *
-          (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
-            message.pose.pose.orientation.z * message.pose.pose.orientation.z)
+      2 *
+      (message.pose.pose.orientation.y * message.pose.pose.orientation.y +
+        message.pose.pose.orientation.z * message.pose.pose.orientation.z)
     );
     const yawDeg: any = yaw * (180 / Math.PI);
     const X = message.pose.pose.position.x
@@ -92,7 +90,7 @@ const EventMode = () => {
       data: parseFloat(e.target.value),
     });
   };
-  
+
   const ChooseNewPointsPoolHandler = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
