@@ -3,7 +3,7 @@ import { useRosConnection } from "../../../connection-provider";
 
 const SettingS = () => {
   const { publishTopic } = useRosConnection();
-  const [motorState, toglemotorState] = useState(false);
+  const [motorState, toglemotorState] = useState<boolean | null>(null);
   const [isNextOption, togleIsNextOption] = useState<boolean>();
 
   const getRobotStates = async () => {
@@ -96,7 +96,7 @@ const SettingS = () => {
 
   const handleSetMotor = () => {
     console.log("the previous state is:", motorState);
-    const nextMotorState = !motorState;
+    const nextMotorState = !(motorState ?? true);
     toglemotorState(nextMotorState);
     publishTopic("/enable_motors", "std_msgs/Bool", {
       data: nextMotorState,
@@ -119,8 +119,8 @@ const SettingS = () => {
 
   return (
     <>
-      <div className="flex flex-col mt-10 lg:mt-0 lg:grid lg:grid-cols-1 lg:grid-rows-3 lg:gap-y-12 lg:pt-10">
-        <div className="flex flex-col gap-3 pb-3 lg:pb-0 lg:gap-0 lg:flex-row lg:justify-around lg:items-center">
+      <div className="flex flex-col mt-10 md:mt-0 md:grid md:grid-cols-1 md:grid-rows-3 md:gap-y-12 md:pt-10">
+        <div className="flex flex-col gap-3 pb-3 md:pb-0 md:gap-0 md:flex-row md:justify-around md:items-center">
           <button
             className={"dashboardSettingsButtons"}
             onClick={handleClearMap}
@@ -134,7 +134,7 @@ const SettingS = () => {
             Load Map
           </button>
         </div>
-        <div className="flex flex-col gap-3 pb-3 lg:pb-0 lg:gap-0 lg:flex-row lg:justify-around lg:items-center">
+        <div className="flex flex-col gap-3 pb-3 md:pb-0 md:gap-0 md:flex-row md:justify-around md:items-center">
           <button
             className="dashboardSettingsButtons "
             onClick={handleResumeMap}
@@ -155,7 +155,7 @@ const SettingS = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-3 lg:flex-row lg:justify-around lg:items-center">
+        <div className="flex flex-col gap-3 md:flex-row md:justify-around md:items-center">
           <button
             className={
               isNextOption
@@ -177,13 +177,15 @@ const SettingS = () => {
           </button>
           <button
             className={
-              motorState
+              motorState === null
+                ? "dashboardSettingsButtons"
+                : motorState
                 ? "dashboardSettingsButtons"
                 : "pressedDashboardSettingsButtons"
             }
             onClick={handleSetMotor}
           >
-            {motorState ? "Set Motor Off" : "Set Motor On"}
+            {motorState === null ? "Set Motor Off" : motorState ? "Set Motor Off" : "Set Motor On"}
           </button>
         </div>
       </div>
