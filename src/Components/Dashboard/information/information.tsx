@@ -19,30 +19,20 @@ const Information = () => {
 
   useEffect(() => {
     const fetchUserFromBackend = async () => {
-      const getUser = await fetch(
-        `http://${window.location.hostname}:8001/getUser`
-      );
+      const getUser = await fetch(`http://${window.location.hostname}:8001/getUser`);
       const username = await getUser.json();
-      if (username === "duet") {
-        setRobotName("Duet");
-        setFileName("Duet");
-      } else if (username === "mozo") {
-        setRobotName("Mozo");
-        setFileName("Mozo");
-      }
+      if (username === "duet") { setRobotName("Duet"); setFileName("Duet"); }
+      else if (username === "mozo") { setRobotName("Mozo"); setFileName("Mozo"); }
     };
     fetchUserFromBackend();
   }, []);
 
   const handleSetManualGuide = () => {
-    if (robotName === fileName)
-    {
-      return
-    }
+    if (robotName === fileName) return;
     setNumPages(0);
-    console.log("Robot name is", robotName);
     setFileName(`${robotName}`);
   };
+
   const handleSetRobotCatalog = () => {
     setNumPages(0);
     setFileName(`${robotName}Catalog`);
@@ -50,29 +40,32 @@ const Information = () => {
 
   if (robotName) {
     return (
-      <div className="h-full grid grid-cols-[300px_1fr] overflow-hidden  justify-center">
-        <div className="flex h-fit flex-col ml-8 px-4 py-10  rounded-2xl  gap-y-10">
+      <div className="h-full flex flex-col sm:flex-row overflow-hidden gap-4">
+
+        {/* Sidebar buttons */}
+        <div className="flex sm:flex-col gap-3 sm:gap-10 px-2 sm:px-0 sm:ml-4 sm:w-48 lg:w-64 shrink-0 py-4 sm:py-10">
           <button
-            className="shadow-md shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
-            duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+            className="shadow-md shadow-black/50 h-14 sm:h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-base lg:text-2xl font-bold transition
+              duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={handleSetManualGuide}
           >
             Manual Guide
           </button>
           <button
-            className="shadow-md  shadow-black/50 h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
-            duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
+            className="shadow-md shadow-black/50 h-14 sm:h-20 w-full rounded-3xl bg-[#E8E8E9] text-[#09203E] text-base lg:text-2xl font-bold transition
+              duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={handleSetRobotCatalog}
           >
             Robot Catalog
           </button>
         </div>
 
-        <div className=" shadow-inner h-150 w-260 ml-15 py-10 bg-gray-100 rounded-2xl">
-          <div className="px-5  h-full bg-gray-100 overflow-y-auto overflow-hidden">
+        {/* PDF viewer */}
+        <div className="flex-1 min-w-0 shadow-inner py-4 lg:py-10 bg-gray-100 rounded-2xl overflow-hidden">
+          <div className="px-3 lg:px-5 h-full bg-gray-100 overflow-y-auto">
             <Document
               file={`/${fileName}.pdf`}
-              className="rounded-2xl display-none"
+              className="rounded-2xl"
               onLoadSuccess={onDocumentLoadSuccess}
               onLoadError={(error) => console.error("PDF load error:", error)}
             >
@@ -87,6 +80,7 @@ const Information = () => {
             </Document>
           </div>
         </div>
+
       </div>
     );
   }

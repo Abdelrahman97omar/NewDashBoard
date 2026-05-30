@@ -60,7 +60,7 @@ const SetButtonNumber=(sendbutton:string)=>{
         <button className={isPresesd==="Settings"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Settings")}>Settings</button>
         <button className={isPresesd==="Event mode"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Event mode")}>Event mode</button>
         <button className={isPresesd==="Table Mode"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Table Mode")}>Table Mode</button>
-        <button className={isPresesd==="Specialization"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Specialization")}>Specialization</button>
+        <button className={isPresesd==="Specialization"? "pressedSidebarButtons truncate":"sidebarButtons truncate"} onClick={()=>SetButtonNumber("Specialization")}>Specialization</button>
         <button className={isPresesd==="Information"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Information")}>Information</button>
         <button className={isPresesd==="Wifi Settings"? "pressedSidebarButtons":"sidebarButtons"} onClick={()=>SetButtonNumber("Wifi Settings")}>System</button>
     </div>

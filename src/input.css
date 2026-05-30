@@ -11,57 +11,70 @@
     @apply bg-[#E8E8E9]
 }
 
-.sidebarButtons{
-    @apply mb-2 h-12 w-full sm:h-10 sm:w-32 lg:mb-4 lg:h-15 lg:w-70 border rounded-2xl shadow-lg bg-[#E8E8E9] text-[#09203E] text-xs sm:text-xs lg:text-xl leading-tight text-center px-1
+.sidebarButtons {
+    @apply mb-2 h-10 w-full lg:mb-4 lg:h-15 lg:w-70 border rounded-2xl shadow-lg bg-[#E8E8E9] text-[#09203E] text-xs lg:text-xl leading-tight text-center px-1
 }
 
-.pressedSidebarButtons{
-    @apply mb-2 h-12 w-full sm:h-10 sm:w-32 lg:mb-4 lg:h-15 lg:w-70 border rounded-2xl shadow-lg bg-[#F17137] text-[#09203E] text-xs sm:text-xs lg:text-xl leading-tight text-center px-1
+.pressedSidebarButtons {
+    @apply mb-2 h-10 w-full lg:mb-4 lg:h-15 lg:w-70 border rounded-2xl shadow-lg bg-[#F17137] text-[#09203E] text-xs lg:text-xl leading-tight text-center px-1
 }
-.statusbarlayout{
+
+.statusbarlayout {
     @apply flex justify-center text-[#09203E] rounded-2xl w-full h-full
 }
 
-.dashboardSettingsButtons{
-    @apply  border shadow-lg shadow-black/50 h-15 w-full mb-2 lg:mb-0 lg:gap-y-0 lg:h-35 lg:w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-lg sm:text-2xl font-bold transition
+.dashboardSettingsButtons {
+    @apply border shadow-lg shadow-black/50 h-14 w-full mb-2 md:mb-0 md:h-28 lg:h-35 lg:w-90 rounded-3xl bg-[#E8E8E9] text-[#09203E] text-base md:text-lg lg:text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
 }
 
-.pressedDashboardSettingsButtons{ 
-    @apply  border shadow-lg shadow-black/50 h-15 w-full mb-2 lg:mb-0 lg:gap-y-0 lg:h-35 lg:w-90 rounded-3xl bg-[#F17137] text-[#09203E] text-lg sm:text-2xl font-bold transition
+.pressedDashboardSettingsButtons {
+    @apply border shadow-lg shadow-black/50 h-14 w-full mb-2 md:mb-0 md:h-28 lg:h-35 lg:w-90 rounded-3xl bg-[#F17137] text-[#09203E] text-base md:text-lg lg:text-2xl font-bold transition
     duration-100 active:scale-90 active:translate-y-1 active:shadow-inner
 }
 
-.controlButtons{
+.controlButtons {
+    @apply border shadow-lg shadow-black/50 rounded-3xl flex-1 min-w-[120px] h-[80px] sm:h-[110px] lg:h-[150px] bg-[#E8E8E9] text-[#09203E] text-base sm:text-xl lg:text-2xl font-bold transition
+    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
+}
+
+.pressedControlButtons {
+    @apply border shadow-lg shadow-black/50 rounded-3xl flex-1 min-w-[120px] h-[80px] sm:h-[110px] lg:h-[150px] bg-[#F17137] text-[#09203E] text-base sm:text-xl lg:text-2xl font-bold
+}
+/* .controlButtons{
     @apply border shadow-lg shadow-black/50 rounded-3xl w-full h-[150px] mx-8 bg-[#E8E8E9] text-[#09203E] text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
 }
 .pressedControlButtons{
     @apply border shadow-lg shadow-black/50 rounded-3xl w-full h-[150px] mx-8 bg-[#F17137] text-[#09203E] text-2xl font-bold
+} */
+.eventModeButtons {
+    @apply border shadow-lg shadow-black/50 rounded-2xl sm:rounded-3xl w-full sm:w-40 lg:w-52 xl:w-60 text-sm sm:text-base lg:text-xl font-bold text-[#09203E] h-12 sm:h-14 lg:h-20 bg-[#E8E8E9] transition
+    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
 }
 
-.eventModeButtons{
-    @apply border shadow-lg shadow-black/50 rounded-3xl w-60 text-xl font-bold text-[#09203E] h-20 bg-[#E8E8E9] m-2 transition
+.tableModeButtons {
+    @apply border shadow-lg shadow-black/50 font-bold text-base sm:text-xl lg:text-2xl text-[#09203E] text-center w-full sm:w-auto sm:min-w-[160px] lg:min-w-[200px] h-[60px] lg:h-[90px] rounded-xl bg-[#E8E8E9] transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
 }
-.tableModeButtons{
-    @apply border shadow-lg shadow-black/50 font-bold text-2xl text-[#09203E] text-center w-[250px] h-[90px] rounded-xl bg-[#E8E8E9] transition
-    duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner
-}
-.tablemodeSetpointsButtons{
-    @apply border shadow-lg shadow-black/50 bg-[#E8E8E9] my-2 mx-14 text-center p-2 w-3/4 rounded-lg text-lg transition
+
+.tablemodeSetpointsButtons {
+    @apply border shadow-lg shadow-black/50 bg-[#E8E8E9] my-2 mx-4 lg:mx-14 text-center p-2 w-[calc(100%-2rem)] lg:w-3/4 rounded-lg text-base lg:text-lg transition
     duration-100 active:!bg-[#F17137] active:scale-90 active:translate-y-1 active:shadow-inner
 }
-.tableModeBorders{
+
+.tableModeBorders {
     @apply border-2 border-[#E8E8E9] rounded-3xl
 }
-.tablemodeHeaders{
-   @apply font-bold text-[#09203E] text-2xl rounded-xl h-14 flex items-center justify-center mx-5 mb-5 mt-3 bg-[#E8E8E9]
+
+.tablemodeHeaders {
+    @apply font-bold text-[#09203E] text-lg lg:text-2xl rounded-xl h-12 lg:h-14 flex items-center justify-center mx-3 lg:mx-5 mb-3 lg:mb-5 mt-3 bg-[#E8E8E9]
 }
-.tableModeNumberFieled{
-@apply w-20 h-7 rounded-md  text-center bg-[#E8E8E9]
+
+.tableModeNumberFieled {
+    @apply min-w-0 w-16 lg:w-20 h-6 lg:h-7 rounded-md text-center bg-[#E8E8E9] text-sm lg:text-base
 }
-.XYSETA-VALUE-Position{
-@apply flex justify-between mx-9 items-center mb-2
+
+.XYSETA-VALUE-Position {
+    @apply flex justify-between mx-4 lg:mx-9 items-center mb-2
 }
-    
