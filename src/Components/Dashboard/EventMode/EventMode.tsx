@@ -156,7 +156,7 @@ const EventMode = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-[300px_1fr] md:grid-rows-[220px_1fr] h-full">
+    <div className="grid grid-cols-1 grid-rows-[300px_1fr] md:grid-rows-[250px_1fr] h-full">
       <div className=" h-full grid grid-rows-2 p-2 md:pt-0 tableModeBorders">
         <div className=" grid grid-rows-3 gap-4 justify-items-center md:flex md:justify-around md:items-center">
           <button className="eventModeButtons" onClick={appendPointHandler}>
@@ -193,7 +193,7 @@ const EventMode = () => {
           </select>
         </div>
 
-        <div className="min-w-3/4 mx-auto mt-16 md:mt-5 pb-1">
+        <div className="min-w-3/4 mx-auto mt-16 md:mt-5 pb-50">
           <button
             className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-18 md:h-20 Cgray transition
                         duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
@@ -206,13 +206,13 @@ const EventMode = () => {
 
 
 
-      <div className="m-0 mt-6 md:mt-7">
-        <header className="pl-5 mb-5 md:mb-10 text-4xl w-full  text-[#09203E] font-bold">
+      <div className="m-0 mt-6 md:mt-6">
+        <header className="pl-5 mb-5 md:mb-8 text-4xl w-full  text-[#09203E] font-bold">
           Edit Points:
         </header>
 
         <div className="flex flex-col justify-center lg:grid lg:grid-cols-3 lg:gap-4 px-0 lg:px-20">
-          <div className=" tableModeBorders">
+          <div className="mb-2 md:mb-0 tableModeBorders">
             <p className="tablemodeHeaders">Live Points</p>
             <div className="XYSETA-VALUE-Position">
               <span className="font-bold text-xl mr-10">X:</span>
@@ -228,7 +228,7 @@ const EventMode = () => {
             </div>
           </div>
 
-          <div className="h-full tableModeBorders">
+          <div className="mb-2 md:mb-0 h-full tableModeBorders">
             <p className="tablemodeHeaders">Points Pool</p>
             <div className="flex justify-center items-center">
               <select
@@ -270,7 +270,7 @@ const EventMode = () => {
             </div>
           </div>
 
-          <div className="h-full tableModeBorders">
+          <div className="pb-2 mb-2 md:mb-0 md:pb-0 h-full tableModeBorders">
             <p className="tablemodeHeaders">Edit Point</p>
             <div className="flex flex-col items-center lg:content">
               <button
