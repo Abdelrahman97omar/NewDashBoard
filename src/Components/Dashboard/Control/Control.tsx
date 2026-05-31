@@ -39,8 +39,6 @@ const Control = () => {
       }
       const robotSpeed = all_topic_state["robot_speed"];
       setSliderValue(Number(robotSpeed));
-
-
     };
   }, []);
 
@@ -107,11 +105,11 @@ const Control = () => {
     const maxLinear = 0.35;
     const maxAngular = 0.65;
     const angleRad = ((val.angle - 90) * Math.PI) / 180;
-    console.log("angleRad",angleRad)
-    console.log("val.distance",val.distance)
-    console.log("val.angle: ",val.angle)
-    const linear_x = Math.cos(angleRad)  * maxLinear; 
-    const angular_z = -Math.sin(angleRad)  * maxAngular;
+    console.log("angleRad", angleRad);
+    console.log("val.distance", val.distance);
+    console.log("val.angle: ", val.angle);
+    const linear_x = Math.cos(angleRad) * maxLinear;
+    const angular_z = -Math.sin(angleRad) * maxAngular;
 
     publishTopic("/cmd_vel", "geometry_msgs/Twist", {
       linear: { x: linear_x, y: 0.0, z: 0.0 },
@@ -125,7 +123,8 @@ const Control = () => {
         <div className="grid grid-cols-2 gap-x-2 md:flex justify-around items-center h-full mb-15">
           <button
             className={
-              isManual === 1 ? "pressedControlButtons" : "controlButtons"}
+              isManual === 1 ? "pressedControlButtons" : "controlButtons"
+            }
             onClick={handleSetManual}
           >
             {isManual === 1 ? "Set Auto" : "Set Manual"}
@@ -144,44 +143,13 @@ const Control = () => {
           </button>
         </div>
 
-
-{/**/}
-<div className="Cgray mx-3 lg:mx-9 rounded-3xl">
-
-  <div className="flex items-center px-4 lg:px-10 pt-4 lg:pt-8 gap-3">
-    <p className="text-base lg:text-3xl font-bold text-[#09203E] whitespace-nowrap">
-      Speed
-    </p>
-    <input
-      className="Cgray h-4 lg:h-6 accent-[#09203E] w-full"
-      type="range"
-      id="range-slider"
-      min="0"
-      max="100"
-      step="1"
-      value={sliderValue}
-      onChange={handleSliderChange}
-    />
-  </div>
-  <div className="grid grid-cols-3 items-center px-4 lg:px-10 pb-4 pt-1">
-  <p className="text-base lg:text-3xl font-bold text-[#09203E] text-left invisible">
-    placeholder
-  </p>
-  <p className="text-base lg:text-3xl font-bold text-[#09203E] text-center">
-    50%
-  </p>
-  <p className="text-base lg:text-3xl font-bold text-[#09203E] text-right">
-    {sliderValue}%
-  </p>
-</div>
-</div>
-{/**/}
-
-        {/* <div className="h-30  grid-rows-[15_1fr] Cgray mx-9 rounded-3xl w-345">
-          <div className="flex justify-center items-center px-30 pt-8 w-full">
-            <p className="mr-6 text-3xl font-bold text-[#09203E]">Speed</p>
+        <div className="Cgray mx-3 mt-3 lg:mt-0 lg:mx-9 rounded-3xl">
+          <div className="flex items-center px-4 lg:px-10 pt-4 lg:pt-8 gap-3">
+            <p className="text-base lg:text-3xl font-bold text-[#09203E] whitespace-nowrap">
+              Speed
+            </p>
             <input
-              className="Cgray h-6 accent-[#09203E] w-full"
+              className="Cgray h-4 lg:h-6 accent-[#09203E] w-full"
               type="range"
               id="range-slider"
               min="0"
@@ -191,15 +159,22 @@ const Control = () => {
               onChange={handleSliderChange}
             />
           </div>
-          <div className="flex justify-center items-center w-full">
-            <p className="text-[#09203E] text-3xl font-bold ml-150 ">50%</p>
-            <p className="text-[#09203E] text-3xl font-bold ml-110 ">
+          <div className="grid grid-cols-3 items-center px-4 lg:px-10 pb-4 pt-1">
+            <p className="text-base lg:text-3xl font-bold text-[#09203E] text-left invisible">
+              placeholder
+            </p>
+            <p className="text-base lg:text-3xl font-bold text-[#09203E] text-center">
+              50%
+            </p>
+            <p className="text-base lg:text-3xl font-bold text-[#09203E] text-right">
               {sliderValue}%
             </p>
           </div>
-        </div> */}
-        {/* <div className="flex flex-col items-center justify-center h-full"> */}
-        <div className="flex flex-col items-center pb-10 justify-center" style={{ height: "320px" }}>
+        </div>
+
+        <div
+          className="flex flex-col items-center justify-center"
+        >
           <Joystick
             ref={joystickRef}
             baseRadius={100}
@@ -211,7 +186,6 @@ const Control = () => {
           />
           <p className="text-sm text-gray-400">Drag to move the robot</p>
         </div>
-
       </div>
     </>
   );

@@ -240,7 +240,7 @@ const Table = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 w-full grid-rows-[250px_1fr] md:grid-rows-[150px_1fr] gap-3">
+    <div className="grid grid-cols-1 w-full grid-rows-[250px_1fr] md:grid-rows-[140px_1fr] gap-3">
       <div className="grid grid-cols-2 grid-rows-2 gap-2 p-3 md:p-0 md:flex md:justify-around md:items-center tableModeBorders">
         <button className=" truncate tableModeButtons" onClick={handleAddNewTable}>
           Add New Table
@@ -278,7 +278,7 @@ const Table = () => {
       </div>
 
       <div className=" flex flex-col sm:grid sm:grid-cols-4 sm:gap-3">
-        <div className=" h-full tableModeBorders ">
+        <div className=" h-full tableModeBorders mb-2 md:mb-0">
           <p className="tablemodeHeaders">Live Points</p>
 
           <div className="XYSETA-VALUE-Position">
@@ -321,7 +321,7 @@ const Table = () => {
           </div>
         </div>
 
-        <div className="relative  h-full tableModeBorders">
+        <div className="relative  h-full tableModeBorders mb-2 md:mb-0">
           <p className="tablemodeHeaders">Manual Points</p>
           <div className="XYSETA-VALUE-Position">
             <span className="font-bold text-xl mr-9 sm:mr-10 ">X:</span>
@@ -409,7 +409,7 @@ const Table = () => {
               </div>
             </div>
           </div>
-          <div className="tableModeBorders">
+          <div className="tableModeBorders mb-2 md:mb-0">
             <h1 className="tablemodeHeaders">Backup 2</h1>
             <div className="space-y-3 pb-1">
               {/* <div className="flex items-center gap-9 pl-10"> */}

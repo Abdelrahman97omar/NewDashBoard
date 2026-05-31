@@ -35,7 +35,7 @@
 }
 
 .controlButtons {
-  @apply border shadow-lg shadow-black/50 rounded-3xl flex-1 min-w-[120px] h-[80px] sm:h-[110px] lg:h-[100px]
+  @apply border shadow-lg shadow-black/50 rounded-3xl flex-1 min-w-[120px] h-[80px] sm:h-[110px] lg:h-[130px]
    bg-[#E8E8E9] text-[#09203E] text-base sm:text-xl lg:text-2xl font-bold transition
     duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner;
 }
