@@ -301,7 +301,7 @@ const StatusBar = () => {
           )}
 
           <div className="flex flex-col mt-2 justify-around items-center">
-            <p className="font-bold text-xl mb-2 text-center">Operation Mode</p>
+            <p className="font-bold text-xl mb-2 text-center truncate">Operation Mode</p>
             <p> {opMode ? opMode : "N/A"}</p>
           </div>
         </div>

@@ -1,4 +1,3 @@
-import type { Numbers } from "@mui/icons-material";
 import { useRosConnection } from "../../../connection-provider";
 import { useEffect, useState } from "react";
 
@@ -241,25 +240,26 @@ const Table = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 w-full grid-rows-[150px_1fr] gap-3">
-      <div className="flex justify-around items-center tableModeBorders">
-        <button className=" tableModeButtons" onClick={handleAddNewTable}>
+    <div className="grid grid-cols-1 w-full grid-rows-[250px_1fr] md:grid-rows-[150px_1fr] gap-3">
+      <div className="grid grid-cols-2 grid-rows-2 gap-2 p-3 md:p-0 md:flex md:justify-around md:items-center tableModeBorders">
+        <button className=" truncate tableModeButtons" onClick={handleAddNewTable}>
           Add New Table
         </button>
-        <button className=" tableModeButtons" onClick={handleSetTableMode}>
+        <button className="truncate tableModeButtons" onClick={handleSetTableMode}>
           Set Table Mode
         </button>
-        <button className=" tableModeButtons" onClick={handleDeleteTable}>
+        <button className="truncate tableModeButtons !px-3 " onClick={handleDeleteTable}>
           Remove Last Table
         </button>
-
-        <button className=" tableModeButtons" onClick={handleGoToTable}>
+        <button className="tableModeButtons" onClick={handleGoToTable}>
           Go to Table
         </button>
-
-        <div className="flex justify-center items-center">
-          <select
-            className=" Corange w-[300px] rounded-2xl h-[90px]"
+         <select
+            className=" Corange col-span-2 w-full md:w-[300px] rounded-2xl h-[90px]"
+            style={{
+              textAlign: "center",
+              textAlignLast: "center",  
+            }}
             name="cars"
             id="cars"
             value={selectedTable}
@@ -275,15 +275,14 @@ const Table = () => {
               </option>
             ))}
           </select>
-        </div>
       </div>
 
-      <div className=" grid grid-cols-4 gap-3">
-        <div className=" h-full tableModeBorders">
+      <div className=" flex flex-col sm:grid sm:grid-cols-4 sm:gap-3">
+        <div className=" h-full tableModeBorders ">
           <p className="tablemodeHeaders">Live Points</p>
 
           <div className="XYSETA-VALUE-Position">
-            <span className="font-bold text-xl mr-10">X:</span>
+            <span className="font-bold text-xl mr-9 sm:mr-10">X:</span>
             <div className="tableModeNumberFieled">{live_X}</div>
           </div>
           <div className="XYSETA-VALUE-Position">
@@ -291,20 +290,32 @@ const Table = () => {
             <div className="tableModeNumberFieled">{live_Y}</div>
           </div>
           <div className="XYSETA-VALUE-Position">
-            <span className="font-bold text-xl mr-10">Theta:</span>
+            <span className="font-bold text-xl mr-1">Theta:</span>
             <div className="tableModeNumberFieled">{live_Seta}</div>
           </div>
-          <div className="grid grid-cols-1">
-            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("Main",true)}>
+          <div className="flex flex-col items-center">
+            <button
+              className="tablemodeSetpointsButtons"
+              onClick={() => setNewPoints("Main", true)}
+            >
               Set Main Table
             </button>
-            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_1",true)}>
+            <button
+              className="tablemodeSetpointsButtons"
+              onClick={() => setNewPoints("BackUp_1", true)}
+            >
               Set backup 1
             </button>
-            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_2",true)}>
+            <button
+              className="tablemodeSetpointsButtons"
+              onClick={() => setNewPoints("BackUp_2", true)}
+            >
               Set backup 2
             </button>
-            <button className="tablemodeSetpointsButtons" onClick={() => setNewPoints("BackUp_3",true)}>
+            <button
+              className="tablemodeSetpointsButtons"
+              onClick={() => setNewPoints("BackUp_3", true)}
+            >
               Set backup 3
             </button>
           </div>
@@ -313,7 +324,7 @@ const Table = () => {
         <div className="relative  h-full tableModeBorders">
           <p className="tablemodeHeaders">Manual Points</p>
           <div className="XYSETA-VALUE-Position">
-            <span className="font-bold text-xl mr-10">X:</span>
+            <span className="font-bold text-xl mr-9 sm:mr-10 ">X:</span>
             <input
               className="tableModeNumberFieled"
               value={manualPoint_X}
@@ -333,8 +344,7 @@ const Table = () => {
             />
           </div>
           <div className="XYSETA-VALUE-Position">
-
-            <span className="font-bold text-xl mr-10">Theta:</span>
+            <span className="font-bold text-xl mr-1">Theta:</span>
             <input
               className="tableModeNumberFieled"
               value={manualPoint_SETA}
@@ -343,7 +353,8 @@ const Table = () => {
               onChange={(e) => setManualPoint_SETA(e.target.value)}
             />
           </div>
-          <div className="grid grid-cols-1">
+          <div className="flex flex-col items-center">
+
             <button
               className="tablemodeSetpointsButtons"
               onClick={() => setNewPoints("Main",false)}

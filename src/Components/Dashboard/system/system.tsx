@@ -106,7 +106,8 @@ const WifiSettings = () => {
                 Network
               </label>
               <select
-                className="border border-gray-300 w-48 h-11 rounded-xl px-3 bg-gray-50 text-[#09203E] focus:outline-none focus:ring-2 focus:ring-[#F17137]"
+                className="border border-gray-300 w-30 md:w-48 h-11 rounded-xl px-3
+                 bg-gray-50 text-[#09203E] focus:outline-none focus:ring-2 focus:ring-[#F17137] truncate"
                 value={SSID}
                 onChange={(e) => setSSID(e.target.value)}
               >
@@ -134,7 +135,7 @@ const WifiSettings = () => {
                 Password
               </label>
               <input
-                className="border border-gray-300 w-48 h-11 rounded-xl px-3 bg-gray-50 text-[#09203E] focus:outline-none focus:ring-2 focus:ring-[#F17137]"
+                className="border border-gray-300 w-30 truncate md:w-48 h-11 rounded-xl px-3 bg-gray-50 text-[#09203E] focus:outline-none focus:ring-2 focus:ring-[#F17137]"
                 value={wifiPassword}
                 type="password"
                 placeholder="Enter password"
@@ -143,7 +144,9 @@ const WifiSettings = () => {
             </div>
 
             <button
-              className="h-11 px-6 rounded-xl bg-[#E8E8E9] text-[#09203E] font-semibold shadow-sm border border-gray-200 transition duration-100 active:scale-95 active:bg-[#F17137] active:text-white disabled:opacity-50"
+              className="h-15 md:h-11 px-6 rounded-xl bg-[#E8E8E9] text-[#09203E] 
+              font-semibold shadow-sm border border-gray-200 transition 
+              duration-100 active:scale-95 active:bg-[#F17137] active:text-white disabled:opacity-50"
               onClick={get_wifi_list}
               disabled={isScanning}
             >
@@ -177,25 +180,23 @@ const WifiSettings = () => {
           System Logs
         </h2>
 
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-center justify-between bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
             <div className="flex flex-col gap-1">
-              <p className="font-semibold text-[#09203E]">
+              <p className="font-semibold text-center md:text-left text-[#09203E]">
                 Latest Activity Report
               </p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-center md:text-left text-gray-400">
                 Download the robot working hours logs as a PDF
               </p>
             </div>
             <button
-              className="h-11 px-6 rounded-xl bg-[#E8E8E9] text-[#09203E] font-semibold shadow-sm border border-gray-200 transition duration-100 active:scale-95 active:bg-[#F17137] active:text-white disabled:opacity-50"
+              className="h15 mt-3 md:h-11 px-6 rounded-xl bg-[#E8E8E9] text-[#09203E] font-semibold shadow-sm border border-gray-200 transition duration-100 active:scale-95 active:bg-[#F17137] active:text-white disabled:opacity-50"
               onClick={handleDownloadLogs}
               disabled={isDownloading}
             >
               {isDownloading ? "Downloading..." : "Download Logs"}
             </button>
           </div>
-        </div>
       </div>
 
     </div>

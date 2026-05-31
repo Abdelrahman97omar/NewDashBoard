@@ -120,7 +120,7 @@ const SettingS = () => {
   return (
     <>
       <div className="flex flex-col mt-10 md:mt-0 md:grid md:grid-cols-1 md:grid-rows-3 md:gap-y-12 md:pt-10">
-        <div className="flex flex-col gap-3 pb-3 md:pb-0 md:gap-0 md:flex-row md:justify-around md:items-center">
+        <div className="flex flex-col gap-3 md:flex-row md:justify-around md:items-center">
           <button
             className={"dashboardSettingsButtons"}
             onClick={handleClearMap}
@@ -134,7 +134,8 @@ const SettingS = () => {
             Load Map
           </button>
         </div>
-        <div className="flex flex-col gap-3 pb-3 md:pb-0 md:gap-0 md:flex-row md:justify-around md:items-center">
+        <div className="flex flex-col gap-3 md:flex-row md:justify-around md:items-center">
+
           <button
             className="dashboardSettingsButtons "
             onClick={handleResumeMap}
@@ -160,7 +161,7 @@ const SettingS = () => {
             className={
               isNextOption
                 ? "pressedDashboardSettingsButtons"
-                : "dashboardSettingsButtons "
+                : "dashboardSettingsButtons"
             }
               onClick={() => {
                   handleNextOptionOn();

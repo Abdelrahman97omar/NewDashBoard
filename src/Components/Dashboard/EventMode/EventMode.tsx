@@ -156,9 +156,9 @@ const EventMode = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-[200px_1fr] h-full border-amber-50">
-      <div className=" h-full grid grid-rows-2">
-        <div className="flex justify-between items-center">
+    <div className="grid grid-cols-1 grid-rows-[300px_1fr] md:grid-rows-[220px_1fr] h-full">
+      <div className=" h-full grid grid-rows-2 p-2 md:pt-0 tableModeBorders">
+        <div className=" grid grid-rows-3 gap-4 justify-items-center md:flex md:justify-around md:items-center">
           <button className="eventModeButtons" onClick={appendPointHandler}>
             Append Point
           </button>
@@ -178,8 +178,12 @@ const EventMode = () => {
           </button>
 
           <select
-            className="shadow-lg shadow-black/50 Corange w-25 text-center h-20 mr-20 rounded-2xl"
+            className="col-span-2 shadow-lg shadow-black/50 Corange w-3/4 mt-3 md:mt-0 md:w-35 text-center h-20 rounded-2xl"
             onChange={ChooseNewFileNumberhandle}
+            style={{
+              textAlign: "center",
+              textAlignLast: "center",  
+            }}
           >
             {pointsFilessLists.map((pointNo) => (
               <option className="rounded-2xl Cgray" key={pointNo}>
@@ -189,9 +193,9 @@ const EventMode = () => {
           </select>
         </div>
 
-        <div className="mx-50 mt-8">
+        <div className="min-w-3/4 mx-auto mt-16 md:mt-5 pb-1">
           <button
-            className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-20 Cgray transition
+            className="border shadow-md shadow-black/50 rounded-3xl w-full text-xl font-bold text-[#09203E] h-18 md:h-20 Cgray transition
                         duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
             onClick={setEventmodeButtonhandler}
           >
@@ -199,12 +203,15 @@ const EventMode = () => {
           </button>
         </div>
       </div>
-      <div className="mt-7">
-        <header className="pl-5 mb-10 text-4xl w-1/4  text-[#09203E] font-bold">
+
+
+
+      <div className="m-0 mt-6 md:mt-7">
+        <header className="pl-5 mb-5 md:mb-10 text-4xl w-full  text-[#09203E] font-bold">
           Edit Points:
         </header>
 
-        <div className=" grid grid-cols-3  gap-4 px-20">
+        <div className="flex flex-col justify-center lg:grid lg:grid-cols-3 lg:gap-4 px-0 lg:px-20">
           <div className=" tableModeBorders">
             <p className="tablemodeHeaders">Live Points</p>
             <div className="XYSETA-VALUE-Position">
@@ -216,7 +223,7 @@ const EventMode = () => {
               <div className="tableModeNumberFieled">{(Number(live_Y)).toFixed(2)}</div>
             </div>
             <div className="XYSETA-VALUE-Position">
-              <span className="font-bold text-xl mr-10">Theta:</span>
+              <span className="font-bold text-xl mr-2 md:mr-10">Theta:</span>
               <div className="tableModeNumberFieled">{(Number(live_Seta)).toFixed(2)}</div>
             </div>
           </div>
@@ -253,7 +260,7 @@ const EventMode = () => {
                 </div>
               </div>
               <div className="XYSETA-VALUE-Position">
-                <span className="font-bold text-xl mr-10">Theta:</span>
+                <span className="font-bold text-xl mr-2 md:mr-10">Theta:</span>
                 <div className="tableModeNumberFieled">
                   {pointValues[choosenpointsPool]
                     ? pointValues[choosenpointsPool][2]
@@ -265,36 +272,40 @@ const EventMode = () => {
 
           <div className="h-full tableModeBorders">
             <p className="tablemodeHeaders">Edit Point</p>
-            <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mx-20 border shadow-md shadow-black/50 transition
+            <div className="flex flex-col items-center lg:content">
+              <button
+                className="rounded-3xl w-3/4 lg:w-60 text-xl font-bold text-[#09203E] h-9 Cgray 
+              mx-20 border shadow-md shadow-black/50 transition
+              duration-100 active:scale-90 active:!bg-[#F17137]
+               active:translate-y-1 active:shadow-inner"
+                onClick={() =>
+                  handleEditPoint(
+                    currentPointFile,
+                    choosenpointsPool,
+                    live_X,
+                    live_Y,
+                    live_Seta
+                  )
+                }
+              >
+                Set Live Points
+              </button>
+              <button
+                className="rounded-3xl w-3/4 lg:w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 md:mx-20 border shadow-md shadow-black/50 transition
                         duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
-              onClick={() =>
-                handleEditPoint(
-                  currentPointFile,
-                  choosenpointsPool,
-                  live_X,
-                  live_Y,
-                  live_Seta
-                )
-              }
-            >
-              Set Live Points
-            </button>
-            <button
-              className="rounded-3xl w-60 text-xl font-bold text-[#09203E] h-9 Cgray mt-3 mx-20 border shadow-md shadow-black/50 transition
-                        duration-100 active:scale-90 active:!bg-[#F17137] active:translate-y-1 active:shadow-inner"
-              onClick={() =>
-                handleEditPoint(
-                  currentPointFile,
-                  choosenpointsPool,
-                  manualPoint_X,
-                  manualPoint_Y,
-                  manualPoint_SETA
-                )
-              }
-            >
-              Set Manual
-            </button>
+                onClick={() =>
+                  handleEditPoint(
+                    currentPointFile,
+                    choosenpointsPool,
+                    manualPoint_X,
+                    manualPoint_Y,
+                    manualPoint_SETA
+                  )
+                }
+              >
+                Set Manual
+              </button>
+            </div>
             <div className="flex justify-between items-center mt-6 px-3">
               <span className="font-bold text-xl">X:</span>
               <input
@@ -312,7 +323,7 @@ const EventMode = () => {
                 onFocus={ClicksetManualPoint_Y}
                 onChange={(e) => setManualPoint_Y(e.target.value)}
               />
-              <span className="font-bold text-xl ">Seta:</span>
+              <span className="font-bold text-xl ">Theta:</span>
               <input
                 className="tableModeNumberFieled"
                 value={manualPoint_SETA}
