@@ -48,7 +48,7 @@ const Dashboard = ({ page }: MyProp) => {
   //Information page 
   if (page === 5) {
     return (
-      <div >
+      <div className="h-full">
         <Information/>
       </div>
   );

@@ -51,7 +51,7 @@ const Layout = () => {
             <StatusBar />
           </div>
 
-          <div className="bg-white p-3 m-0 lg:m-3 mb-2 lg:mb-12 rounded-3xl lg:rounded-4xl overflow-auto">
+          <div className="bg-white p-3 m-0 lg:m-3 mb-2 lg:mb-12 rounded-3xl lg:rounded-4xl overflow-hidden h-full">
             <Dashboard page={dashboardPage} />
           </div>
 
